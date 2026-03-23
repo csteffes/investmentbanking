@@ -203,20 +203,42 @@ export default async function HomePage() {
           <h2>Simple pricing, unlimited practice</h2>
           <p>One plan with everything you need. Start with a {site.pricing.trialDays}-Day Free Trial, cancel anytime.</p>
         </div>
-        <article className="pricing-card">
-          <p className="pricing-trial">{site.pricing.trialDays}-Day Free Trial</p>
-          <p className="pricing-label">Superday AI Pro</p>
-          <p className="pricing-value">{site.pricing.label}</p>
-          <p className="pricing-meta">Then {site.pricing.label}. Cancel anytime.</p>
-          <p className="pricing-copy">Unlimited access to live mocks, quick drills, transcript-backed reviews, and the full interview prep library.</p>
-          <ul className="brief-list">
-            <li>Live voice mock sessions</li>
-            <li>Technical, behavioral, and superday drills</li>
-            <li>Saved scorecards and next-step reps</li>
-          </ul>
-          <Link className="button button-primary" href="/assessment">
-            Start 3-Day Free Trial
-          </Link>
+        <article className="pricing-card pricing-card-premium">
+          <div className="pricing-main">
+            <div className="pricing-overview">
+              <p className="pricing-trial">{site.pricing.trialDays}-Day Free Trial</p>
+              <p className="pricing-label">Superday AI Pro</p>
+              <p className="pricing-value">
+                <span className="pricing-currency">$</span>
+                {site.pricing.monthly}
+                <span className="pricing-period">/month</span>
+              </p>
+              <p className="pricing-copy">
+                For ambitious candidates who want more reps, sharper feedback, and a real edge going into first rounds and superdays.
+              </p>
+            </div>
+
+            <div className="pricing-features">
+              <ul className="pricing-feature-list">
+                <li>Unlimited live mock interviews per month</li>
+                <li>Detailed feedback after every session</li>
+                <li>Behavioral, technical, and superday drills</li>
+                <li>Saved scorecards and full guide access</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="pricing-footer">
+            <div className="pricing-cta-group">
+              <Link className="button button-primary button-pricing" href="/assessment">
+                Try for free today
+              </Link>
+              <p className="pricing-footnote">Cancel anytime</p>
+            </div>
+            <p className="pricing-footnote pricing-footnote-secondary">
+              One plan only. {site.pricing.label} after your {site.pricing.trialDays}-Day Free Trial.
+            </p>
+          </div>
         </article>
       </section>
 
