@@ -33,6 +33,7 @@ jobs:
         run: |
           mkdir -p _site
           cp index.html styles.css script.js site.webmanifest icon.svg _site/
+          cp -R assets _site/
           printf 'www.superdayready.com\n' > _site/CNAME
 
       - name: Upload artifact
