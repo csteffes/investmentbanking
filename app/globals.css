@@ -187,12 +187,11 @@ img {
 }
 
 .button-nav {
-  min-width: 188px;
+  min-width: 214px;
 }
 
 .hero-section,
 .section,
-.trust-band,
 .assessment-shell,
 .article-shell,
 .site-footer {
@@ -204,11 +203,18 @@ img {
   box-shadow: var(--shadow);
 }
 
+.trust-band {
+  margin-top: 24px;
+  padding: 24px 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+}
+
 .hero-section {
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 24px;
-  align-items: stretch;
+  gap: 28px;
+  justify-items: center;
 }
 
 .hero-copy,
@@ -258,8 +264,15 @@ img {
   line-height: 1.68;
 }
 
+.hero-copy {
+  justify-items: center;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .hero-summary {
-  max-width: 34rem;
+  max-width: 42rem;
   margin: 0;
   font-size: 1.05rem;
 }
@@ -268,6 +281,14 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
+  justify-content: center;
+}
+
+.button-hero {
+  min-width: 244px;
+  min-height: 58px;
+  padding-inline: 28px;
+  font-size: 1rem;
 }
 
 .hero-stats {
@@ -275,6 +296,17 @@ img {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin: 0;
+  width: min(100%, 620px);
+}
+
+.hero-stats div {
+  text-align: center;
+}
+
+.hero-proof {
+  width: min(100%, 1100px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
 }
 
 .hero-stats div,
@@ -480,11 +512,21 @@ img {
 
 .section-head {
   max-width: 760px;
-  margin-bottom: 26px;
+  margin: 0 auto 26px;
+  text-align: center;
 }
 
 .section-head--compact {
   margin-bottom: 22px;
+}
+
+.section-head .section-kicker {
+  margin-bottom: 10px;
+}
+
+.section-head > p:not(.section-kicker) {
+  max-width: 44rem;
+  margin: 0 auto;
 }
 
 .section-head--left {
@@ -545,16 +587,43 @@ img {
 }
 
 .trust-band {
-  padding-block: 24px;
+  display: grid;
+  gap: 14px;
+}
+
+.trust-band--dark {
   color: #f8fafc;
   background:
     radial-gradient(circle at top right, rgba(47, 107, 255, 0.16), transparent 24%),
     linear-gradient(165deg, rgba(7, 19, 38, 0.98), rgba(11, 31, 58, 0.96));
 }
 
-.trust-band .section-kicker {
-  color: rgba(248, 250, 252, 0.66);
-  margin-bottom: 10px;
+.trust-band--light {
+  background:
+    radial-gradient(circle at top right, rgba(47, 107, 255, 0.08), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 248, 252, 0.96));
+}
+
+.trust-band--compact {
+  width: min(100%, 980px);
+  margin-top: 6px;
+  padding: 20px 22px;
+}
+
+.trust-band-label {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.trust-band--dark .trust-band-label {
+  color: rgba(248, 250, 252, 0.7);
+}
+
+.trust-band--light .trust-band-label {
+  color: var(--muted);
 }
 
 .logo-carousel {
@@ -575,10 +644,11 @@ img {
 
 .logo-set {
   display: flex;
+  align-items: center;
   gap: 14px;
 }
 
-.school-logo {
+.logo-card {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -588,13 +658,20 @@ img {
   border-radius: 22px;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 246, 251, 0.95));
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(11, 31, 58, 0.08);
+  box-shadow:
+    0 20px 44px rgba(11, 31, 58, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.trust-band--dark .logo-card {
+  border-color: rgba(255, 255, 255, 0.18);
   box-shadow:
     0 20px 44px rgba(7, 19, 38, 0.24),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
-.school-logo-image {
+.logo-card-image {
   display: block;
   width: auto;
   height: auto;
@@ -603,15 +680,22 @@ img {
   object-fit: contain;
 }
 
-.school-logo--harvard .school-logo-image { max-width: 170px; max-height: 38px; }
-.school-logo--columbia .school-logo-image { max-width: 206px; max-height: 34px; }
-.school-logo--dartmouth .school-logo-image { max-width: 210px; max-height: 30px; }
-.school-logo--princeton .school-logo-image { max-width: 178px; max-height: 34px; }
-.school-logo--booth .school-logo-image { max-width: 178px; max-height: 38px; }
-.school-logo--northwestern .school-logo-image { max-width: 196px; max-height: 30px; }
-.school-logo--penn .school-logo-image { max-width: 150px; max-height: 42px; }
-.school-logo--usc .school-logo-image { max-width: 204px; max-height: 32px; }
-.school-logo--ut .school-logo-image { max-width: 178px; max-height: 34px; }
+.school-logo--harvard .logo-card-image { max-width: 170px; max-height: 38px; }
+.school-logo--columbia .logo-card-image { max-width: 206px; max-height: 34px; }
+.school-logo--dartmouth .logo-card-image { max-width: 210px; max-height: 30px; }
+.school-logo--princeton .logo-card-image { max-width: 178px; max-height: 34px; }
+.school-logo--booth .logo-card-image { max-width: 178px; max-height: 38px; }
+.school-logo--northwestern .logo-card-image { max-width: 196px; max-height: 30px; }
+.school-logo--penn .logo-card-image { max-width: 150px; max-height: 42px; }
+.school-logo--usc .logo-card-image { max-width: 204px; max-height: 32px; }
+.school-logo--ut .logo-card-image { max-width: 178px; max-height: 34px; }
+
+.bank-logo--jpmorgan .logo-card-image { max-width: 158px; max-height: 28px; }
+.bank-logo--jefferies .logo-card-image { max-width: 152px; max-height: 30px; }
+.bank-logo--goldman .logo-card-image { max-width: 176px; max-height: 26px; }
+.bank-logo--barclays .logo-card-image { max-width: 144px; max-height: 30px; }
+.bank-logo--william-blair .logo-card-image { max-width: 184px; max-height: 24px; }
+.bank-logo--lazard .logo-card-image { max-width: 140px; max-height: 30px; }
 
 .resource-grid,
 .assessment-grid {
@@ -1102,11 +1186,11 @@ img {
 }
 
 @media (max-width: 1120px) {
-  .hero-section,
   .section-split,
   .resource-grid,
   .assessment-grid,
-  .article-layout {
+  .article-layout,
+  .hero-proof {
     grid-template-columns: 1fr;
   }
 
@@ -1152,6 +1236,10 @@ img {
     width: 100%;
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .button-nav {
+    width: 100%;
   }
 
   .hero-copy h1,
@@ -1212,13 +1300,13 @@ img {
     padding: 0 22px 22px;
   }
 
-  .school-logo {
+  .logo-card {
     min-width: 152px;
     height: 68px;
     padding: 0 16px;
   }
 
-  .school-logo-image {
+  .logo-card-image {
     max-width: 174px;
     max-height: 33px;
   }
