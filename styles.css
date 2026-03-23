@@ -153,6 +153,10 @@ button {
   gap: 24px;
 }
 
+.site-header .site-nav a {
+  color: rgba(248, 250, 252, 0.72);
+}
+
 .site-nav a,
 .hero-note,
 .field-note,
@@ -650,6 +654,10 @@ button {
   font-size: 0.85rem;
 }
 
+.logo-band .band-label {
+  color: rgba(248, 250, 252, 0.64);
+}
+
 .logo-marquee {
   display: flex;
   flex-wrap: wrap;
@@ -1104,6 +1112,7 @@ button {
 
 .site-footer p {
   margin: 0;
+  color: rgba(248, 250, 252, 0.72);
 }
 
 .is-hidden {

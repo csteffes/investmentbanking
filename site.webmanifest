@@ -1,11 +1,11 @@
 {
-  "name": "StreetReady",
-  "short_name": "StreetReady",
-  "description": "Voice-first investment banking interview prep for MBA students.",
+  "name": "Superday AI",
+  "short_name": "Superday AI",
+  "description": "Premium investment banking interview prep with voice mocks and transcript-backed scorecards.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#f7f2ea",
-  "theme_color": "#102325",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0B1F3A",
   "icons": [
     {
       "src": "icon.svg",
