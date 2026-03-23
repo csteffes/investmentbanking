@@ -1323,6 +1323,17 @@ button {
     align-items: flex-start;
   }
 
+  .school-logo {
+    min-width: 152px;
+    height: 68px;
+    padding: 0 16px;
+  }
+
+  .school-logo-image {
+    max-width: 174px;
+    max-height: 33px;
+  }
+
   .track-switcher,
   .filter-row {
     overflow-x: auto;
