@@ -677,6 +677,20 @@ img {
   line-height: 1;
 }
 
+.pricing-trial {
+  display: inline-flex;
+  align-items: center;
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  color: #7a5f16;
+  background: var(--gold-soft);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .faq-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
