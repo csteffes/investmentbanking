@@ -215,6 +215,10 @@ button {
   border-radius: var(--radius-sm);
 }
 
+.nav-cta {
+  min-width: 214px;
+}
+
 .nav-cta:hover,
 .button-primary:hover {
   transform: translateY(-1px);
@@ -240,8 +244,8 @@ button {
   position: relative;
   overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
-  gap: 28px;
+  gap: 32px;
+  justify-items: center;
   padding: 42px;
   background:
     radial-gradient(circle at top right, rgba(47, 107, 255, 0.12), transparent 30%),
@@ -262,6 +266,14 @@ button {
   background: radial-gradient(circle, rgba(47, 107, 255, 0.16), transparent 66%);
   filter: blur(6px);
   animation: drift 16s ease-in-out infinite alternate;
+}
+
+.hero-copy {
+  display: grid;
+  justify-items: center;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .eyebrow,
@@ -294,7 +306,7 @@ button {
 }
 
 .hero h1 {
-  max-width: 10ch;
+  max-width: 13ch;
   font-size: clamp(3.4rem, 8vw, 6.8rem);
 }
 
@@ -304,7 +316,7 @@ button {
 }
 
 .hero-text {
-  max-width: 60ch;
+  max-width: 42rem;
   margin: 18px 0 0;
   font-size: 1.06rem;
   line-height: 1.72;
@@ -315,6 +327,14 @@ button {
   flex-wrap: wrap;
   gap: 14px;
   margin-top: 30px;
+  justify-content: center;
+}
+
+.button-hero {
+  min-width: 244px;
+  min-height: 58px;
+  padding-inline: 28px;
+  font-size: 1rem;
 }
 
 .hero-note {
@@ -328,9 +348,11 @@ button {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin: 34px 0 0;
+  width: min(100%, 620px);
 }
 
 .hero-stats div {
+  text-align: center;
   padding-top: 16px;
   border-top: 1px solid var(--card-line);
 }
@@ -358,6 +380,8 @@ button {
 }
 
 .hero-panel {
+  width: min(100%, 1100px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-content: end;
 }
 
@@ -653,6 +677,15 @@ button {
   padding-block: 24px;
 }
 
+.bank-band {
+  width: min(100%, 980px);
+  margin-top: 8px;
+  color: var(--brand);
+  background:
+    radial-gradient(circle at top right, rgba(47, 107, 255, 0.08), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(244, 248, 252, 0.96));
+}
+
 .band-label {
   margin: 0 0 14px;
   font-size: 0.85rem;
@@ -663,6 +696,13 @@ button {
   margin-bottom: 4px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.bank-band .band-label {
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: 0.08em;
+  text-transform: none;
 }
 
 .logo-marquee {
@@ -705,6 +745,13 @@ button {
   border: 1px solid rgba(255, 255, 255, 0.18);
   box-shadow:
     0 20px 44px rgba(7, 19, 38, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.bank-band .school-logo {
+  border-color: rgba(11, 31, 58, 0.08);
+  box-shadow:
+    0 20px 44px rgba(11, 31, 58, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
@@ -762,6 +809,36 @@ button {
   max-height: 34px;
 }
 
+.bank-logo--jpmorgan .school-logo-image {
+  max-width: 158px;
+  max-height: 28px;
+}
+
+.bank-logo--jefferies .school-logo-image {
+  max-width: 152px;
+  max-height: 30px;
+}
+
+.bank-logo--goldman .school-logo-image {
+  max-width: 176px;
+  max-height: 26px;
+}
+
+.bank-logo--barclays .school-logo-image {
+  max-width: 144px;
+  max-height: 30px;
+}
+
+.bank-logo--william-blair .school-logo-image {
+  max-width: 184px;
+  max-height: 24px;
+}
+
+.bank-logo--lazard .school-logo-image {
+  max-width: 140px;
+  max-height: 30px;
+}
+
 .logo-marquee span {
   padding: 10px 14px;
   border-radius: var(--radius-sm);
@@ -773,7 +850,8 @@ button {
 
 .section-heading {
   max-width: 780px;
-  margin-bottom: 30px;
+  margin: 0 auto 30px;
+  text-align: center;
 }
 
 .section h2 {
@@ -782,6 +860,8 @@ button {
 }
 
 .section-heading p {
+  max-width: 44rem;
+  margin: 0 auto;
   line-height: 1.68;
 }
 
@@ -1249,6 +1329,7 @@ button {
 
 @media (max-width: 1120px) {
   .hero,
+  .hero-panel,
   .builder-grid,
   .demo-grid,
   .knowledge-grid {
@@ -1294,6 +1375,10 @@ button {
     width: 100%;
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .nav-cta {
+    width: 100%;
   }
 
   .hero,
