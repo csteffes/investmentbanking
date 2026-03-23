@@ -1,3 +1,4 @@
+import type Stripe from "stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -27,14 +28,14 @@ export async function POST(request: Request) {
 
     switch (event.type) {
       case "checkout.session.completed":
-        await upsertSubscriptionFromCheckout(event.data.object);
+        await upsertSubscriptionFromCheckout(event.data.object as Stripe.Checkout.Session);
         break;
       case "customer.subscription.created":
       case "customer.subscription.updated":
-        await upsertSubscriptionFromStripe(event.data.object);
+        await upsertSubscriptionFromStripe(event.data.object as Stripe.Subscription);
         break;
       case "customer.subscription.deleted":
-        await cancelSubscriptionFromStripe(event.data.object);
+        await cancelSubscriptionFromStripe(event.data.object as Stripe.Subscription);
         break;
       default:
         break;
