@@ -1,0 +1,38 @@
+keyword,volume_bucket,intent,geo,mapped_post_slug,priority,validation_note
+investment banking interview prep,High,Informational,Global,investment-banking-interview-prep-roadmap,P1,"Validate via Google Keyword Planner (https://support.google.com/google-ads/answer/7337243) and Ads API (https://developers.google.com/google-ads/api/docs/keyword-planning/overview)"
+investment banking interview questions,High,Informational,Global,investment-banking-technical-interview-questions-study-plan,P1,Validate via GKP/Ahrefs/Semrush
+investment banking technical questions,Medium,Informational,Global,investment-banking-technical-interview-questions-study-plan,P1,Validate via GKP
+investment banking behavioral questions,Medium,Informational,Global,investment-banking-behavioral-fit-questions-frameworks,P1,Validate via GKP
+walk me through a DCF interview,Medium,Drill,Global,walk-me-through-a-dcf-interview,P1,Validate via GKP; strong informational intent
+superday investment banking,Medium,Situational,US,investment-banking-superday-prep-7-day-plan,P1,Validate via GKP; US-centric term
+hirevue investment banking,Medium,Situational,Global,hirevue-investment-banking-prep,P1,Validate via GKP
+investment banking networking email template,Low,Situational,Global,investment-banking-networking-cold-email-templates,P2,Validate via GKP
+investment banking superday prep,Low,Situational,US,investment-banking-superday-prep-7-day-plan,P1,Validate via GKP
+how to prepare for investment banking interview,Medium,Informational,Global,investment-banking-interview-prep-roadmap,P1,Validate via GKP
+investment banking cold email template,Low,Situational,Global,investment-banking-networking-cold-email-templates,P2,Validate via GKP
+walk me through a DCF,Medium,Drill,Global,walk-me-through-a-dcf-interview,P1,High-intent drill query
+DCF interview questions investment banking,Medium,Drill,Global,walk-me-through-a-dcf-interview,P1,Validate via GKP
+LBO interview questions,Medium,Drill,Global,investment-banking-technical-interview-questions-study-plan,P2,Validate via GKP
+investment banking recruiting UK,Medium,Informational,UK,investment-banking-recruiting-by-region,P2,UK geo-modified; validate GKP UK data
+spring week investment banking,Medium,Informational,UK,investment-banking-recruiting-by-region,P1,"UK-specific term; High for UK market, Low globally"
+assessment centre investment banking,Medium,Situational,UK,investment-banking-recruiting-by-region,P2,UK-specific; validate GKP UK
+campus placements investment banking India,Low,Informational,India,investment-banking-recruiting-by-region,P2,"India-specific; High for IN market, Low globally"
+investment banking recruiting India,Low,Informational,India,investment-banking-recruiting-by-region,P2,Validate via GKP IN data
+investment banking recruiting Hong Kong,Low,Informational,HK,investment-banking-recruiting-by-region,P3,Validate via GKP HK data
+investment banking recruiting Singapore,Low,Informational,SG,investment-banking-recruiting-by-region,P3,Validate via GKP SG data
+summer analyst interview,Medium,Informational,US,investment-banking-interview-prep-roadmap,P1,US-centric; validate GKP
+graduate scheme investment banking,Medium,Informational,UK,investment-banking-recruiting-by-region,P2,UK-centric; validate GKP UK
+why investment banking answer,Medium,Informational,Global,investment-banking-behavioral-fit-questions-frameworks,P1,Strong behavioral search intent
+walk me through your resume investment banking,Low,Drill,Global,investment-banking-behavioral-fit-questions-frameworks,P2,Validate via GKP
+investment banking fit questions,Low,Informational,Global,investment-banking-behavioral-fit-questions-frameworks,P2,Validate via GKP
+WACC interview question,Low,Drill,Global,walk-me-through-a-dcf-interview,P2,Validate via GKP
+terminal value interview,Low,Drill,Global,walk-me-through-a-dcf-interview,P2,Validate via GKP
+HireVue tips investment banking,Low,Situational,Global,hirevue-investment-banking-prep,P2,Validate via GKP
+recorded interview investment banking,Very Low,Situational,Global,hirevue-investment-banking-prep,P3,Validate via GKP
+investment banking networking coffee chat,Low,Situational,Global,investment-banking-networking-cold-email-templates,P2,Validate via GKP
+informational interview investment banking,Low,Situational,Global,investment-banking-networking-cold-email-templates,P2,Validate via GKP
+investment banking interview prep roadmap,Low,Informational,Global,investment-banking-interview-prep-roadmap,P2,Branded search potential; validate GKP
+accretion dilution interview question,Low,Drill,Global,investment-banking-technical-interview-questions-study-plan,P3,Validate via GKP
+LBO candidate characteristics,Very Low,Drill,Global,investment-banking-technical-interview-questions-study-plan,P3,Validate via GKP
+three financial statements interview,Low,Drill,Global,investment-banking-technical-interview-questions-study-plan,P2,Validate via GKP
+investment banking behavioral story bank,Very Low,Informational,Global,investment-banking-behavioral-fit-questions-frameworks,P3,Niche but high-intent; validate GKP

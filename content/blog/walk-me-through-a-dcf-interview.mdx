@@ -1,0 +1,139 @@
+---
+title: "Walk Me Through a DCF in an Interview: Step-by-Step"
+description: "A step-by-step guide to answering 'walk me through a DCF' in an investment banking interview, with the common mistakes that cost candidates offers."
+date: 2026-03-26
+readingTime: 9 min read
+featured: false
+keywords:
+  - walk me through a DCF interview
+  - DCF interview question
+  - how to answer DCF question investment banking
+  - discounted cash flow interview
+  - WACC interview question
+  - terminal value interview question
+  - investment banking DCF
+---
+
+"Walk me through a DCF" is one of the most frequently asked investment banking technical questions—and one of the most frequently answered poorly. This guide gives you a clean, defensible walk-through and the follow-up questions you need to be ready for.
+
+*Not financial advice. This article is career preparation guidance only.*
+
+## Why this question trips up prepared candidates
+
+Most candidates know what a DCF is. The problem is translating that knowledge into a clear verbal explanation under pressure. Common failure modes:
+
+- **Starting with the formula instead of the concept.** Reciting "you discount free cash flows at WACC" before explaining *why* you discount them signals memorization, not understanding.
+- **Skipping the equity value bridge.** Many answers end at enterprise value. Interviewers often want to hear how you get to equity value per share.
+- **Inability to explain WACC components.** "WACC is the weighted average cost of capital" is not an answer to "what drives WACC?"
+- **Treating terminal value as an afterthought.** Terminal value typically represents 60–80% of total enterprise value. Not explaining it clearly is a significant gap.
+
+For the full technical question landscape, see [Investment Banking Technical Interview Questions: A Practical Study Plan](/blog/investment-banking-technical-interview-questions-study-plan/). For how DCF fits into your overall prep roadmap, see [Investment Banking Interview Prep: The Superday AI Roadmap (2026)](/blog/investment-banking-interview-prep-roadmap/).
+
+## The clean seven-step walk-through
+
+Practice this structure until you can deliver it in 90–120 seconds without notes.
+
+### Step 1: State what a DCF is and why you use it
+
+> "A DCF values a company by discounting its expected future cash flows back to the present. The idea is that a dollar of cash flow in the future is worth less than a dollar today because of the time value of money and the risk involved in those future cash flows."
+
+Open with the concept before the mechanics. This signals understanding rather than memorization.
+
+### Step 2: Project the free cash flows
+
+> "First, I project the company's unlevered free cash flows over a discrete forecast period—typically five to ten years. Unlevered free cash flow is EBIT after taxes, plus depreciation and amortization, minus capex, minus the change in net working capital. I use unlevered FCF because I'm building to enterprise value, which is capital structure-neutral."
+
+**Why unlevered FCF?** It strips out the effects of financing (interest expense), so the analysis reflects the intrinsic value of the business operations regardless of how it's funded. This is important because you want to apply WACC as your discount rate, and WACC already incorporates the capital structure.
+
+### Step 3: Calculate the terminal value
+
+> "After the discrete forecast period, I calculate a terminal value to capture all remaining cash flows beyond the projection. I can use two methods: the Gordon Growth Model, where terminal value = (final year FCF × (1 + terminal growth rate)) / (WACC − terminal growth rate); or the exit multiple method, where I apply an EV/EBITDA multiple to the final year's EBITDA. In practice, I'd use both and triangulate."
+
+**The terminal growth rate** should reflect long-term nominal GDP growth for most businesses—typically 2–3% for developed market companies. Using a terminal growth rate higher than long-term GDP growth implies the company will eventually be larger than the overall economy, which is not defensible.
+
+**Exit multiple vs. Gordon Growth Model:** The exit multiple method is grounded in market-based benchmarks (comparable public companies), which makes it easier to defend. The Gordon Growth Model is more theoretically elegant but requires an assumption about perpetuity growth that can be harder to justify.
+
+### Step 4: Discount to present value
+
+> "I discount both the projected free cash flows and the terminal value back to the present using WACC—the weighted average cost of capital. This gives me the present value of each cash flow and the terminal value in today's dollars."
+
+**WACC formula:** WACC = (E/V × cost of equity) + (D/V × cost of debt × (1 − tax rate)), where E/V and D/V are the equity and debt weights as a percentage of total capital.
+
+### Step 5: Sum to enterprise value
+
+> "I sum the present value of all projected FCFs and the present value of the terminal value to get the company's enterprise value."
+
+### Step 6: Bridge to equity value
+
+> "To get equity value, I subtract net debt from enterprise value—that is, total debt minus cash and cash equivalents. I also adjust for any non-operating items if relevant: minority interests, unfunded pension liabilities, or off-balance sheet obligations."
+
+**Why net debt?** Equity holders own the residual value after debt is repaid. Enterprise value belongs to all capital providers; equity value belongs only to equity holders.
+
+### Step 7: Equity value per share
+
+> "Finally, I divide equity value by the diluted share count—common shares plus in-the-money options and convertible securities—to get equity value per share. I compare this to the current market price to assess whether the stock is undervalued or overvalued."
+
+---
+
+**Full walk-through in 90 seconds (practice script):**
+
+> "A DCF values a company based on its expected future cash flows discounted to the present. I start by projecting unlevered free cash flows over a five to ten year period. At the end of the projection, I calculate a terminal value using either the Gordon Growth Model or an exit multiple. I then discount all of those cash flows—projected FCFs and terminal value—back to the present using WACC, the company's blended cost of capital. Summing those gives me enterprise value. I subtract net debt to get equity value, then divide by diluted shares to get equity value per share."
+
+---
+
+## Follow-up questions and how to answer them
+
+**"What drives WACC, and how would a change in capital structure affect it?"**
+
+WACC has four main drivers: (1) the risk-free rate (typically the 10-year Treasury yield), which sets the baseline for all required returns; (2) beta, which measures systematic risk relative to the market; (3) the equity risk premium, which reflects the market's aggregate excess return over the risk-free rate; (4) the cost of debt, which is the yield on the company's debt, tax-adjusted.
+
+If a company increases leverage, the cost of equity rises (because equity holders bear more risk as debt increases), but up to a point, WACC may decrease because debt is cheaper than equity (and tax-deductible). Beyond optimal leverage, financial distress costs begin to offset the tax shield.
+
+**"Why is the terminal value so large? Does that concern you?"**
+
+Terminal value is large because most companies are valued as going concerns with infinite lives. In a 10-year model, year 10 cash flows are already substantial, and you are adding the perpetuity value of everything beyond year 10. It is not a flaw in the analysis—it is a feature of how value accrues over time.
+
+What you should be concerned about: small changes in terminal growth rate or exit multiple have a large effect on output. This is why sensitivity analysis (building a table that shows how equity value changes across different WACC and terminal growth rate assumptions) is essential in any DCF presentation.
+
+**"When is a DCF less reliable?"**
+
+A DCF is less reliable when:
+
+- Cash flows are unpredictable (early-stage companies, cyclical businesses at peak or trough, financial institutions whose reinvestment dynamics differ fundamentally).
+- The discount rate is difficult to estimate (private companies, pre-revenue startups).
+- The terminal value assumptions dominate the model to the point where small errors compound significantly.
+- The projection period is too short to capture the full cycle of the business.
+
+In these cases, you would rely more heavily on comparable companies or precedent transactions to triangulate value.
+
+**"What's the difference between equity value and enterprise value?"**
+
+Enterprise value is the total value of the business to all capital providers—equity and debt holders. It is what an acquirer would pay in a zero-premium deal. Equity value is the residual value available to equity holders after satisfying all debt obligations. Enterprise value = equity value + net debt (debt minus cash) + any preferred equity or minority interest.
+
+**"How do you determine the right terminal growth rate?"**
+
+The terminal growth rate should reflect the long-term sustainable nominal growth of the business. For most businesses in developed markets, this is anchored near long-term nominal GDP growth—roughly 2–3%. A company growing faster than GDP in perpetuity would eventually consume the entire economy. Sector-specific assumptions (faster for tech, slower for utilities) can justify modest deviations, but rates above 4–5% require significant justification.
+
+## Common mistakes to avoid
+
+| Mistake | Why it matters | Fix |
+|---|---|---|
+| Using levered FCF in the DCF and discounting at WACC | Levered FCF includes interest payments already; discounting at WACC double-counts the debt cost | Use unlevered FCF with WACC, or levered FCF with cost of equity |
+| Adding back depreciation but forgetting the capex-D&A relationship | D&A and capex must be modeled consistently—D&A approximates economic wear, capex approximates investment to maintain operations | Project both D&A and capex explicitly in your model |
+| Ignoring working capital changes | FCF is not equal to EBITDA minus capex—changes in working capital affect cash | Always include ΔWC in your FCF build |
+| Using book value weights in WACC | Market value weights should be used because WACC reflects current investor required returns | Use market cap and market value of debt for weights |
+| Forgetting the equity value bridge | Stopping at enterprise value leaves the analysis incomplete for equity investors | Always bridge to equity value per share |
+
+For the complete superday simulation that stress-tests answers like this one, see [The Investment Banking Superday: What Happens and How to Prepare in 7 Days](/blog/investment-banking-superday-prep-7-day-plan/).
+
+---
+
+<ArticleCTA />
+
+---
+
+## Sources
+
+- [Google: Creating helpful, reliable, people-first content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content)
+
+---

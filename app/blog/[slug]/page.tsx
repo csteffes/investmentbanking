@@ -8,7 +8,7 @@ import { formatDate, getAllSlugs, getEntry } from "@/lib/content";
 import { site } from "@/lib/site";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = params;
+  const { slug } = await params;
   const entry = await getEntry("blog", slug);
 
   if (!entry) {
@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function BlogPostPage({ params }: Props) {
-  const { slug } = params;
+  const { slug } = await params;
   const entry = await getEntry("blog", slug);
 
   if (!entry) {

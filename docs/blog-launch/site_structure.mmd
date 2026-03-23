@@ -1,0 +1,102 @@
+graph TD
+    Home["🏠 superday.ai (Home)"]
+    Blog["📚 /blog/ (Blog Index)"]
+    Assessment["⚡ /assessment/ (Practice Tool)"]
+
+    Home --> Blog
+    Home --> Assessment
+
+    %% Pillar Posts
+    PostA["Post A — Pillar\nIB Interview Prep Roadmap\n/blog/investment-banking-interview-prep-roadmap/"]
+    PostB["Post B — Pillar\nTechnical Questions Study Plan\n/blog/investment-banking-technical-interview-questions-study-plan/"]
+    PostC["Post C — Pillar\nBehavioral Fit Questions Frameworks\n/blog/investment-banking-behavioral-fit-questions-frameworks/"]
+
+    Blog --> PostA
+    Blog --> PostB
+    Blog --> PostC
+
+    %% Cluster Posts
+    PostD["Post D — How-to Cluster\nWalk Me Through a DCF\n/blog/walk-me-through-a-dcf-interview/"]
+    PostE["Post E — Process Cluster\nSuperday 7-Day Plan\n/blog/investment-banking-superday-prep-7-day-plan/"]
+    PostF["Post F — Situational Cluster\nHireVue IB Prep\n/blog/hirevue-investment-banking-prep/"]
+    PostG["Post G — GEO Hub\nRecruiting by Region\n/blog/investment-banking-recruiting-by-region/"]
+    PostH["Post H — Tools Cluster\nNetworking Cold Email Templates\n/blog/investment-banking-networking-cold-email-templates/"]
+
+    Blog --> PostD
+    Blog --> PostE
+    Blog --> PostF
+    Blog --> PostG
+    Blog --> PostH
+
+    %% Pillar → Cluster internal links
+    PostA -->|"links to"| PostB
+    PostA -->|"links to"| PostC
+    PostA -->|"links to"| PostE
+
+    PostB -->|"links to"| PostA
+    PostB -->|"links to"| PostD
+    PostB -->|"links to"| PostF
+
+    PostC -->|"links to"| PostA
+    PostC -->|"links to"| PostE
+    PostC -->|"links to"| PostH
+
+    PostD -->|"links to"| PostB
+    PostD -->|"links to"| PostA
+    PostD -->|"links to"| PostE
+
+    PostE -->|"links to"| PostA
+    PostE -->|"links to"| PostC
+    PostE -->|"links to"| PostF
+
+    PostF -->|"links to"| PostE
+    PostF -->|"links to"| PostC
+    PostF -->|"links to"| PostA
+
+    PostG -->|"links to"| PostA
+    PostG -->|"links to"| PostE
+    PostG -->|"links to"| PostH
+
+    PostH -->|"links to"| PostA
+    PostH -->|"links to"| PostC
+    PostH -->|"links to"| PostB
+
+    %% CTAs → Assessment
+    PostA -->|"CTA"| Assessment
+    PostB -->|"CTA"| Assessment
+    PostC -->|"CTA"| Assessment
+    PostD -->|"CTA"| Assessment
+    PostE -->|"CTA"| Assessment
+    PostF -->|"CTA"| Assessment
+    PostG -->|"CTA"| Assessment
+    PostH -->|"CTA"| Assessment
+
+    %% Lead Magnets
+    LeadA["📄 PDF: IB Superday Prep Roadmap"]
+    LeadB["📊 Excel: Technical Drill Tracker"]
+    LeadC["📄 PDF: Behavioral Story Bank"]
+    LeadD["📊 Excel: DCF Practice Template"]
+    LeadE["📄 PDF: 7-Day Superday Plan"]
+    LeadF["📄 PDF: HireVue Practice Script"]
+    LeadG["📄 PDF: Regional Recruiting Checklist"]
+    LeadH["📊 Excel: Cold Email Follow-Up Tracker"]
+
+    PostA --- LeadA
+    PostB --- LeadB
+    PostC --- LeadC
+    PostD --- LeadD
+    PostE --- LeadE
+    PostF --- LeadF
+    PostG --- LeadG
+    PostH --- LeadH
+
+    %% Styling
+    classDef pillar fill:#1a1a2e,color:#fff,stroke:#4f46e5
+    classDef cluster fill:#0f3460,color:#fff,stroke:#7c73e6
+    classDef lead fill:#16213e,color:#ccc,stroke:#4f46e5,stroke-dasharray:5 5
+    classDef cta fill:#e94560,color:#fff,stroke:#e94560
+
+    class PostA,PostB,PostC pillar
+    class PostD,PostE,PostF,PostG,PostH cluster
+    class LeadA,LeadB,LeadC,LeadD,LeadE,LeadF,LeadG,LeadH lead
+    class Assessment cta

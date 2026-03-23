@@ -2,6 +2,10 @@ import type Stripe from "stripe";
 
 import { getAdminSupabase } from "@/lib/supabase";
 
+// Stripe removed current_period_end from the Subscription type in newer SDK versions;
+// cast to access it for backwards-compatible webhook handling.
+type StripeSubscriptionWithPeriod = Stripe.Subscription & { current_period_end: number };
+
 function getSubscriptionItem(subscription: Stripe.Subscription) {
   return subscription.items.data[0];
 }
@@ -34,6 +38,7 @@ export async function upsertSubscriptionFromStripe(subscription: Stripe.Subscrip
   }
 
   const item = getSubscriptionItem(subscription);
+  const sub = subscription as StripeSubscriptionWithPeriod;
 
   await supabase.from("subscriptions").upsert(
     {
@@ -41,7 +46,7 @@ export async function upsertSubscriptionFromStripe(subscription: Stripe.Subscrip
       stripe_subscription_id: subscription.id,
       status: subscription.status,
       price_id: item?.price?.id || null,
-      current_period_end: new Date(subscription.current_period_end * 1000).toISOString()
+      current_period_end: new Date(sub.current_period_end * 1000).toISOString()
     },
     { onConflict: "stripe_customer_id" }
   );
@@ -54,12 +59,14 @@ export async function cancelSubscriptionFromStripe(subscription: Stripe.Subscrip
     return;
   }
 
+  const sub = subscription as StripeSubscriptionWithPeriod;
+
   await supabase
     .from("subscriptions")
     .update({
       stripe_subscription_id: subscription.id,
       status: subscription.status,
-      current_period_end: new Date(subscription.current_period_end * 1000).toISOString()
+      current_period_end: new Date(sub.current_period_end * 1000).toISOString()
     })
     .eq("stripe_customer_id", String(subscription.customer));
 }
