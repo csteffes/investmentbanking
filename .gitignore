@@ -3,3 +3,9 @@ Thumbs.db
 
 .autopush-state
 .autopush.log
+node_modules
+.next
+.vercel
+.env
+.env.local
+.env.*.local
