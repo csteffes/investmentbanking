@@ -12,7 +12,7 @@ export default async function HomePage() {
       <section className="hero-section">
         <div className="hero-copy">
           <p className="section-kicker">AI-native investment banking interview prep</p>
-          <h1>Practice investment banking interviews with an AI voice coach.</h1>
+          <h1>Train for your Superday before your Superday runs a train on you.</h1>
           <p className="hero-summary">
             Run live mocks, tighten technical answers, and review transcript-backed scorecards anytime.
           </p>
