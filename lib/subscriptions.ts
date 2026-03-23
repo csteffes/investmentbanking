@@ -8,15 +8,16 @@ function getSubscriptionItem(subscription: Stripe.Subscription) {
 
 export async function upsertSubscriptionFromCheckout(session: Stripe.Checkout.Session) {
   const supabase = getAdminSupabase();
+  const customerId = typeof session.customer === "string" ? session.customer : null;
 
-  if (!supabase) {
+  if (!supabase || !customerId) {
     return;
   }
 
   await supabase.from("subscriptions").upsert(
     {
       user_id: session.metadata?.userId || null,
-      stripe_customer_id: typeof session.customer === "string" ? session.customer : null,
+      stripe_customer_id: customerId,
       stripe_subscription_id: typeof session.subscription === "string" ? session.subscription : null,
       status: "active",
       price_id: session.metadata?.priceId || null

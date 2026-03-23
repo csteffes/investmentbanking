@@ -12,13 +12,18 @@ export async function POST(request: Request) {
       successUrl?: string;
       cancelUrl?: string;
     };
+    const priceId = body.priceId || env.stripeProPriceId;
+
+    if (!priceId) {
+      return NextResponse.json({ error: "Missing Stripe price id." }, { status: 500 });
+    }
 
     const stripe = getStripe();
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
       line_items: [
         {
-          price: body.priceId || env.stripeProPriceId,
+          price: priceId,
           quantity: 1
         }
       ],
@@ -28,7 +33,7 @@ export async function POST(request: Request) {
       cancel_url: body.cancelUrl || `${env.siteUrl}/#pricing`,
       metadata: {
         userId: body.userId || "",
-        priceId: body.priceId || env.stripeProPriceId || ""
+        priceId
       }
     });
 
