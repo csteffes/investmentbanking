@@ -3,6 +3,8 @@ import type { MetadataRoute } from "next";
 import { getCollection } from "@/lib/content";
 import { site } from "@/lib/site";
 
+export const dynamic = "force-static";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [blog, guides] = await Promise.all([getCollection("blog"), getCollection("guides")]);
 
