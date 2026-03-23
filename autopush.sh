@@ -28,8 +28,8 @@ snapshot() {
   } | sort -u | while IFS= read -r path; do
     [[ -z "$path" ]] && continue
     [[ ! -f "$path" ]] && continue
-    shasum "$path"
-  done | shasum | awk '{print $1}'
+    /usr/bin/shasum "$path"
+  done | /usr/bin/shasum | awk '{print $1}'
 }
 
 ensure_upstream() {
@@ -63,6 +63,7 @@ commit_if_needed() {
 echo "Watching $ROOT_DIR"
 echo "Polling every ${POLL_SECONDS}s. Press Ctrl+C to stop."
 
+commit_if_needed
 current_snapshot="$(snapshot)"
 printf '%s' "$current_snapshot" > "$STATE_FILE"
 
