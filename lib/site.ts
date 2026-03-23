@@ -5,6 +5,7 @@ export const site = {
   description:
     "Practice investment banking interviews with an AI voice coach. Run live mocks, fast drills, and transcript-backed reviews anytime.",
   pricing: {
+    trialDays: 3,
     monthly: 50,
     label: "$50/month"
   }

@@ -201,19 +201,20 @@ export default async function HomePage() {
         <div className="section-head">
           <p className="section-kicker">Pricing</p>
           <h2>One plan. Full access.</h2>
-          <p>Start with the full prep loop: live mocks, quick drills, saved reviews, and the full content library.</p>
+          <p>Start with a {site.pricing.trialDays}-day free trial, then continue on the single Pro plan at {site.pricing.label}.</p>
         </div>
         <article className="pricing-card">
           <p className="pricing-label">Superday AI Pro</p>
+          <p className="pricing-trial">{site.pricing.trialDays}-day free trial</p>
           <p className="pricing-value">{site.pricing.label}</p>
-          <p className="pricing-copy">Built for candidates who want realistic reps without paying for a coach every time they practice.</p>
+          <p className="pricing-copy">One plan. One workflow. Start free for three days, then keep full access for $50/month.</p>
           <ul className="brief-list">
             <li>Live voice mock sessions</li>
             <li>Technical, behavioral, and superday drills</li>
             <li>Saved scorecards and next-step reps</li>
           </ul>
           <Link className="button button-primary" href="/assessment">
-            Start your assessment
+            Start your 3-day free trial
           </Link>
         </article>
       </section>
