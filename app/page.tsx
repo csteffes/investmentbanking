@@ -36,13 +36,6 @@ export default async function HomePage() {
               <dd>Instant</dd>
             </div>
           </dl>
-          <LogoMarquee
-            ariaLabel="Our users have landed jobs at leading investment banks"
-            compact
-            label="Our users have landed jobs at:"
-            logos={bankLogos}
-            variant="light"
-          />
         </div>
 
         <div className="dash-command-panels">
@@ -86,6 +79,9 @@ export default async function HomePage() {
           </article>
         </div>
       </div>
+
+      {/* ── Bank trust band ───────────────────────────── */}
+      <LogoMarquee ariaLabel="Our users have landed jobs at leading investment banks" label="Our Users Have Landed Jobs at:" logos={bankLogos} variant="light" />
 
       {/* ── School trust band ─────────────────────────── */}
       <LogoMarquee ariaLabel="Trusted by students from top schools" label="Trusted by Students From:" logos={schoolLogos} variant="light" />

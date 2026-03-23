@@ -37,12 +37,12 @@ export const schoolLogos = [
 ] satisfies readonly LogoItem[];
 
 export const bankLogos = [
-  { src: "/assets/logos/jp-morgan.svg", alt: "J.P. Morgan logo", className: "bank-logo--jpmorgan" },
-  { src: "/assets/logos/jefferies.svg", alt: "Jefferies logo", className: "bank-logo--jefferies" },
+  { src: "/assets/logos/jp-morgan-brown.svg", alt: "J.P. Morgan logo", className: "bank-logo--jpmorgan" },
+  { src: "/assets/logos/evercore.png", alt: "Evercore logo", className: "bank-logo--evercore" },
   { src: "/assets/logos/goldman-sachs.svg", alt: "Goldman Sachs logo", className: "bank-logo--goldman" },
   { src: "/assets/logos/barclays.svg", alt: "Barclays logo", className: "bank-logo--barclays" },
-  { src: "/assets/logos/william-blair.svg", alt: "William Blair logo", className: "bank-logo--william-blair" },
-  { src: "/assets/logos/lazard.svg", alt: "Lazard logo", className: "bank-logo--lazard" }
+  { src: "/assets/logos/jefferies.svg", alt: "Jefferies logo", className: "bank-logo--jefferies" },
+  { src: "/assets/logos/lazard-new.svg", alt: "Lazard logo", className: "bank-logo--lazard" }
 ] satisfies readonly LogoItem[];
 
 export const homepageFaqs = [

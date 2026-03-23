@@ -1,7 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 60" role="img" aria-label="Goldman Sachs">
-  <!-- GS monogram block -->
-  <rect x="4" y="8" width="42" height="42" rx="4" fill="#003153"/>
-  <text x="25" y="37" fill="#ffffff" font-family="'Helvetica Neue',Arial,sans-serif" font-size="22" font-weight="700" text-anchor="middle" dominant-baseline="middle" letter-spacing="-0.02em">GS</text>
-  <!-- Wordmark -->
-  <text x="58" y="38" fill="#003153" font-family="'Helvetica Neue',Arial,sans-serif" font-size="20" font-weight="600" letter-spacing="0.02em">Goldman Sachs</text>
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 50' role='img' aria-label='Goldman Sachs'>
+  <text x='0' y='36' fill='#003153' font-family='Georgia,"Times New Roman",serif' font-size='32' font-weight='700' letter-spacing='-0.5'>Goldman Sachs</text>
 </svg>
