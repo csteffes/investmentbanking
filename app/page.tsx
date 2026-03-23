@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { LogoMarquee } from "@/components/logo-marquee";
 import { formatDate, getLatestEntries } from "@/lib/content";
-import { homepageFaqs, site } from "@/lib/site";
+import { bankLogos, homepageFaqs, schoolLogos, site } from "@/lib/site";
 
 export default async function HomePage() {
   const [latestGuides, latestPosts] = await Promise.all([getLatestEntries("guides", 3), getLatestEntries("blog", 3)]);
@@ -17,13 +17,20 @@ export default async function HomePage() {
             Run live mocks, tighten technical answers, and review transcript-backed scorecards anytime.
           </p>
           <div className="hero-actions">
-            <Link className="button button-primary" href="/assessment">
-              Start your assessment
+            <Link className="button button-primary button-hero" href="/assessment">
+              Try for Free Today
             </Link>
             <Link className="button button-secondary" href="/guides">
               Read the prep guides
             </Link>
           </div>
+          <LogoMarquee
+            ariaLabel="Our users have landed jobs at leading investment banks"
+            compact
+            label="Our users have landed jobs at:"
+            logos={bankLogos}
+            variant="light"
+          />
           <dl className="hero-stats">
             <div>
               <dt>Practice</dt>
@@ -82,7 +89,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <LogoMarquee />
+      <LogoMarquee ariaLabel="Trusted by students from top schools" label="Trusted by Students From" logos={schoolLogos} />
 
       <section className="section">
         <div className="section-head">
@@ -135,8 +142,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section section-split">
-        <div className="section-head section-head--left">
+      <section className="section">
+        <div className="section-head">
           <p className="section-kicker">Why it works</p>
           <h2>Simple loop. Better reps.</h2>
           <p>
@@ -145,7 +152,7 @@ export default async function HomePage() {
             to run the next rep.
           </p>
         </div>
-        <div className="proof-stack">
+        <div className="card-grid card-grid--three">
           <article className="mini-card">
             <h3>Realistic follow-ups</h3>
             <p>The mock changes based on your target bank, group, and interview stage.</p>
@@ -228,9 +235,9 @@ export default async function HomePage() {
           </div>
 
           <div className="pricing-footer">
-            <div className="pricing-cta-group">
-              <Link className="button button-pricing" href="/assessment">
-                Try for free today <span aria-hidden="true">→</span>
+          <div className="pricing-cta-group">
+            <Link className="button button-pricing" href="/assessment">
+                Try for Free Today <span aria-hidden="true">→</span>
               </Link>
               <p className="pricing-footnote">Cancel anytime</p>
             </div>

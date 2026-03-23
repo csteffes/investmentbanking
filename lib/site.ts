@@ -11,6 +11,12 @@ export const site = {
   }
 } as const;
 
+export type LogoItem = {
+  src: string;
+  alt: string;
+  className?: string;
+};
+
 export const navigation = [
   { href: "/assessment", label: "Assessment" },
   { href: "/guides", label: "Guides" },
@@ -28,7 +34,16 @@ export const schoolLogos = [
   { src: "/assets/logos/penn.svg", alt: "University of Pennsylvania logo", className: "school-logo--penn" },
   { src: "/assets/logos/usc.svg", alt: "University of Southern California logo", className: "school-logo--usc" },
   { src: "/assets/logos/ut-austin.svg", alt: "University of Texas at Austin logo", className: "school-logo--ut" }
-] as const;
+] satisfies readonly LogoItem[];
+
+export const bankLogos = [
+  { src: "/assets/logos/jp-morgan.svg", alt: "J.P. Morgan logo", className: "bank-logo--jpmorgan" },
+  { src: "/assets/logos/jefferies.svg", alt: "Jefferies logo", className: "bank-logo--jefferies" },
+  { src: "/assets/logos/goldman-sachs.svg", alt: "Goldman Sachs logo", className: "bank-logo--goldman" },
+  { src: "/assets/logos/barclays.svg", alt: "Barclays logo", className: "bank-logo--barclays" },
+  { src: "/assets/logos/william-blair.svg", alt: "William Blair logo", className: "bank-logo--william-blair" },
+  { src: "/assets/logos/lazard.svg", alt: "Lazard logo", className: "bank-logo--lazard" }
+] satisfies readonly LogoItem[];
 
 export const homepageFaqs = [
   {

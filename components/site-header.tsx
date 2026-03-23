@@ -22,7 +22,7 @@ export function SiteHeader() {
       </nav>
 
       <Link className="button button-primary button-nav" href="/assessment">
-        Start assessment
+        Try for Free Today
       </Link>
     </header>
   );

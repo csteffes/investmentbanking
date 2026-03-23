@@ -1,18 +1,36 @@
-import { schoolLogos } from "@/lib/site";
+import type { LogoItem } from "@/lib/site";
 
-export function LogoMarquee() {
+type LogoMarqueeProps = {
+  label: string;
+  logos: readonly LogoItem[];
+  ariaLabel?: string;
+  variant?: "dark" | "light";
+  compact?: boolean;
+};
+
+export function LogoMarquee({
+  label,
+  logos,
+  ariaLabel,
+  variant = "dark",
+  compact = false
+}: LogoMarqueeProps) {
+  const className = ["trust-band", `trust-band--${variant}`, compact ? "trust-band--compact" : ""]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <section className="trust-band" aria-label="Trusted by students from top schools">
-      <p className="section-kicker">Trusted by Students From</p>
+    <section className={className} aria-label={ariaLabel ?? label}>
+      <p className="trust-band-label">{label}</p>
       <div className="logo-carousel">
         <div className="logo-track">
           {[0, 1].map((setIndex) => (
             <div className="logo-set" aria-hidden={setIndex === 1} key={setIndex}>
-              {schoolLogos.map((logo) => (
-                <span className={`school-logo ${logo.className}`} key={`${setIndex}-${logo.src}`}>
+              {logos.map((logo) => (
+                <span className={["logo-card", logo.className].filter(Boolean).join(" ")} key={`${setIndex}-${logo.src}`}>
                   <img
                     alt={setIndex === 1 ? "" : logo.alt}
-                    className="school-logo-image"
+                    className="logo-card-image"
                     decoding="async"
                     src={logo.src}
                   />
