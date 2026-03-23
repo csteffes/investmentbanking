@@ -5,21 +5,23 @@
       <stop offset="0%" stop-color="#0b1f3a" />
       <stop offset="100%" stop-color="#14305b" />
     </linearGradient>
-    <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
+    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" stop-color="#c9a227" />
       <stop offset="100%" stop-color="#2f6bff" />
     </linearGradient>
   </defs>
   <rect width="256" height="256" rx="56" fill="url(#bg)" />
-  <circle cx="72" cy="64" r="44" fill="#ffffff" fill-opacity="0.08" />
-  <path
-    d="M63 160c0-38 24-64 60-64 25 0 44 9 58 25l-20 19c-9-10-21-15-36-15-23 0-38 15-38 37s15 37 39 37c14 0 25-4 35-12v-17h-33v-26h63v56c-16 15-39 24-66 24-38 0-62-25-62-64Z"
+  <rect x="42" y="54" width="172" height="6" rx="3" fill="url(#line)" />
+  <rect x="42" y="196" width="104" height="6" rx="3" fill="url(#line)" opacity="0.8" />
+  <text
+    x="42"
+    y="154"
     fill="#f8fafc"
-  />
-  <path
-    d="M74 89h43"
-    stroke="url(#glow)"
-    stroke-width="10"
-    stroke-linecap="round"
-  />
+    font-family="Space Grotesk, Arial, sans-serif"
+    font-size="92"
+    font-weight="700"
+    letter-spacing="-4"
+  >
+    SA
+  </text>
 </svg>
