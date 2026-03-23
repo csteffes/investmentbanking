@@ -88,7 +88,7 @@ export default async function HomePage() {
       </div>
 
       {/* ── School trust band ─────────────────────────── */}
-      <LogoMarquee ariaLabel="Trusted by students from top schools" label="Trusted by Students From" logos={schoolLogos} />
+      <LogoMarquee ariaLabel="Trusted by students from top schools" label="Trusted by Students From:" logos={schoolLogos} variant="light" />
 
       {/* ── Resources ─────────────────────────────────── */}
       <section className="dash-section resource-section">
