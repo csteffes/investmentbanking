@@ -199,9 +199,8 @@ export default async function HomePage() {
 
       <section className="section pricing-section" id="pricing">
         <div className="section-head">
-          <p className="section-kicker">Pricing</p>
           <h2>Simple pricing, unlimited practice</h2>
-          <p>One plan with everything you need. Start with a {site.pricing.trialDays}-Day Free Trial, cancel anytime.</p>
+          <p>One plan with everything you need. Start with a free trial, cancel anytime.</p>
         </div>
         <article className="pricing-card pricing-card-premium">
           <div className="pricing-main">
@@ -230,8 +229,8 @@ export default async function HomePage() {
 
           <div className="pricing-footer">
             <div className="pricing-cta-group">
-              <Link className="button button-primary button-pricing" href="/assessment">
-                Try for free today
+              <Link className="button button-pricing" href="/assessment">
+                Try for free today <span aria-hidden="true">→</span>
               </Link>
               <p className="pricing-footnote">Cancel anytime</p>
             </div>
