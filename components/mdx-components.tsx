@@ -14,7 +14,8 @@ function flattenText(node: ReactNode): string {
   }
 
   if (node && typeof node === "object" && "props" in node) {
-    return flattenText(node.props.children as ReactNode);
+    const props = (node as { props?: { children?: ReactNode } }).props;
+    return flattenText(props?.children ?? "");
   }
 
   return "";
