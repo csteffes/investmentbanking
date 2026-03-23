@@ -711,12 +711,12 @@ img {
 .school-logo--usc .logo-card-image { max-width: 204px; max-height: 32px; }
 .school-logo--ut .logo-card-image { max-width: 178px; max-height: 34px; }
 
-.bank-logo--jpmorgan .logo-card-image  { max-width: 160px; max-height: 32px; }
-.bank-logo--evercore .logo-card-image  { max-width: 192px; max-height: 28px; }
-.bank-logo--goldman .logo-card-image   { max-width: 186px; max-height: 30px; }
-.bank-logo--barclays .logo-card-image  { max-width: 154px; max-height: 30px; }
-.bank-logo--jefferies .logo-card-image { max-width: 164px; max-height: 32px; }
-.bank-logo--lazard .logo-card-image    { max-width: 130px; max-height: 34px; }
+.bank-logo--jpmorgan .logo-card-image  { max-width: 156px; max-height: 34px; }
+.bank-logo--evercore .logo-card-image  { max-width: 196px; max-height: 32px; }
+.bank-logo--goldman .logo-card-image   { max-width: 196px; max-height: 33px; }
+.bank-logo--barclays .logo-card-image  { max-width: 60px;  max-height: 40px; }
+.bank-logo--jefferies .logo-card-image { max-width: 80px;  max-height: 44px; }
+.bank-logo--lazard .logo-card-image    { max-width: 176px; max-height: 33px; }
 
 .resource-grid,
 .assessment-grid {
