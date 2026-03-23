@@ -102,25 +102,25 @@ const stageProfiles = {
   "Networking / coffee chats": {
     label: "Networking",
     sprint: [
-      "Practice a clean 60-second personal story without sounding over-rehearsed.",
-      "Build two thoughtful questions for bankers in your target group.",
-      "Prepare one recent deal and one reason this platform fits your pivot.",
+      "Tighten your 60-second story.",
+      "Prepare two smart questions.",
+      "Bring one recent deal.",
     ],
   },
   "First round": {
     label: "First round",
     sprint: [
-      "Run one live mock with fit and technical mix before your next first round.",
-      "Do two quick drills on accounting links and why this bank.",
-      "Tighten one market or financing talking point for an informed close.",
+      "Run one live mock.",
+      "Do two quick drills.",
+      "Refresh one market point.",
     ],
   },
   Superday: {
     label: "Superday",
     sprint: [
-      "Run one full live mock and two pressure drills under interruption.",
-      "Sharpen one crisp why-bank answer and one recent deal discussion.",
-      "Practice closing questions that sound informed, specific, and senior.",
+      "Run one full mock.",
+      "Do two pressure drills.",
+      "Tighten your close.",
     ],
   },
 };
@@ -157,14 +157,14 @@ const demoScenarios = {
       "Commercial judgment": 76,
     },
     evidence: ({ bank, group }) => [
-      `Strong transfer story, especially when connecting prior operating work to ${bank}'s advisory intensity.`,
-      `The "why ${group}" answer needs one more concrete signal beyond broad interest in deals.`,
-      "Energy stayed calm under interruption, but the closing sentence can land more decisively.",
+      `Strong transition story for ${bank}.`,
+      `The "why ${group}" answer needs one sharper proof point.`,
+      "The close can be tighter.",
     ],
     nextReps: ({ bank, group }) => [
-      `Re-record your 75-second "why ${bank} / why ${group}" answer with a stronger group-specific proof point.`,
-      "Cut chronology by one-third and lead with the pivot thesis.",
-      "Practice one senior-sounding closing question tied to the team's current market activity.",
+      `Re-record "why ${bank} / why ${group}".`,
+      "Cut the chronology.",
+      "Practice one better closing question.",
     ],
   },
   technical: {
@@ -198,14 +198,14 @@ const demoScenarios = {
       "Commercial judgment": 71,
     },
     evidence: () => [
-      "The accounting flow was correct and sequenced clearly.",
-      "You hesitated when shifting from mechanics to valuation relevance, which made the answer feel memorized instead of internalized.",
-      "Commercial framing improved once the answer connected back to deal work.",
+      "The accounting flow was right.",
+      "The valuation link was slow.",
+      "The deal context helped.",
     ],
     nextReps: ({ group }) => [
-      `Run a ${group} technical drill focused on EV, equity value, and purchase price logic.`,
-      "Do one interruption-heavy repetition with a 45-second answer cap.",
-      "Add one sentence explaining why the concept matters in real transaction work.",
+      `Run one ${group} technical drill.`,
+      "Repeat with a 45-second cap.",
+      "Add one line on deal relevance.",
     ],
   },
   markets: {
@@ -239,14 +239,14 @@ const demoScenarios = {
       "Commercial judgment": 89,
     },
     evidence: ({ bank }) => [
-      `Good instinct on moving from headline summary to interpretation, which matters in a ${bank} interview.`,
-      "The answer still needs a named deal, not just a market pattern.",
-      "Strong closing move when framing one open question instead of pretending full certainty.",
+      `Good instinct for a ${bank} interview.`,
+      "Name one real deal.",
+      "Keep the open question.",
     ],
     nextReps: ({ group }) => [
-      `Prepare two current ${group} talking points with one sentence on why they matter now.`,
-      "Write down one intelligent unresolved question for each deal you plan to discuss.",
-      "Practice a tighter 60-second version that lands on insight before detail.",
+      `Prepare two ${group} talking points.`,
+      "Write one open question per deal.",
+      "Practice a tighter 60-second version.",
     ],
   },
 };
@@ -387,9 +387,9 @@ function updateBrief(profile) {
 
   const confidenceText = confidenceLabel(profile.confidence).toLowerCase();
   const focusItems = [
-    `Anchor the story in ${bankProfile.emphasis}.`,
-    `Prioritize ${groupProfile.focus} because your technical confidence is currently ${confidenceText}.`,
-    `Bring ${groupProfile.recentDeal} and connect it to ${bankProfile.dealHint}.`,
+    `Lead with ${bankProfile.emphasis}.`,
+    `Sharpen ${groupProfile.focus}.`,
+    `Bring ${groupProfile.recentDeal}.`,
   ];
 
   renderList(briefFocus, focusItems);
