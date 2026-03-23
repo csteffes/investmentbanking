@@ -632,6 +632,10 @@ img {
   color: var(--muted);
 }
 
+.trust-band--compact .logo-carousel {
+  mask-image: none;
+}
+
 .logo-carousel {
   overflow: hidden;
   mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
@@ -677,6 +681,11 @@ img {
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
+.trust-band--compact .logo-card {
+  min-width: 176px;
+  height: 72px;
+}
+
 .logo-card-image {
   display: block;
   width: auto;
@@ -697,11 +706,12 @@ img {
 .school-logo--ut .logo-card-image { max-width: 178px; max-height: 34px; }
 
 .bank-logo--jpmorgan .logo-card-image { max-width: 158px; max-height: 28px; }
-.bank-logo--jefferies .logo-card-image { max-width: 152px; max-height: 30px; }
-.bank-logo--goldman .logo-card-image { max-width: 176px; max-height: 26px; }
-.bank-logo--barclays .logo-card-image { max-width: 144px; max-height: 30px; }
-.bank-logo--william-blair .logo-card-image { max-width: 184px; max-height: 24px; }
-.bank-logo--lazard .logo-card-image { max-width: 140px; max-height: 30px; }
+.bank-logo--jpmorgan .logo-card-image { max-width: 172px; max-height: 34px; }
+.bank-logo--jefferies .logo-card-image { max-width: 168px; max-height: 34px; }
+.bank-logo--goldman .logo-card-image { max-width: 178px; max-height: 34px; }
+.bank-logo--barclays .logo-card-image { max-width: 160px; max-height: 34px; }
+.bank-logo--william-blair .logo-card-image { max-width: 176px; max-height: 34px; }
+.bank-logo--lazard .logo-card-image { max-width: 156px; max-height: 34px; }
 
 .resource-grid,
 .assessment-grid {
