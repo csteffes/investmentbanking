@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 
 import { ArticleCTA } from "@/components/article-cta";
@@ -29,7 +28,7 @@ function slugifyHeading(value: string) {
     .replace(/\s+/g, "-");
 }
 
-export const mdxComponents: MDXComponents = {
+export const mdxComponents = {
   h2: ({ children, ...props }) => (
     <h2 className="prose-h2" id={slugifyHeading(flattenText(children))} {...props}>
       {children}
