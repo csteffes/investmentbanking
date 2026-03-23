@@ -1,27 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
-  <title>Superday AI</title>
-  <defs>
-    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#0b1f3a" />
-      <stop offset="100%" stop-color="#14305b" />
-    </linearGradient>
-    <linearGradient id="line" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#c9a227" />
-      <stop offset="100%" stop-color="#2f6bff" />
-    </linearGradient>
-  </defs>
-  <rect width="256" height="256" rx="56" fill="url(#bg)" />
-  <rect x="42" y="54" width="172" height="6" rx="3" fill="url(#line)" />
-  <rect x="42" y="196" width="104" height="6" rx="3" fill="url(#line)" opacity="0.8" />
-  <text
-    x="42"
-    y="154"
-    fill="#f8fafc"
-    font-family="Space Grotesk, Arial, sans-serif"
-    font-size="92"
-    font-weight="700"
-    letter-spacing="-4"
-  >
-    SA
-  </text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Superday AI icon">
+  <rect x="3" y="30" width="7.5" height="14" rx="3" fill="#2f6bff"/>
+  <rect x="14" y="24" width="7.5" height="20" rx="3" fill="#2f6bff"/>
+  <rect x="25" y="17" width="7.5" height="27" rx="3" fill="#2f6bff"/>
+  <rect x="36" y="9" width="7.5" height="35" rx="3" fill="#c9a227"/>
+  <circle cx="39.75" cy="5.5" r="3.5" fill="#c9a227"/>
 </svg>

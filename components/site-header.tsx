@@ -6,11 +6,7 @@ export function SiteHeader() {
   return (
     <header className="site-header">
       <Link className="brand" href="/">
-        <span className="brand-mark">SA</span>
-        <span className="brand-copy">
-          <strong>Superday AI</strong>
-          <span>Investment Banking Interview Prep</span>
-        </span>
+        <img alt="Superday AI" className="brand-logo" decoding="async" src="/logo.svg" />
       </Link>
 
       <nav className="site-nav" aria-label="Primary">

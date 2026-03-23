@@ -112,6 +112,12 @@ button {
   gap: 12px;
 }
 
+.brand-logo {
+  display: block;
+  width: auto;
+  height: 34px;
+}
+
 .brand-mark {
   display: grid;
   place-items: center;
@@ -1375,6 +1381,10 @@ button {
     width: 100%;
     justify-content: space-between;
     gap: 12px;
+  }
+
+  .brand-logo {
+    height: 30px;
   }
 
   .nav-cta {
