@@ -1,0 +1,64 @@
+import type Stripe from "stripe";
+
+import { getAdminSupabase } from "@/lib/supabase";
+
+function getSubscriptionItem(subscription: Stripe.Subscription) {
+  return subscription.items.data[0];
+}
+
+export async function upsertSubscriptionFromCheckout(session: Stripe.Checkout.Session) {
+  const supabase = getAdminSupabase();
+
+  if (!supabase) {
+    return;
+  }
+
+  await supabase.from("subscriptions").upsert(
+    {
+      user_id: session.metadata?.userId || null,
+      stripe_customer_id: typeof session.customer === "string" ? session.customer : null,
+      stripe_subscription_id: typeof session.subscription === "string" ? session.subscription : null,
+      status: "active",
+      price_id: session.metadata?.priceId || null
+    },
+    { onConflict: "stripe_customer_id" }
+  );
+}
+
+export async function upsertSubscriptionFromStripe(subscription: Stripe.Subscription) {
+  const supabase = getAdminSupabase();
+
+  if (!supabase) {
+    return;
+  }
+
+  const item = getSubscriptionItem(subscription);
+
+  await supabase.from("subscriptions").upsert(
+    {
+      stripe_customer_id: String(subscription.customer),
+      stripe_subscription_id: subscription.id,
+      status: subscription.status,
+      price_id: item?.price?.id || null,
+      current_period_end: new Date(subscription.current_period_end * 1000).toISOString()
+    },
+    { onConflict: "stripe_customer_id" }
+  );
+}
+
+export async function cancelSubscriptionFromStripe(subscription: Stripe.Subscription) {
+  const supabase = getAdminSupabase();
+
+  if (!supabase) {
+    return;
+  }
+
+  await supabase
+    .from("subscriptions")
+    .update({
+      stripe_subscription_id: subscription.id,
+      status: subscription.status,
+      current_period_end: new Date(subscription.current_period_end * 1000).toISOString()
+    })
+    .eq("stripe_customer_id", String(subscription.customer));
+}
