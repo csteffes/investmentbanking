@@ -20,9 +20,6 @@ export default async function HomePage() {
             <Link className="button button-primary button-hero" href="/assessment">
               Try for Free Today
             </Link>
-            <Link className="button button-secondary" href="/guides">
-              Read the prep guides
-            </Link>
           </div>
           <LogoMarquee
             ariaLabel="Our users have landed jobs at leading investment banks"
@@ -235,8 +232,8 @@ export default async function HomePage() {
           </div>
 
           <div className="pricing-footer">
-          <div className="pricing-cta-group">
-            <Link className="button button-pricing" href="/assessment">
+            <div className="pricing-cta-group">
+              <Link className="button button-pricing" href="/assessment">
                 Try for Free Today <span aria-hidden="true">→</span>
               </Link>
               <p className="pricing-footnote">Cancel anytime</p>
