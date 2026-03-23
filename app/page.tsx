@@ -200,21 +200,22 @@ export default async function HomePage() {
       <section className="section pricing-section" id="pricing">
         <div className="section-head">
           <p className="section-kicker">Pricing</p>
-          <h2>One plan. Full access.</h2>
-          <p>Start with a {site.pricing.trialDays}-day free trial, then continue on the single Pro plan at {site.pricing.label}.</p>
+          <h2>Simple pricing, unlimited practice</h2>
+          <p>One plan with everything you need. Start with a {site.pricing.trialDays}-Day Free Trial, cancel anytime.</p>
         </div>
         <article className="pricing-card">
+          <p className="pricing-trial">{site.pricing.trialDays}-Day Free Trial</p>
           <p className="pricing-label">Superday AI Pro</p>
-          <p className="pricing-trial">{site.pricing.trialDays}-day free trial</p>
           <p className="pricing-value">{site.pricing.label}</p>
-          <p className="pricing-copy">One plan. One workflow. Start free for three days, then keep full access for $50/month.</p>
+          <p className="pricing-meta">Then {site.pricing.label}. Cancel anytime.</p>
+          <p className="pricing-copy">Unlimited access to live mocks, quick drills, transcript-backed reviews, and the full interview prep library.</p>
           <ul className="brief-list">
             <li>Live voice mock sessions</li>
             <li>Technical, behavioral, and superday drills</li>
             <li>Saved scorecards and next-step reps</li>
           </ul>
           <Link className="button button-primary" href="/assessment">
-            Start your 3-day free trial
+            Start 3-Day Free Trial
           </Link>
         </article>
       </section>
