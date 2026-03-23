@@ -18,10 +18,10 @@ export type LogoItem = {
 };
 
 export const navigation = [
-  { href: "/assessment", label: "Assessment" },
-  { href: "/guides", label: "Guides" },
-  { href: "/blog", label: "Blog" },
-  { href: "/#pricing", label: "Pricing" }
+  { href: "/#about", label: "About" },
+  { href: "/assessment", label: "Product" },
+  { href: "/#pricing", label: "Pricing" },
+  { href: "/blog", label: "Blog" }
 ] as const;
 
 export const schoolLogos = [

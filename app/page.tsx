@@ -13,7 +13,6 @@ export default async function HomePage() {
       {/* ── Command Center ────────────────────────────── */}
       <div className="dash-command">
         <div className="dash-command-copy">
-          <p className="section-kicker">AI-native investment banking interview prep</p>
           <h1>Train for your Superday before your Superday runs a train on you.</h1>
           <p className="hero-summary">
             Run live mocks, tighten technical answers, and review transcript-backed scorecards anytime.

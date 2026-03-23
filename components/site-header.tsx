@@ -16,10 +16,6 @@ export function SiteHeader() {
           </Link>
         ))}
       </nav>
-
-      <Link className="button button-primary button-nav" href="/assessment">
-        Try for Free Today
-      </Link>
     </header>
   );
 }

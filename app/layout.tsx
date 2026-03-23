@@ -40,7 +40,9 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
       <body>
         <div className="page-shell">
           <SiteHeader />
-          {children}
+          <div className="page-content">
+            {children}
+          </div>
           <SiteFooter />
         </div>
       </body>
