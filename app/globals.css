@@ -22,7 +22,7 @@
   --radius-lg: 24px;
   --radius-md: 18px;
   --radius-sm: 999px;
-  --max-width: 1220px;
+  --max-width: 1400px;
 }
 
 *,
@@ -664,21 +664,11 @@ img {
   justify-content: center;
   min-width: 164px;
   height: 74px;
-  padding: 0 18px;
-  border-radius: 22px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 246, 251, 0.95));
-  border: 1px solid rgba(11, 31, 58, 0.08);
-  box-shadow:
-    0 20px 44px rgba(11, 31, 58, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  padding: 0 22px;
 }
 
 .trust-band--dark .logo-card {
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow:
-    0 20px 44px rgba(7, 19, 38, 0.24),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  /* no card bubble */
 }
 
 .trust-band--compact .logo-card {
@@ -1334,6 +1324,117 @@ img {
   .logo-track {
     animation-duration: 20s;
   }
+}
+
+/* ─────────────────────────────────────────────────
+   DASHBOARD LAYOUT
+───────────────────────────────────────────────── */
+
+.dashboard {
+  display: grid;
+  gap: 20px;
+}
+
+/* Command center (hero replacement) */
+.dash-command {
+  display: grid;
+  grid-template-columns: 1fr 0.88fr;
+  gap: 28px;
+  align-items: start;
+  padding: 44px 48px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.dash-command-copy {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+.dash-command-copy h1 {
+  margin: 0;
+  color: var(--brand);
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+.dash-command-copy .hero-stats {
+  margin-top: 4px;
+  width: 100%;
+}
+
+.dash-command-panels {
+  display: grid;
+  gap: 14px;
+}
+
+/* Regular dashboard section (card) */
+.dash-section {
+  padding: 36px 40px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+}
+
+.dash-section-header {
+  max-width: 640px;
+  margin-bottom: 26px;
+}
+
+.dash-section-header h2 {
+  margin: 8px 0 10px;
+  color: var(--brand);
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(1.8rem, 2.6vw, 2.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.dash-section-header > p:not(.section-kicker) {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.68;
+}
+
+/* Side-by-side row of sections */
+.dash-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.dash-row--60-40 {
+  grid-template-columns: 1.35fr 1fr;
+}
+
+/* 2-col card grid (for coverage 2×2) */
+.card-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* Pricing section header when inside dash-section */
+.pricing-section-header {
+  max-width: 580px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Footer adjustment for webapp */
+.app-main .site-footer {
+  margin: 0;
+  border-radius: 0;
+  border: none;
+  border-top: 1px solid var(--line);
+  box-shadow: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

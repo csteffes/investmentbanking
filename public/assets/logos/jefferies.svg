@@ -1,16 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 80" role="img" aria-labelledby="title">
-  <title>Jefferies</title>
-  <text
-    x="50%"
-    y="54%"
-    fill="#123761"
-    font-family="Georgia, 'Times New Roman', serif"
-    font-size="42"
-    font-weight="700"
-    letter-spacing="0.02em"
-    text-anchor="middle"
-    dominant-baseline="middle"
-  >
-    Jefferies
-  </text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" role="img" aria-label="Jefferies">
+  <!-- Accent bar -->
+  <rect x="4" y="16" width="5" height="28" rx="2.5" fill="#123761"/>
+  <!-- Wordmark -->
+  <text x="18" y="38" fill="#123761" font-family="Georgia,'Times New Roman',serif" font-size="26" font-weight="700" letter-spacing="0.01em">Jefferies</text>
 </svg>
