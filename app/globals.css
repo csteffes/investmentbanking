@@ -665,7 +665,7 @@ img {
 
 .pricing-section .section-head {
   max-width: 620px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -682,9 +682,12 @@ img {
   overflow: hidden;
   color: #f8fafc;
   background:
-    radial-gradient(circle at top right, rgba(47, 107, 255, 0.18), transparent 28%),
-    linear-gradient(160deg, rgba(7, 19, 38, 0.99), rgba(11, 31, 58, 0.97));
+    radial-gradient(circle at top right, rgba(47, 107, 255, 0.14), transparent 28%),
+    linear-gradient(160deg, rgba(8, 18, 34, 0.995), rgba(11, 31, 58, 0.98));
   border-color: rgba(255, 255, 255, 0.06);
+  box-shadow:
+    0 30px 70px rgba(11, 31, 58, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
 }
 
 .pricing-main {
@@ -723,7 +726,7 @@ img {
   margin: 0;
   padding: 8px 12px;
   color: #f8fafc;
-  background: linear-gradient(135deg, var(--action), var(--action-strong));
+  background: linear-gradient(135deg, #2157d4, #2f6bff);
   border-radius: var(--radius-sm);
   font-size: 0.88rem;
   font-weight: 700;
@@ -799,7 +802,16 @@ img {
 }
 
 .button-pricing {
+  color: var(--brand);
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   min-width: 240px;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.12);
+}
+
+.button-pricing:hover {
+  color: var(--brand);
+  background: #f4f7fb;
 }
 
 .pricing-footnote {
