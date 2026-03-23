@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreetReady | MBA Investment Banking Interview Voice Coach</title>
+    <meta
+      name="description"
+      content="StreetReady is a voice-first investment banking interview coach for MBA students, with live mocks, quick drills, transcript-backed scorecards, and structured feedback."
+    />
+    <meta name="theme-color" content="#102325" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="StreetReady home">
+          <span class="brand-mark">SR</span>
+          <span class="brand-copy">
+            <strong>StreetReady</strong>
+            <span>MBA IB Voice Coach</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#modes">Modes</a>
+          <a href="#demo">Demo</a>
+          <a href="#library">Library</a>
+          <a href="#pricing">Pricing</a>
+        </nav>
+
+        <a class="nav-cta" href="#personalize">Start free practice</a>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Voice-first prep for MBA investment banking recruiting</p>
+            <h1>
+              Practice the hard part
+              <span>out loud</span>
+              before the interview does it for real.
+            </h1>
+            <p class="hero-text">
+              StreetReady is a mobile-first voice coach for MBA students targeting investment
+              banking. Run a live mock on the train, drill one weak area between classes, and walk
+              away with a transcript, evidence-backed scorecard, and a smarter prep sprint.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#personalize">Start your free mock</a>
+              <a class="button button-secondary" href="#demo">See the live demo</a>
+            </div>
+
+            <p class="hero-note">
+              First-party rubrics. The 400-inspired topic coverage. No expensive coach scheduling.
+            </p>
+
+            <dl class="hero-stats" aria-label="Product highlights">
+              <div>
+                <dt>Practice modes</dt>
+                <dd>3</dd>
+              </div>
+              <div>
+                <dt>Interview flow</dt>
+                <dd>5 phases</dd>
+              </div>
+              <div>
+                <dt>Feedback style</dt>
+                <dd>Transcript-backed</dd>
+              </div>
+            </dl>
+          </div>
+
+          <div class="hero-panel">
+            <article class="console-card console-card-live">
+              <div class="card-topline">
+                <span class="status-pill">Live mock</span>
+                <span class="muted-label">Realtime voice session</span>
+              </div>
+
+              <div class="mock-meta">
+                <span id="hero-bank">Evercore</span>
+                <span id="hero-group">M&amp;A</span>
+                <span id="hero-stage">Superday</span>
+              </div>
+
+              <div class="prompt-block">
+                <p class="prompt-label">Current interviewer prompt</p>
+                <h2 id="hero-prompt">
+                  Walk me through your transition into banking and explain why an M&amp;A associate
+                  seat is the right next step for you now.
+                </h2>
+              </div>
+
+              <div class="waveform" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+              <ul class="hero-transcript" id="hero-transcript" aria-label="Session transcript preview">
+                <li>
+                  <div class="speaker-row">
+                    <strong>Coach</strong>
+                    <span>opening</span>
+                  </div>
+                  <p>Start with the why now, not the resume chronology.</p>
+                </li>
+                <li>
+                  <div class="speaker-row">
+                    <strong>You</strong>
+                    <span>candidate</span>
+                  </div>
+                  <p>I built execution muscle pre-MBA, but I want the steeper transaction pace.</p>
+                </li>
+                <li>
+                  <div class="speaker-row">
+                    <strong>Coach</strong>
+                    <span>follow-up</span>
+                  </div>
+                  <p>Good. Tighten the bridge to client work and make the move feel inevitable.</p>
+                </li>
+              </ul>
+            </article>
+
+            <article class="console-card console-card-review">
+              <div class="card-topline">
+                <span class="muted-label">Last session review</span>
+                <span class="score-badge"><span id="hero-readiness">82</span>/100 readiness</span>
+              </div>
+              <h3 id="hero-review-title">Evercore M&amp;A superday</h3>
+              <ul class="review-points" id="hero-review-points">
+                <li>Strong transfer story from corporate strategy to deal execution.</li>
+                <li>Needs crisper merger math under interruption.</li>
+                <li>Bring one live industrials or software deal to the final round.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="logo-band">
+          <div>
+            <p class="band-label">Built for the firms students are actually chasing</p>
+            <div class="logo-marquee">
+              <span>Evercore</span>
+              <span>Goldman Sachs</span>
+              <span>Morgan Stanley</span>
+              <span>J.P. Morgan</span>
+              <span>Lazard</span>
+              <span>Centerview</span>
+              <span>PJT</span>
+              <span>Moelis</span>
+            </div>
+          </div>
+          <div>
+            <p class="band-label">The MBA recruiting calendar this is built around</p>
+            <div class="logo-marquee logo-marquee-schools">
+              <span>Wharton</span>
+              <span>Booth</span>
+              <span>Columbia</span>
+              <span>Kellogg</span>
+              <span>Stern</span>
+              <span>Darden</span>
+              <span>Ross</span>
+              <span>Fuqua</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="modes">
+          <div class="section-heading">
+            <p class="eyebrow">Practice modes</p>
+            <h2>The same simple loop that works for case prep, rebuilt for banking interviews.</h2>
+            <p>
+              One dominant CTA, realistic voice practice, instant feedback, and clear follow-up
+              reps. The difference is the content system underneath it: MBA story work, technical
+              finance, deal talk, and bank-specific judgment.
+            </p>
+          </div>
+
+          <div class="modes-grid">
+            <article class="mode-card">
+              <span class="mode-number">01</span>
+              <h3>Live Mock</h3>
+              <p>
+                Full voice interview with dynamic follow-ups across story, technicals, deals, and
+                pushback.
+              </p>
+              <ul>
+                <li>Associate and VP interviewer personas</li>
+                <li>Bank and group specific prompts</li>
+                <li>Structured post-session scorecard</li>
+              </ul>
+            </article>
+
+            <article class="mode-card mode-card-accent">
+              <span class="mode-number">02</span>
+              <h3>Quick Drill</h3>
+              <p>
+                Five to ten minute reps when you only need one weak area sharpened before the next
+                coffee chat or first round.
+              </p>
+              <ul>
+                <li>Merger math</li>
+                <li>Why this bank</li>
+                <li>Deals and markets</li>
+              </ul>
+            </article>
+
+            <article class="mode-card">
+              <span class="mode-number">03</span>
+              <h3>Post-Mortem Review</h3>
+              <p>
+                Transcript review, model-answer outline, evidence from your actual session, and a
+                next-practice plan.
+              </p>
+              <ul>
+                <li>Quoted transcript evidence</li>
+                <li>Rubric-based deductions</li>
+                <li>Weekly improvement sprint</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section section-tight" id="flow">
+          <div class="section-heading">
+            <p class="eyebrow">Interview flow</p>
+            <h2>StreetReady mirrors the way MBA recruiting actually unfolds.</h2>
+          </div>
+
+          <div class="flow-grid">
+            <article class="flow-card">
+              <span>1</span>
+              <h3>Story / resume</h3>
+              <p>Tell the transition story clearly and make the move into IB feel earned.</p>
+            </article>
+            <article class="flow-card">
+              <span>2</span>
+              <h3>Why IB / why this bank</h3>
+              <p>Connect your background, timing, and bank choice without sounding templated.</p>
+            </article>
+            <article class="flow-card">
+              <span>3</span>
+              <h3>Technical core</h3>
+              <p>Accounting links, valuation, DCF, comps, merger math, and accretion basics.</p>
+            </article>
+            <article class="flow-card">
+              <span>4</span>
+              <h3>Deals and markets</h3>
+              <p>Bring one recent transaction and one market view you can actually defend.</p>
+            </article>
+            <article class="flow-card">
+              <span>5</span>
+              <h3>Closing questions</h3>
+              <p>Finish with judgment, calm follow-ups, and stronger banker-style curiosity.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section personalize-section" id="personalize">
+          <div class="section-heading">
+            <p class="eyebrow">Personalize the coach</p>
+            <h2>Build the brief the agent should use before it ever asks you a question.</h2>
+            <p>
+              This static prototype mirrors the MBA-first onboarding in the product plan. Update the
+              profile and the live mock, scorecard, and prep sprint on the page change with it.
+            </p>
+          </div>
+
+          <div class="builder-grid">
+            <form class="builder-card" id="coach-builder">
+              <div class="form-row">
+                <label for="resume-file">Resume</label>
+                <input id="resume-file" name="resume-file" type="file" />
+                <p class="field-note" id="resume-file-note">No file selected in this prototype.</p>
+              </div>
+
+              <div class="form-row">
+                <label for="program-input">MBA program</label>
+                <input id="program-input" name="program-input" type="text" value="Chicago Booth" />
+              </div>
+
+              <div class="form-row">
+                <label for="background-input">Pre-MBA background</label>
+                <input
+                  id="background-input"
+                  name="background-input"
+                  type="text"
+                  value="Corporate strategy at a Fortune 500 industrial company"
+                />
+              </div>
+
+              <div class="form-split">
+                <div class="form-row">
+                  <label for="bank-select">Target bank</label>
+                  <select id="bank-select" name="bank-select">
+                    <option>Evercore</option>
+                    <option>Goldman Sachs</option>
+                    <option>J.P. Morgan</option>
+                    <option>Morgan Stanley</option>
+                    <option>Lazard</option>
+                    <option>Centerview</option>
+                  </select>
+                </div>
+
+                <div class="form-row">
+                  <label for="group-select">Target group</label>
+                  <select id="group-select" name="group-select">
+                    <option>M&amp;A</option>
+                    <option>Industrials</option>
+                    <option>Healthcare</option>
+                    <option>TMT</option>
+                    <option>FIG</option>
+                    <option>LevFin</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-split">
+                <div class="form-row">
+                  <label for="stage-select">Recruiting stage</label>
+                  <select id="stage-select" name="stage-select">
+                    <option>Networking / coffee chats</option>
+                    <option>First round</option>
+                    <option selected>Superday</option>
+                  </select>
+                </div>
+
+                <div class="form-row">
+                  <label for="date-input">Interview date</label>
+                  <input id="date-input" name="date-input" type="date" value="2026-04-17" />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <label for="confidence-range">
+                  Technical confidence
+                  <output id="confidence-output" for="confidence-range">6/10</output>
+                </label>
+                <input
+                  id="confidence-range"
+                  name="confidence-range"
+                  type="range"
+                  min="1"
+                  max="10"
+                  step="1"
+                  value="6"
+                />
+              </div>
+            </form>
+
+            <article class="brief-card" aria-live="polite">
+              <div class="card-topline">
+                <span class="status-pill status-pill-secondary">AI prep brief</span>
+                <span class="muted-label" id="brief-date">Interview in 26 days</span>
+              </div>
+              <h3 id="brief-title">Evercore M&amp;A superday sprint</h3>
+              <p id="brief-summary">
+                Chicago Booth candidate with a pre-MBA corporate strategy background preparing for
+                Evercore M&amp;A superday interviews.
+              </p>
+
+              <div class="brief-block">
+                <p class="brief-label">Interviewer mode</p>
+                <p id="brief-persona">Fast-paced VP screen with direct follow-up pressure.</p>
+              </div>
+
+              <div class="brief-block">
+                <p class="brief-label">What to prioritize</p>
+                <ul id="brief-focus" class="brief-list">
+                  <li>Lead with the transition story, not the full chronology.</li>
+                  <li>Tighten merger math and accretion / dilution under interruption.</li>
+                  <li>Bring two recent software or industrials deals you can discuss cold.</li>
+                </ul>
+              </div>
+
+              <div class="brief-block">
+                <p class="brief-label">This week's sprint</p>
+                <ul id="brief-sprint" class="brief-list">
+                  <li>Run one live mock and two quick drills focused on technical pressure.</li>
+                  <li>Record one crisp "Why this bank / why this group" answer under 75 seconds.</li>
+                  <li>Refresh one rates or financing market talking point before the next round.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section demo-section" id="demo">
+          <div class="section-heading">
+            <p class="eyebrow">Live demo</p>
+            <h2>Switch the interview track and watch the mock and scorecard change.</h2>
+            <p>
+              In production, the voice layer would run through a realtime model with transcript
+              scoring on the back end. This prototype shows the core interaction model and coaching
+              logic.
+            </p>
+          </div>
+
+          <div class="track-switcher" role="tablist" aria-label="Interview track selector">
+            <button class="track-tab is-active" data-track="story" type="button">Story / Resume</button>
+            <button class="track-tab" data-track="technical" type="button">Technical Core</button>
+            <button class="track-tab" data-track="markets" type="button">Deals &amp; Markets</button>
+          </div>
+
+          <div class="demo-grid">
+            <article class="demo-card transcript-card">
+              <div class="card-topline">
+                <span class="status-pill">Voice transcript</span>
+                <span class="muted-label" id="demo-track-label">Story / Resume</span>
+              </div>
+              <h3 id="demo-title">Walk me through your transition into banking.</h3>
+              <p class="demo-subtitle" id="demo-summary">
+                Personalized to your background, target bank, target group, and interview stage.
+              </p>
+              <ul class="transcript-list" id="transcript-list"></ul>
+            </article>
+
+            <article class="demo-card feedback-card">
+              <div class="card-topline">
+                <span class="status-pill status-pill-secondary">Post-mortem review</span>
+                <span class="score-badge"><span id="demo-readiness">82</span>/100</span>
+              </div>
+
+              <div class="metric-stack" id="metric-stack"></div>
+
+              <div class="feedback-block">
+                <p class="brief-label">Transcript evidence</p>
+                <ul class="feedback-list" id="evidence-list"></ul>
+              </div>
+
+              <div class="feedback-block">
+                <p class="brief-label">Next reps</p>
+                <ul class="feedback-list" id="next-reps-list"></ul>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="library">
+          <div class="section-heading">
+            <p class="eyebrow">Practice library</p>
+            <h2>Not a giant PDF dump. A focused library built around live practice.</h2>
+            <p>
+              Use the same low-friction library pattern that works well in case prep, but swap in
+              banking-specific drills, bank fit prompts, and MBA associate-level interview pressure.
+            </p>
+          </div>
+
+          <div class="filter-row" role="tablist" aria-label="Library filters">
+            <button class="filter-chip is-active" data-filter="all" type="button">All</button>
+            <button class="filter-chip" data-filter="story" type="button">Story</button>
+            <button class="filter-chip" data-filter="technical" type="button">Technical</button>
+            <button class="filter-chip" data-filter="markets" type="button">Markets</button>
+            <button class="filter-chip" data-filter="networking" type="button">Networking</button>
+            <button class="filter-chip" data-filter="hirevue" type="button">HireVue</button>
+          </div>
+
+          <div class="library-grid">
+            <article class="library-card" data-category="story">
+              <span>8 min</span>
+              <h3>Resume walk-through under pressure</h3>
+              <p>Tell the pivot story with a banker's pace instead of a career-center pace.</p>
+            </article>
+            <article class="library-card" data-category="technical">
+              <span>6 min</span>
+              <h3>Depreciation through the three statements</h3>
+              <p>Explain the mechanics clearly, then handle the fast follow-up version.</p>
+            </article>
+            <article class="library-card" data-category="technical">
+              <span>9 min</span>
+              <h3>Accretion / dilution quickfire</h3>
+              <p>Work through purchase price, synergies, financing mix, and EPS logic.</p>
+            </article>
+            <article class="library-card" data-category="markets">
+              <span>7 min</span>
+              <h3>Recent deal discussion</h3>
+              <p>Bring one transaction you can summarize, defend, and connect to market context.</p>
+            </article>
+            <article class="library-card" data-category="networking">
+              <span>5 min</span>
+              <h3>Coffee chat to interview bridge</h3>
+              <p>Sound informed and curious without defaulting to canned "why this bank" language.</p>
+            </article>
+            <article class="library-card" data-category="hirevue">
+              <span>4 min</span>
+              <h3>One-way behavioral answers</h3>
+              <p>Record concise, camera-ready responses with stronger energy and tighter framing.</p>
+            </article>
+            <article class="library-card" data-category="markets">
+              <span>10 min</span>
+              <h3>Rates, markets, and financing conditions</h3>
+              <p>Turn vague macro awareness into crisp banker-ready commentary.</p>
+            </article>
+            <article class="library-card" data-category="story">
+              <span>6 min</span>
+              <h3>Why IB, why now, why this group</h3>
+              <p>Build a believable narrative that connects pre-MBA work, the MBA, and your target seat.</p>
+            </article>
+            <article class="library-card" data-category="networking">
+              <span>5 min</span>
+              <h3>Questions to ask the interviewer</h3>
+              <p>Practice curiosity that feels senior and informed instead of generic or over-rehearsed.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section knowledge-section">
+          <div class="section-heading">
+            <p class="eyebrow">What the agent needs to know</p>
+            <h2>The 400 is part of the map. It cannot be the whole engine.</h2>
+            <p>
+              StreetReady's knowledge layer is designed as original coaching infrastructure. It
+              covers the same important topics students expect, but the product logic lives in
+              structured assets, not copied third-party text.
+            </p>
+          </div>
+
+          <div class="knowledge-grid">
+            <div class="knowledge-columns">
+              <article class="knowledge-card">
+                <h3>Behavioral and fit</h3>
+                <p>Resume walk-throughs, leadership, conflict, failure, why banking, why now, why this bank.</p>
+              </article>
+              <article class="knowledge-card">
+                <h3>Technical finance</h3>
+                <p>Accounting links, valuation, DCF, comps, merger math, capital structure, LBO basics.</p>
+              </article>
+              <article class="knowledge-card">
+                <h3>MBA associate pressure</h3>
+                <p>Leadership judgment, client readiness, mini-case prompts, and sharper commercial instinct.</p>
+              </article>
+              <article class="knowledge-card">
+                <h3>Bank and group specificity</h3>
+                <p>Different expectations for elite boutiques, bulge brackets, M&amp;A, sector teams, and LevFin.</p>
+              </article>
+              <article class="knowledge-card">
+                <h3>Deals and markets</h3>
+                <p>Recent transactions, sector themes, rates context, and banker-style talking points.</p>
+              </article>
+              <article class="knowledge-card">
+                <h3>Process prep</h3>
+                <p>HireVue answers, networking conversations, coffee chats, first rounds, and superday stamina.</p>
+              </article>
+            </div>
+
+            <article class="architecture-card">
+              <div class="card-topline">
+                <span class="status-pill status-pill-secondary">Structured content system</span>
+                <span class="muted-label">First-party coaching assets</span>
+              </div>
+              <ul class="architecture-list">
+                <li><strong>question_template</strong> Reusable question stems by topic, difficulty, and phase.</li>
+                <li><strong>follow_up_tree</strong> Dynamic branches for strong, weak, or incomplete answers.</li>
+                <li><strong>rubric</strong> Scoring logic for accuracy, structure, poise, and judgment.</li>
+                <li><strong>model_answer_outline</strong> Coachable answer shapes without forcing scripts.</li>
+                <li><strong>bank_profile</strong> Bank-specific positioning and culture cues.</li>
+                <li><strong>group_profile</strong> Sector and product group nuances.</li>
+                <li><strong>recent_deal_brief</strong> Refreshable talking points for live transactions and sector themes.</li>
+                <li><strong>market_topic</strong> Financing, rates, and market-color context.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="section proof-section">
+          <div class="section-heading">
+            <p class="eyebrow">Why students would pay</p>
+            <h2>On-demand realism beats waiting for the perfect coach slot.</h2>
+          </div>
+
+          <div class="proof-grid">
+            <article class="testimonial-card">
+              <p>
+                "I didn't need another static guide. I needed someone to interrupt me when my story
+                got sloppy and show me exactly where I lost the plot."
+              </p>
+              <span>Second-year MBA, targeting elite boutiques</span>
+            </article>
+            <article class="testimonial-card">
+              <p>
+                "The transcript evidence is the unlock. It tells you what actually happened in the
+                answer instead of giving generic confidence advice."
+              </p>
+              <span>Career switcher, pre-MBA operations background</span>
+            </article>
+            <article class="testimonial-card">
+              <p>
+                "I could run a live mock at 11 p.m. and still get a useful prep plan for the next
+                day's coffee chat. That's the whole point."
+              </p>
+              <span>Summer associate candidate</span>
+            </article>
+          </div>
+        </section>
+
+        <section class="section pricing-section" id="pricing">
+          <div class="pricing-copy">
+            <p class="eyebrow">Simple pricing</p>
+            <h2>Start with one plan and one habit: practice more often.</h2>
+            <p>
+              Keep the launch model B2C and simple. Campus partnerships and admin seats can come
+              later after the student workflow is clearly working.
+            </p>
+          </div>
+
+          <div class="pricing-grid">
+            <article class="pricing-card pricing-card-featured">
+              <p class="pricing-label">StreetReady Pro</p>
+              <h3>$29<span>/month</span></h3>
+              <p class="pricing-subtitle">7-day free trial. Cancel anytime.</p>
+              <ul class="pricing-list">
+                <li>Unlimited live mocks</li>
+                <li>Unlimited quick drills</li>
+                <li>Transcript-backed scorecards</li>
+                <li>Weekly prep sprint planner</li>
+                <li>Bank and group personalization</li>
+              </ul>
+              <a class="button button-primary button-full" href="#personalize">Start free practice</a>
+            </article>
+
+            <article class="pricing-card">
+              <p class="pricing-label">Coming next</p>
+              <h3>Campus teams</h3>
+              <p class="pricing-subtitle">Club dashboards and career-center reporting after the core B2C loop is proven.</p>
+              <ul class="pricing-list">
+                <li>Seat management</li>
+                <li>Practice analytics</li>
+                <li>School-branded collections</li>
+                <li>Coach calibration tools</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div>
+          <p>StreetReady concept prototype for MBA investment banking interview prep.</p>
+          <p>
+            Built as a lightweight static front end that demonstrates the product direction, content
+            model, and interaction loop.
+          </p>
+        </div>
+        <p><span id="year"></span> - Realtime voice and backend scoring would be wired in production.</p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
