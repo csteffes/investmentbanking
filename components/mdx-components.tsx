@@ -1,10 +1,9 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import Link from "next/link";
 
+import { slugifyHeading } from "@/lib/utils";
 import { ArticleCTA } from "@/components/article-cta";
 
-// Renders JSON-LD structured data directly in the document body.
-// Usage in MDX: <JsonLd schema={{ "@context": "https://schema.org", ... }} />
 function JsonLd({ schema }: { schema: Record<string, unknown> }) {
   return (
     <script
@@ -31,14 +30,6 @@ function flattenText(node: ReactNode): string {
   return "";
 }
 
-function slugifyHeading(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-");
-}
-
 export const mdxComponents = {
   h2: ({ children, ...props }: ComponentPropsWithoutRef<"h2">) => (
     <h2 className="prose-h2" id={slugifyHeading(flattenText(children))} {...props}>
@@ -59,13 +50,11 @@ export const mdxComponents = {
   strong: (props: ComponentPropsWithoutRef<"strong">) => <strong className="prose-strong" {...props} />,
   a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
     const external = href.startsWith("http");
-
     if (external) {
       return <a className="prose-link" href={href} rel="noreferrer" target="_blank" {...props} />;
     }
-
     return <Link className="prose-link" href={href} {...props} />;
   },
   ArticleCTA,
-  JsonLd
+  JsonLd,
 };

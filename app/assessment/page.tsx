@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
+
 import { AssessmentStudio } from "@/components/assessment-studio";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Assessment",
   description:
-    "Preview the Superday AI interview assessment with bank-aware prompts, transcript-backed feedback, and readiness scoring."
+    "Practice investment banking interviews with an AI voice coach. Run live mocks, get transcript-backed feedback, and see your readiness score.",
 };
 
 export default function AssessmentPage() {

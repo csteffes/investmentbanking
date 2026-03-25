@@ -3,6 +3,10 @@ import path from "node:path";
 
 import matter from "gray-matter";
 
+import { formatDate, slugifyHeading } from "@/lib/utils";
+
+export { formatDate };
+
 export type ContentKind = "blog" | "guides";
 
 export type Heading = {
@@ -29,23 +33,15 @@ export type ContentEntry = ContentMeta & {
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
 
-function slugifyHeading(input: string) {
-  return input
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-");
-}
-
 function extractHeadings(source: string): Heading[] {
   return source
     .split("\n")
     .map((line) => line.match(/^(##|###)\s+(.+)$/))
     .filter((match): match is RegExpMatchArray => Boolean(match))
     .map((match) => ({
-      depth: match[1] === "###" ? 3 : 2,
+      depth: match[1] === "###" ? 3 : (2 as 2 | 3),
       title: match[2].trim(),
-      id: slugifyHeading(match[2])
+      id: slugifyHeading(match[2]),
     }));
 }
 
@@ -58,7 +54,7 @@ function mapMeta(kind: ContentKind, slug: string, raw: Record<string, unknown>):
     date: String(raw.date),
     readingTime: String(raw.readingTime),
     keywords: Array.isArray(raw.keywords) ? raw.keywords.map(String) : [],
-    featured: Boolean(raw.featured)
+    featured: Boolean(raw.featured),
   };
 }
 
@@ -98,7 +94,7 @@ export async function getEntry(kind: ContentKind, slug: string): Promise<Content
     return {
       ...meta,
       source: content,
-      headings: extractHeadings(content)
+      headings: extractHeadings(content),
     };
   } catch {
     return null;
@@ -113,12 +109,4 @@ export async function getAllSlugs(kind: ContentKind) {
 export async function getLatestEntries(kind: ContentKind, limit = 3) {
   const items = await getCollection(kind);
   return items.slice(0, limit);
-}
-
-export function formatDate(input: string) {
-  return new Date(input).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric"
-  });
 }

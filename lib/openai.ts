@@ -40,7 +40,14 @@ function buildRealtimeInstructions(profile: ProfilePayload) {
   return parts.join(" ");
 }
 
-function extractOutputText(payload: any) {
+type OpenAIResponsesPayload = {
+  output_text?: string;
+  output?: Array<{
+    content?: Array<{ type: string; text?: string }>;
+  }>;
+};
+
+function extractOutputText(payload: OpenAIResponsesPayload) {
   if (typeof payload?.output_text === "string" && payload.output_text.length > 0) {
     return payload.output_text;
   }
@@ -50,9 +57,9 @@ function extractOutputText(payload: any) {
   }
 
   return payload.output
-    .flatMap((item: any) => item.content || [])
-    .filter((item: any) => item.type === "output_text")
-    .map((item: any) => item.text || "")
+    .flatMap((item) => item.content ?? [])
+    .filter((item) => item.type === "output_text")
+    .map((item) => item.text ?? "")
     .join("");
 }
 
