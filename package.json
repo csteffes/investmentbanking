@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "checkpoint": "git status -sb && git log -1 --oneline --decorate"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",

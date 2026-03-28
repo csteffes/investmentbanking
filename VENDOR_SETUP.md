@@ -15,7 +15,7 @@
 4. `Supabase`
    Needed for auth, Postgres, and storage.
    Add `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` in Vercel.
-   Run [schema.sql](/Users/cartersteffes/Documents/New%20project/supabase/schema.sql).
+   Run [schema.sql](./supabase/schema.sql).
 
 5. `Stripe`
    Needed for the `$50/month` plan, checkout, webhooks, and billing portal.
@@ -65,8 +65,8 @@ Codex does not replace the vendor dashboards. You still create the accounts and 
 
 1. Create accounts for `Vercel`, `OpenAI`, `Supabase`, and `Stripe`.
 2. Import the repo into `Vercel`.
-3. Add all env vars from [.env.example](/Users/cartersteffes/Documents/New%20project/.env.example).
-4. Run [schema.sql](/Users/cartersteffes/Documents/New%20project/supabase/schema.sql) in `Supabase`.
+3. Add all env vars from [.env.example](./.env.example).
+4. Run [schema.sql](./supabase/schema.sql) in `Supabase`.
 5. Create the `$50/month` product in `Stripe` and save the price ID in Vercel.
 6. Configure the Stripe webhook to hit `/api/stripe/webhook`.
 7. Test the voice session, checkout flow, and Supabase writes.

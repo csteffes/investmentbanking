@@ -9,7 +9,8 @@ Superday AI is a Vercel-ready `Next.js` web app for investment banking interview
 
 ## Launch Setup
 
-Use [VENDOR_SETUP.md](/Users/cartersteffes/Documents/New%20project/VENDOR_SETUP.md) for the simple launch checklist.
+Use [VENDOR_SETUP.md](./VENDOR_SETUP.md) for the simple launch checklist.
+Use [MULTI_APP_WORKFLOW.md](./MULTI_APP_WORKFLOW.md) for the handoff workflow between Codex and Claude Code.
 
 Required accounts:
 
@@ -65,11 +66,22 @@ The app is designed for `Vercel`, not GitHub Pages, because server routes are re
 
 1. Create the required vendor accounts in `VENDOR_SETUP.md`.
 2. Add all env vars from `.env.example` in Vercel.
-3. Apply [schema.sql](/Users/cartersteffes/Documents/New%20project/supabase/schema.sql) in Supabase.
+3. Apply [schema.sql](./supabase/schema.sql) in Supabase.
 4. Create the `$50/month` Stripe price and copy the price ID into Vercel.
 5. Set the Stripe webhook to `/api/stripe/webhook`.
 6. Verify `/api/realtime/session`, `/api/session/review`, `/api/stripe/checkout`, and `/api/portal`.
 7. Point `www.superdayready.com` to Vercel.
+
+## Working Between Apps
+
+If you switch between Codex and Claude Code:
+
+1. Run `npm run checkpoint` before switching.
+2. If the work is ready, `git add`, `git commit`, and `git push`.
+3. If the work is still local-only, open the same folder in the other app:
+   `/Users/cartersteffes/Documents/Superday AI`
+4. When you come back, run `git status -sb`.
+5. If the other app pushed changes, run `git pull origin main`.
 
 ## Content
 
