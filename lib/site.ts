@@ -40,8 +40,8 @@ export const bankLogos = [
   { src: "/assets/logos/jp-morgan-brown.svg", alt: "J.P. Morgan logo", className: "bank-logo--jpmorgan" },
   { src: "/assets/logos/evercore.png", alt: "Evercore logo", className: "bank-logo--evercore" },
   { src: "/assets/logos/goldman-sachs.svg", alt: "Goldman Sachs logo", className: "bank-logo--goldman" },
-  { src: "/assets/logos/barclays-new.png", alt: "Barclays logo", className: "bank-logo--barclays" },
-  { src: "/assets/logos/jefferies-new.png", alt: "Jefferies logo", className: "bank-logo--jefferies" },
+  { src: "/assets/logos/barclays.svg", alt: "Barclays logo", className: "bank-logo--barclays" },
+  { src: "/assets/logos/jefferies.svg", alt: "Jefferies logo", className: "bank-logo--jefferies" },
   { src: "/assets/logos/lazard-new.svg", alt: "Lazard logo", className: "bank-logo--lazard" }
 ] satisfies readonly LogoItem[];
 

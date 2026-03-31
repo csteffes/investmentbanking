@@ -119,17 +119,17 @@ export default async function HomePage() {
       {/* ── Bank trust band ──────────────────────────────── */}
       <LogoMarquee
         ariaLabel="Our users have landed jobs at leading investment banks"
-        label="Our Users Have Landed Jobs at:"
+        label="Our users have landed jobs at:"
         logos={bankLogos}
-        variant="dark"
+        variant="light"
       />
 
       {/* ── School trust band ────────────────────────────── */}
       <LogoMarquee
         ariaLabel="Trusted by students from top schools"
-        label="Trusted by Students From:"
+        label="Trusted by students from:"
         logos={schoolLogos}
-        variant="dark"
+        variant="light"
       />
 
       {/* ── Resources ────────────────────────────────────── */}

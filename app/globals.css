@@ -103,6 +103,49 @@ textarea {
 }
 
 /* ── Logo carousel ─────────────────────────────────────────── */
+.logo-marquee-shell {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.logo-marquee-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
+  border-radius: 999px;
+  padding: 0.85rem 1.25rem;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.logo-marquee-pill--light {
+  background: #FFFFFF;
+  border: 1px solid rgba(11, 31, 58, 0.08);
+  color: #5B6574;
+}
+
+.logo-marquee-pill--dark {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #A0A0A0;
+}
+
+.logo-marquee-window {
+  position: relative;
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+}
+
 .logo-track {
   display: flex;
   width: max-content;
@@ -116,8 +159,8 @@ textarea {
 .logo-set {
   display: flex;
   align-items: center;
-  gap: 48px;
-  padding: 0 24px;
+  gap: clamp(2.75rem, 4vw, 5rem);
+  padding: 0 1.25rem;
 }
 
 .logo-card {
@@ -125,39 +168,53 @@ textarea {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  padding: 0.25rem 0;
 }
 
 .logo-card-image {
   object-fit: contain;
-  max-height: 36px;
+  max-height: 44px;
   width: auto;
-  opacity: 0.75;
   transition: opacity var(--ease-out-fast);
+}
+
+.logo-marquee--light .logo-card-image {
+  opacity: 1;
+  filter: none;
+}
+
+.logo-marquee--dark .logo-card-image {
+  opacity: 0.78;
   filter: brightness(0) invert(1);
 }
 
-.logo-card-image:hover {
-  opacity: 1;
+.logo-marquee--dark .bank-logo--jpmorgan .logo-card-image,
+.logo-marquee--dark .bank-logo--goldman .logo-card-image,
+.logo-marquee--dark .school-logo--harvard .logo-card-image,
+.logo-marquee--dark .school-logo--princeton .logo-card-image,
+.logo-marquee--dark .school-logo--ut .logo-card-image {
+  opacity: 0.88;
+  filter: none;
 }
 
-/* Bank logos — don't invert colored SVGs */
-.bank-logo--jpmorgan  .logo-card-image { max-width: 156px; max-height: 34px; filter: none; opacity: 0.85; }
-.bank-logo--evercore  .logo-card-image { max-width: 196px; max-height: 32px; filter: brightness(0) invert(1); opacity: 0.75; }
-.bank-logo--goldman   .logo-card-image { max-width: 196px; max-height: 33px; filter: none; opacity: 0.85; }
-.bank-logo--barclays  .logo-card-image { max-width: 60px;  max-height: 40px; filter: brightness(0) invert(1); opacity: 0.75; }
-.bank-logo--jefferies .logo-card-image { max-width: 80px;  max-height: 44px; filter: brightness(0) invert(1); opacity: 0.75; }
-.bank-logo--lazard    .logo-card-image { max-width: 176px; max-height: 33px; filter: brightness(0) invert(1); opacity: 0.75; }
+/* Bank logos */
+.bank-logo--jpmorgan  .logo-card-image { max-width: 172px; max-height: 30px; }
+.bank-logo--evercore  .logo-card-image { max-width: 182px; max-height: 30px; }
+.bank-logo--goldman   .logo-card-image { max-width: 188px; max-height: 36px; }
+.bank-logo--barclays  .logo-card-image { max-width: 124px; max-height: 46px; }
+.bank-logo--jefferies .logo-card-image { max-width: 156px; max-height: 38px; }
+.bank-logo--lazard    .logo-card-image { max-width: 166px; max-height: 30px; }
 
 /* School logos */
-.school-logo--harvard      .logo-card-image { max-width: 170px; max-height: 38px; filter: none; opacity: 0.85; }
-.school-logo--columbia     .logo-card-image { max-width: 206px; max-height: 34px; filter: brightness(0) invert(1); opacity: 0.7; }
-.school-logo--dartmouth    .logo-card-image { max-width: 210px; max-height: 30px; filter: brightness(0) invert(1); opacity: 0.7; }
-.school-logo--princeton    .logo-card-image { max-width: 178px; max-height: 34px; filter: none; opacity: 0.85; }
-.school-logo--booth        .logo-card-image { max-width: 178px; max-height: 38px; filter: brightness(0) invert(1); opacity: 0.7; }
-.school-logo--northwestern .logo-card-image { max-width: 196px; max-height: 30px; filter: brightness(0) invert(1); opacity: 0.7; }
-.school-logo--penn         .logo-card-image { max-width: 150px; max-height: 42px; filter: brightness(0) invert(1); opacity: 0.7; }
-.school-logo--usc          .logo-card-image { max-width: 204px; max-height: 32px; filter: brightness(0) invert(1); opacity: 0.7; }
-.school-logo--ut           .logo-card-image { max-width: 178px; max-height: 34px; filter: none; opacity: 0.85; }
+.school-logo--harvard      .logo-card-image { max-width: 182px; max-height: 38px; }
+.school-logo--columbia     .logo-card-image { max-width: 208px; max-height: 34px; }
+.school-logo--dartmouth    .logo-card-image { max-width: 214px; max-height: 30px; }
+.school-logo--princeton    .logo-card-image { max-width: 180px; max-height: 34px; }
+.school-logo--booth        .logo-card-image { max-width: 190px; max-height: 38px; }
+.school-logo--northwestern .logo-card-image { max-width: 202px; max-height: 30px; }
+.school-logo--penn         .logo-card-image { max-width: 152px; max-height: 42px; }
+.school-logo--usc          .logo-card-image { max-width: 208px; max-height: 32px; }
+.school-logo--ut           .logo-card-image { max-width: 182px; max-height: 34px; }
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -313,7 +370,33 @@ textarea {
 
 /* ── Responsive utilities ──────────────────────────────────── */
 @media (max-width: 768px) {
+  .logo-marquee-shell {
+    gap: 1rem;
+  }
+
+  .logo-marquee-pill {
+    font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+  }
+
   .logo-set {
     gap: 32px;
+    padding: 0 1rem;
+  }
+
+  .logo-card-image {
+    max-height: 34px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logo-marquee-shell {
+    flex-direction: row;
+    align-items: center;
+    gap: 2.25rem;
+  }
+
+  .logo-marquee-pill {
+    align-self: center;
   }
 }
