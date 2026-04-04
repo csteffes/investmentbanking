@@ -316,8 +316,8 @@ export default async function HomePage() {
 
       <section id="pricing" className="marketing-section marketing-section--surface">
         <div className="marketing-shell">
-          <div className="marketing-focal">
-            <div className="marketing-intro mb-12">
+          <div className="pricing-block">
+            <div className="marketing-intro pricing-intro">
               <p className="marketing-eyebrow">Pricing</p>
               <h2 className="max-w-[12ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:text-[2.8rem]">
                 Simple pricing, unlimited practice.
@@ -328,56 +328,54 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <article className="marketing-card overflow-hidden text-center">
-              <div className="mb-8 space-y-4">
-                <div className="inline-flex items-center rounded-full bg-[rgba(201,162,39,0.12)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9A7620]">
+            <article className="pricing-panel">
+              <div className="pricing-panel__summary">
+                <div className="pricing-panel__badge">
                   {site.pricing.trialDays}-Day Free Trial
                 </div>
-                <p className="text-sm font-medium text-[#6B7280]">
-                  Superday AI Pro
-                </p>
-                <div className="flex items-baseline justify-center gap-1">
-                  <span className="text-lg text-[#9CA3AF]">$</span>
-                  <span className="text-6xl font-semibold tracking-[-0.05em] text-[#111827]">
+                <p className="pricing-panel__plan">Superday AI Pro</p>
+                <div className="pricing-panel__price-lockup">
+                  <span className="pricing-panel__currency">$</span>
+                  <span className="pricing-panel__price">
                     {site.pricing.monthly}
                   </span>
-                  <span className="ml-1 text-sm text-[#9CA3AF]">/month</span>
+                  <span className="pricing-panel__interval">/month</span>
                 </div>
-                <p className="marketing-muted mx-auto max-w-[27rem] text-sm">
+                <p className="pricing-panel__copy">
                   For ambitious candidates who want more reps, sharper coach
                   notes, and a real edge going into first rounds and superdays.
                 </p>
-              </div>
-
-              <div className="rounded-[1.5rem] border border-[#E5E7EB] bg-[#F9FAFB] p-6 sm:p-8">
-                <ul className="mb-8 space-y-3.5 text-left">
-                  {pricingFeatures.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-3 text-sm text-[#6B7280]"
-                    >
-                      <span className="mt-0.5 flex-shrink-0 text-[#C9A227]">
-                        ✓
-                      </span>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
 
                 <Link
-                  href="/mock-interview"
-                  className="marketing-primary-cta w-full text-base"
+                  href="/mock-interview#account"
+                  className="pricing-panel__cta"
                 >
-                  Start mock interview
+                  Start {site.pricing.trialDays}-day free trial
                   <span aria-hidden="true" className="text-lg">
                     →
                   </span>
                 </Link>
 
-                <p className="mt-4 text-center text-xs text-[#9CA3AF]">
+                <p className="pricing-panel__fineprint">
                   Cancel anytime · {site.pricing.label} after your{" "}
                   {site.pricing.trialDays}-day trial
                 </p>
+              </div>
+
+              <div className="pricing-panel__details">
+                <ul className="pricing-panel__features">
+                  {pricingFeatures.map((item) => (
+                    <li
+                      key={item}
+                      className="pricing-panel__feature"
+                    >
+                      <span className="pricing-panel__feature-mark" aria-hidden="true">
+                        ✓
+                      </span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </article>
           </div>
