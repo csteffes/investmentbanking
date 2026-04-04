@@ -268,18 +268,14 @@ export default async function HomePage() {
 
       <section className="marketing-section marketing-section--trim-top">
         <div className="marketing-shell">
-          <div className="marketing-intro mb-12 sm:mb-14">
+          <div className="marketing-intro mb-16 sm:mb-20">
             <p className="marketing-eyebrow">Resources</p>
             <h2 className="max-w-[13ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:text-[2.8rem]">
               Prep content that actually helps.
             </h2>
-            <p className="marketing-muted max-w-[34rem]">
-              Use the guide hub for pillar topics and the blog for focused
-              breakdowns, then move straight into the next mock interview rep.
-            </p>
           </div>
 
-          <div className="marketing-split marketing-split--two">
+          <div className="resources-grid">
             {[
               {
                 kind: "guides" as const,
@@ -294,43 +290,37 @@ export default async function HomePage() {
                 items: latestPosts,
               },
             ].map(({ kind, label, href, items }) => (
-              <article
-                key={kind}
-                className="marketing-card marketing-card--soft marketing-card--centered flex h-full flex-col gap-6"
-              >
-                <div className="flex w-full flex-col items-center gap-4">
-                  <div>
-                    <p className="marketing-eyebrow mb-2">Library</p>
-                    <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[#111827]">
-                      {label}
-                    </h3>
-                  </div>
-                  <Link
-                    href={href}
-                    className="rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-sm font-medium text-[#6B7280] transition-colors duration-150 hover:border-[#D1D5DB] hover:text-[#111827]"
-                  >
-                    See all
-                  </Link>
+              <article key={kind} className="resources-column">
+                <div className="resources-column__header">
+                  <p className="marketing-eyebrow mb-3">Library</p>
+                  <h3 className="resources-column__title">{label}</h3>
                 </div>
 
-                <div className="w-full space-y-4 text-left">
+                <div className="resources-list">
                   {items.map((item) => (
                     <Link
                       key={item.slug}
                       href={`/${kind}/${item.slug}`}
-                      className="block rounded-[1.25rem] border border-[#E5E7EB] bg-white p-5 transition-all duration-150 hover:-translate-y-0.5 hover:border-[#D1D5DB] hover:shadow-[0_16px_36px_rgba(17,24,39,0.08)]"
+                      className="resources-entry"
                     >
-                      <p className="mb-2 text-[10px] uppercase tracking-[0.12em] text-[#9CA3AF]">
+                      <p className="resources-entry__meta">
                         {formatDate(item.date)} · {item.readingTime}
                       </p>
-                      <h4 className="mb-2 text-base font-semibold leading-snug text-[#111827]">
+                      <h4 className="resources-entry__title">
                         {item.title}
                       </h4>
-                      <p className="text-sm leading-relaxed text-[#9CA3AF] line-clamp-3">
+                      <p className="resources-entry__description line-clamp-2">
                         {item.description}
                       </p>
                     </Link>
                   ))}
+                </div>
+
+                <div className="resources-column__footer">
+                  <Link href={href} className="resources-column__cta">
+                    {kind === "guides" ? "See all guides" : "See all blog posts"}
+                    <span aria-hidden="true">→</span>
+                  </Link>
                 </div>
               </article>
             ))}
