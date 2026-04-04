@@ -64,6 +64,25 @@ create table if not exists public.scorecards (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.trial_usage_counters (
+  trial_id text primary key,
+  realtime_count integer not null default 0,
+  debrief_count integer not null default 0,
+  first_seen_at timestamptz not null default now(),
+  last_seen_at timestamptz not null default now(),
+  last_ip text
+);
+
+create table if not exists public.anonymous_source_limits (
+  source_key text not null,
+  bucket_date date not null,
+  realtime_count integer not null default 0,
+  debrief_count integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (source_key, bucket_date)
+);
+
 insert into storage.buckets (id, name, public)
 values ('resumes', 'resumes', false)
 on conflict (id) do nothing;
@@ -73,6 +92,8 @@ alter table public.subscriptions enable row level security;
 alter table public.mock_sessions enable row level security;
 alter table public.transcript_segments enable row level security;
 alter table public.scorecards enable row level security;
+alter table public.trial_usage_counters enable row level security;
+alter table public.anonymous_source_limits enable row level security;
 
 alter table public.mock_sessions
 add column if not exists trial_id text;
@@ -80,6 +101,8 @@ add column if not exists trial_id text;
 create index if not exists mock_sessions_user_id_idx on public.mock_sessions (user_id);
 create index if not exists mock_sessions_trial_id_idx on public.mock_sessions (trial_id);
 create index if not exists transcript_segments_session_id_idx on public.transcript_segments (session_id);
+create index if not exists trial_usage_counters_last_seen_at_idx on public.trial_usage_counters (last_seen_at);
+create index if not exists anonymous_source_limits_bucket_date_idx on public.anonymous_source_limits (bucket_date);
 
 drop policy if exists "candidate_profiles_select_own" on public.candidate_profiles;
 create policy "candidate_profiles_select_own"
@@ -271,3 +294,21 @@ drop policy if exists "resumes_delete_own" on storage.objects;
 create policy "resumes_delete_own"
 on storage.objects for delete
 using (bucket_id = 'resumes' and owner = auth.uid());
+
+create or replace function public.cleanup_anonymous_trial_data(retention_days integer default 30)
+returns void
+language plpgsql
+security definer
+as $$
+begin
+  delete from public.mock_sessions
+  where user_id is null
+    and created_at < now() - make_interval(days => retention_days);
+
+  delete from public.trial_usage_counters
+  where last_seen_at < now() - make_interval(days => retention_days);
+
+  delete from public.anonymous_source_limits
+  where bucket_date < (current_date - retention_days);
+end;
+$$;

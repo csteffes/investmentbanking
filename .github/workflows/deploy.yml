@@ -28,11 +28,16 @@ jobs:
       - name: Lint and type-check
         run: npm run check
 
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+
       - name: Build
         run: npm run build
         env:
+          APP_SESSION_SECRET: ${{ secrets.APP_SESSION_SECRET }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           # Server-only vars — required at build time for API routes
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}

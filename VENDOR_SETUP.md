@@ -53,6 +53,13 @@ Optional:
 
 - `TRIAL_SESSION_LIMIT`
 - `TRIAL_DEBRIEF_LIMIT`
+- `TRIAL_SOURCE_DAILY_LIMIT`
+
+## Operational notes
+
+- Configure Supabase email auth before launching magic-link sign-in.
+- Schedule `public.cleanup_anonymous_trial_data()` in Supabase or another cron system.
+- Keep preview and production env vars separate in Vercel, Stripe, and Supabase.
 - `NEXT_PUBLIC_POSTHOG_KEY`
 - `NEXT_PUBLIC_POSTHOG_HOST`
 - `SENTRY_DSN`

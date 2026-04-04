@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 
+import { AuthSyncProvider } from "@/components/auth-sync-provider";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { seoKeywords, site } from "@/lib/site";
@@ -38,11 +39,13 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body className="bg-white text-[#111827] font-sans min-h-dvh flex flex-col antialiased">
-        <SiteHeader />
-        <div className="flex-1">
-          {children}
-        </div>
-        <SiteFooter />
+        <AuthSyncProvider>
+          <SiteHeader />
+          <div className="flex-1">
+            {children}
+          </div>
+          <SiteFooter />
+        </AuthSyncProvider>
       </body>
     </html>
   );

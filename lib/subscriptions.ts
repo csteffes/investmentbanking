@@ -1,5 +1,6 @@
 import type Stripe from "stripe";
 
+import { getStripe } from "@/lib/stripe";
 import { getAdminSupabase } from "@/lib/supabase";
 
 // Stripe removed current_period_end from the Subscription type in newer SDK versions;
@@ -18,6 +19,31 @@ export type SubscriptionRecord = {
   price_id: string | null;
   current_period_end: string | null;
 };
+
+async function findUserIdForCustomer(customerId: string) {
+  const supabase = getAdminSupabase();
+  if (!supabase) {
+    return null;
+  }
+
+  const { data } = await supabase
+    .from("subscriptions")
+    .select("user_id")
+    .eq("stripe_customer_id", customerId)
+    .maybeSingle();
+
+  if ((data as { user_id?: string | null } | null)?.user_id) {
+    return (data as { user_id: string }).user_id;
+  }
+
+  const stripe = getStripe();
+  const customer = await stripe.customers.retrieve(customerId);
+  if (!("deleted" in customer) && typeof customer.metadata?.userId === "string" && customer.metadata.userId) {
+    return customer.metadata.userId;
+  }
+
+  return null;
+}
 
 export async function getSubscriptionForUser(userId: string) {
   const supabase = getAdminSupabase();
@@ -47,9 +73,19 @@ export async function upsertSubscriptionFromCheckout(session: Stripe.Checkout.Se
     return;
   }
 
+  const userId = session.metadata?.userId || null;
+  if (userId) {
+    const stripe = getStripe();
+    await stripe.customers.update(customerId, {
+      metadata: {
+        userId,
+      },
+    });
+  }
+
   await supabase.from("subscriptions").upsert(
     {
-      user_id: session.metadata?.userId || null,
+      user_id: userId,
       stripe_customer_id: customerId,
       stripe_subscription_id: typeof session.subscription === "string" ? session.subscription : null,
       status: "active",
@@ -68,10 +104,13 @@ export async function upsertSubscriptionFromStripe(subscription: Stripe.Subscrip
 
   const item = getSubscriptionItem(subscription);
   const sub = subscription as StripeSubscriptionWithPeriod;
+  const customerId = String(subscription.customer);
+  const userId = await findUserIdForCustomer(customerId);
 
   await supabase.from("subscriptions").upsert(
     {
-      stripe_customer_id: String(subscription.customer),
+      user_id: userId,
+      stripe_customer_id: customerId,
       stripe_subscription_id: subscription.id,
       status: subscription.status,
       price_id: item?.price?.id || null,
@@ -89,13 +128,31 @@ export async function cancelSubscriptionFromStripe(subscription: Stripe.Subscrip
   }
 
   const sub = subscription as StripeSubscriptionWithPeriod;
+  const customerId = String(subscription.customer);
+  const userId = await findUserIdForCustomer(customerId);
 
   await supabase
     .from("subscriptions")
     .update({
+      user_id: userId,
       stripe_subscription_id: subscription.id,
       status: subscription.status,
       current_period_end: new Date(sub.current_period_end * 1000).toISOString()
     })
-    .eq("stripe_customer_id", String(subscription.customer));
+    .eq("stripe_customer_id", customerId);
+}
+
+export async function handleInvoiceSubscriptionEvent(invoice: Stripe.Invoice) {
+  const parentSubscription = invoice.parent?.subscription_details?.subscription;
+  const subscriptionId =
+    typeof parentSubscription === "string"
+      ? parentSubscription
+      : parentSubscription?.id ?? null;
+  if (!subscriptionId) {
+    return;
+  }
+
+  const stripe = getStripe();
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+  await upsertSubscriptionFromStripe(subscription);
 }

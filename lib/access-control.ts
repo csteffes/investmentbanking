@@ -2,8 +2,11 @@ import { createHmac, randomUUID, timingSafeEqual } from "node:crypto";
 
 import type { NextResponse } from "next/server";
 
+import { readAuthSessionCookies } from "@/lib/auth-session";
 import { env, requireEnv } from "@/lib/env";
+import { logSecurityEvent } from "@/lib/observability";
 import { getPublicSupabase } from "@/lib/supabase";
+import { consumeAnonymousSourceUsage, consumeTrialUsage } from "@/lib/trial-usage";
 
 type UsageKind = "realtime" | "debrief";
 
@@ -50,10 +53,7 @@ const IP_RATE_LIMITS: Record<UsageKind, number> = {
 const ipBuckets = new Map<string, { count: number; resetAt: number }>();
 
 function getSessionSecret() {
-  return requireEnv(
-    "APP_SESSION_SECRET or OPENAI_API_KEY",
-    env.appSessionSecret || env.openAiKey || env.stripeSecretKey
-  );
+  return requireEnv("APP_SESSION_SECRET", env.appSessionSecret);
 }
 
 function sign(payload: string) {
@@ -119,7 +119,12 @@ function parseTrialState(value: string | null): TrialState | null {
   }
 }
 
-function getClientIp(request: Request) {
+export function readTrialIdFromCookieHeader(cookieHeader: string | null) {
+  const trialCookie = parseCookieValue(cookieHeader, TRIAL_COOKIE_NAME);
+  return parseTrialState(trialCookie)?.trialId ?? null;
+}
+
+export function getClientIp(request: Request) {
   const forwarded = request.headers.get("x-forwarded-for");
   if (forwarded) {
     return forwarded.split(",")[0]?.trim() || "unknown";
@@ -163,7 +168,9 @@ function createTrialState(): TrialState {
 
 async function getAuthenticatedUser(request: Request) {
   const authorization = request.headers.get("authorization");
-  const token = authorization?.startsWith("Bearer ") ? authorization.slice(7).trim() : "";
+  const headerToken = authorization?.startsWith("Bearer ") ? authorization.slice(7).trim() : "";
+  const cookieSession = await readAuthSessionCookies();
+  const token = cookieSession.accessToken || headerToken;
 
   if (!token) {
     return null;
@@ -217,6 +224,10 @@ export async function requireUsageAccess(
 ): Promise<UsageAccess> {
   const rateLimit = takeIpRateLimit(request, kind);
   if (rateLimit) {
+    logSecurityEvent("Short-window IP rate limit hit.", {
+      kind,
+      ipAddress: getClientIp(request),
+    });
     return rateLimit;
   }
 
@@ -242,8 +253,55 @@ export async function requireUsageAccess(
   const trial = parseTrialState(rawTrialCookie) ?? createTrialState();
   const currentCount = kind === "realtime" ? trial.realtimeCount : trial.debriefCount;
   const limit = kind === "realtime" ? env.trialSessionLimit : env.trialDebriefLimit;
+  const ipAddress = getClientIp(request);
+  const userAgent = request.headers.get("user-agent");
 
   if (currentCount >= limit) {
+    logSecurityEvent("Signed-cookie trial quota hit before durable quota check.", {
+      kind,
+      trialId: trial.trialId,
+      ipAddress,
+    });
+    return {
+      ok: false,
+      status: 429,
+      error: "Your free trial limit has been reached. Please sign in or upgrade to continue.",
+    };
+  }
+
+  const sourceUsage = await consumeAnonymousSourceUsage(
+    kind,
+    env.trialSourceDailyLimit,
+    ipAddress === "unknown" ? null : ipAddress,
+    userAgent
+  );
+
+  if (!sourceUsage.allowed) {
+    logSecurityEvent("Anonymous source daily cap hit.", {
+      kind,
+      trialId: trial.trialId,
+      ipAddress,
+    });
+    return {
+      ok: false,
+      status: 429,
+      error: "Anonymous trial capacity has been reached for today. Please sign in to continue.",
+    };
+  }
+
+  const durableUsage = await consumeTrialUsage(
+    trial.trialId,
+    kind,
+    limit,
+    ipAddress === "unknown" ? null : ipAddress
+  );
+
+  if (!durableUsage.allowed) {
+    logSecurityEvent("Durable trial quota hit.", {
+      kind,
+      trialId: trial.trialId,
+      ipAddress,
+    });
     return {
       ok: false,
       status: 429,
@@ -262,7 +320,7 @@ export async function requireUsageAccess(
     type: "trial",
     trialId: updatedTrial.trialId,
     cookieValue: serializeTrialState(updatedTrial),
-    remaining: Math.max(0, limit - (currentCount + 1)),
+    remaining: durableUsage.remaining,
   };
 }
 

@@ -21,7 +21,8 @@ export const env = {
   supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
   trialSessionLimit: readInteger(process.env.TRIAL_SESSION_LIMIT, 5),
-  trialDebriefLimit: readInteger(process.env.TRIAL_DEBRIEF_LIMIT || process.env.TRIAL_REVIEW_LIMIT, 8)
+  trialDebriefLimit: readInteger(process.env.TRIAL_DEBRIEF_LIMIT || process.env.TRIAL_REVIEW_LIMIT, 8),
+  trialSourceDailyLimit: readInteger(process.env.TRIAL_SOURCE_DAILY_LIMIT, 20),
 };
 
 export function requireEnv(name: string, value?: string | null) {

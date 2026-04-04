@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { useAuthSession } from "@/components/auth-sync-provider";
+import { getBrowserSupabase } from "@/lib/browser-supabase";
 import type { InterviewProfile, SessionMode } from "@/lib/api-types";
 import { useVoiceSession } from "@/hooks/use-voice-session";
 
@@ -87,6 +89,33 @@ const stateLabel: Record<string, string> = {
   error: "Try Again",
 };
 
+type SubscriptionState = {
+  status: string;
+  current_period_end: string | null;
+} | null;
+
+type HistoryEntry = {
+  id: string;
+  created_at: string;
+  bank: string | null;
+  group_name: string | null;
+  interview_stage: string | null;
+  mode: string;
+  scorecards:
+    | {
+        summary?: string | null;
+        next_steps?: string[] | null;
+      }[]
+    | null;
+};
+
+function formatSessionDate(value: string) {
+  return new Date(value).toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+  });
+}
+
 export function MockInterviewStudio() {
   const [track, setTrack] = useState<SessionMode>("story");
   const [profile, setProfile] = useState<Profile>({
@@ -99,6 +128,15 @@ export function MockInterviewStudio() {
   });
 
   const { state, transcript, debrief, error, start, stop } = useVoiceSession();
+  const { user, loading: authLoading, signInWithMagicLink, signOut } = useAuthSession();
+  const supabase = useMemo(() => getBrowserSupabase(), []);
+  const [authEmail, setAuthEmail] = useState("");
+  const [authMessage, setAuthMessage] = useState<string | null>(null);
+  const [authError, setAuthError] = useState<string | null>(null);
+  const [billingState, setBillingState] = useState<"idle" | "checkout" | "portal">("idle");
+  const [subscription, setSubscription] = useState<SubscriptionState>(null);
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
+  const [accountLoading, setAccountLoading] = useState(false);
 
   const isLive = state === "connected";
   const isLoading = state === "connecting" || state === "ending" || state === "debriefing";
@@ -107,6 +145,60 @@ export function MockInterviewStudio() {
   const liveTranscript = isLive || isDone || state === "debriefing" || state === "ending"
     ? transcript
     : null;
+  const hasActivePlan = subscription?.status === "active" || subscription?.status === "trialing";
+
+  useEffect(() => {
+    if (authLoading) {
+      return;
+    }
+
+    if (!user || !supabase) {
+      setSubscription(null);
+      setHistory([]);
+      setAccountLoading(false);
+      return;
+    }
+    const supabaseClient = supabase;
+
+    let ignore = false;
+
+    async function loadAccountData() {
+      setAccountLoading(true);
+
+      const [subscriptionResult, historyResult] = await Promise.all([
+        supabaseClient
+          .from("subscriptions")
+          .select("status, current_period_end")
+          .maybeSingle(),
+        supabaseClient
+          .from("mock_sessions")
+          .select("id, created_at, bank, group_name, interview_stage, mode, scorecards(summary, next_steps)")
+          .order("created_at", { ascending: false })
+          .limit(5),
+      ]);
+
+      if (ignore) {
+        return;
+      }
+
+      setSubscription(
+        subscriptionResult.data
+          ? {
+              status: subscriptionResult.data.status as string,
+              current_period_end: (subscriptionResult.data.current_period_end as string | null) ?? null,
+            }
+          : null
+      );
+      setHistory((historyResult.data as HistoryEntry[] | null) ?? []);
+      setAccountLoading(false);
+    }
+
+    void loadAccountData();
+
+    return () => {
+      ignore = true;
+    };
+  }, [authLoading, debrief?.sessionId, supabase, user]);
 
   async function handleSessionButton() {
     if (state === "idle" || state === "error" || state === "done") {
@@ -122,6 +214,79 @@ export function MockInterviewStudio() {
       await start(payload);
     } else if (state === "connected") {
       await stop();
+    }
+  }
+
+  async function handleSendMagicLink() {
+    setAuthError(null);
+    setAuthMessage(null);
+
+    const email = authEmail.trim();
+    if (!email) {
+      setAuthError("Enter your email to sign in.");
+      return;
+    }
+
+    const result = await signInWithMagicLink(email);
+    if (result.error) {
+      setAuthError(result.error);
+      return;
+    }
+
+    setAuthMessage("Check your inbox for the sign-in link.");
+  }
+
+  async function handleCheckout() {
+    setBillingState("checkout");
+    setAuthError(null);
+
+    try {
+      const response = await fetch("/api/stripe/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "{}",
+      });
+
+      const payload = (await response.json().catch(() => null)) as { error?: string; url?: string } | null;
+      if (!response.ok || !payload?.url) {
+        throw new Error(payload?.error || "Unable to start checkout.");
+      }
+
+      window.location.assign(payload.url);
+    } catch (checkoutError) {
+      setAuthError(
+        checkoutError instanceof Error ? checkoutError.message : "Unable to start checkout."
+      );
+      setBillingState("idle");
+    }
+  }
+
+  async function handlePortal() {
+    setBillingState("portal");
+    setAuthError(null);
+
+    try {
+      const response = await fetch("/api/portal", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: "{}",
+      });
+
+      const payload = (await response.json().catch(() => null)) as { error?: string; url?: string } | null;
+      if (!response.ok || !payload?.url) {
+        throw new Error(payload?.error || "Unable to open billing portal.");
+      }
+
+      window.location.assign(payload.url);
+    } catch (portalError) {
+      setAuthError(
+        portalError instanceof Error ? portalError.message : "Unable to open billing portal."
+      );
+      setBillingState("idle");
     }
   }
 
@@ -143,7 +308,7 @@ export function MockInterviewStudio() {
       </div>
 
       <div className="grid lg:grid-cols-[340px_1fr] gap-6">
-        <form className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-6 flex flex-col gap-4 h-fit">
+        <form id="account" className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-6 flex flex-col gap-4 h-fit">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">
               Interview setup
@@ -236,6 +401,136 @@ export function MockInterviewStudio() {
           <p className="text-[11px] leading-relaxed text-[#9CA3AF]">
             Free trial access is rate-limited. Billing and saved-account actions require sign-in.
           </p>
+
+          <div className="rounded-2xl border border-[#E5E7EB] bg-white p-4">
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9CA3AF]">
+                  Account
+                </p>
+                <h2 className="mt-1 text-sm font-semibold text-[#111827]">
+                  {user ? "Signed in and ready to save your reps." : "Sign in to save history and unlock billing."}
+                </h2>
+              </div>
+              {user && (
+                <span className="rounded-full bg-[rgba(201,162,39,0.12)] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9A7620]">
+                  {hasActivePlan ? "Pro" : "Trial"}
+                </span>
+              )}
+            </div>
+
+            {authLoading || accountLoading ? (
+              <p className="mt-4 text-sm text-[#9CA3AF]">Loading account…</p>
+            ) : user ? (
+              <div className="mt-4 space-y-4">
+                <div className="rounded-xl border border-[#E5E7EB] bg-[#FCFBF8] px-4 py-3">
+                  <p className="text-sm font-medium text-[#111827]">{user.email}</p>
+                  <p className="mt-1 text-xs text-[#9CA3AF]">
+                    {hasActivePlan
+                      ? `Subscription active${subscription?.current_period_end ? ` until ${formatSessionDate(subscription.current_period_end)}` : ""}.`
+                      : "No active subscription yet. Start your plan to unlock unlimited reps."}
+                  </p>
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  {!hasActivePlan && (
+                    <button
+                      type="button"
+                      onClick={handleCheckout}
+                      disabled={billingState !== "idle"}
+                      className="w-full rounded-xl bg-[#111827] px-4 py-3 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#1F2937] disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {billingState === "checkout" ? "Opening checkout…" : "Start 3-day free trial"}
+                    </button>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={handlePortal}
+                    disabled={billingState !== "idle" || !hasActivePlan}
+                    className="w-full rounded-xl border border-[#E5E7EB] bg-white px-4 py-3 text-sm font-semibold text-[#111827] transition-colors duration-150 hover:bg-[#F9FAFB] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {billingState === "portal" ? "Opening billing…" : "Manage billing"}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => void signOut()}
+                    className="w-full rounded-xl border border-transparent px-4 py-2 text-xs font-medium text-[#6B7280] transition-colors duration-150 hover:text-[#111827]"
+                  >
+                    Sign out
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="mt-4 space-y-3">
+                <div className="flex flex-col gap-1">
+                  <label htmlFor="auth-email" className={labelClass}>Email</label>
+                  <input
+                    id="auth-email"
+                    type="email"
+                    value={authEmail}
+                    onChange={(event) => setAuthEmail(event.target.value)}
+                    className={inputClass}
+                    placeholder="you@school.edu"
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={handleSendMagicLink}
+                  className="w-full rounded-xl bg-[#111827] px-4 py-3 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#1F2937]"
+                >
+                  Email me a sign-in link
+                </button>
+
+                <p className="text-xs leading-relaxed text-[#9CA3AF]">
+                  Use a magic link to save your history, manage billing, and keep unlimited practice attached to one account.
+                </p>
+              </div>
+            )}
+
+            {authMessage && (
+              <p className="mt-3 text-xs text-green-700">{authMessage}</p>
+            )}
+            {authError && (
+              <p className="mt-3 text-xs text-red-600">{authError}</p>
+            )}
+          </div>
+
+          {user && history.length > 0 && (
+            <div className="rounded-2xl border border-[#E5E7EB] bg-white p-4">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9CA3AF]">
+                Saved history
+              </p>
+              <div className="mt-3 space-y-3">
+                {history.map((entry) => {
+                  const summary = entry.scorecards?.[0]?.summary ?? null;
+
+                  return (
+                    <div key={entry.id} className="rounded-xl border border-[#E5E7EB] bg-[#FCFBF8] px-4 py-3">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="text-sm font-medium text-[#111827]">
+                          {entry.bank || "Target bank"} {entry.group_name ? `· ${entry.group_name}` : ""}
+                        </p>
+                        <span className="text-[11px] text-[#9CA3AF]">
+                          {formatSessionDate(entry.created_at)}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-[11px] uppercase tracking-[0.1em] text-[#9CA3AF]">
+                        {entry.mode} · {entry.interview_stage || "Practice"}
+                      </p>
+                      {summary && (
+                        <p className="mt-2 text-xs leading-relaxed text-[#6B7280]">
+                          {summary}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </form>
 
         <div className="flex flex-col gap-4">

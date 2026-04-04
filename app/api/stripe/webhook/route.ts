@@ -3,9 +3,11 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 import { env, requireEnv } from "@/lib/env";
+import { logBillingEvent, logServerError } from "@/lib/observability";
 import { getStripe } from "@/lib/stripe";
 import {
   cancelSubscriptionFromStripe,
+  handleInvoiceSubscriptionEvent,
   upsertSubscriptionFromCheckout,
   upsertSubscriptionFromStripe
 } from "@/lib/subscriptions";
@@ -39,12 +41,22 @@ export async function POST(request: Request) {
       case "customer.subscription.deleted":
         await cancelSubscriptionFromStripe(event.data.object as Stripe.Subscription);
         break;
+      case "invoice.paid":
+      case "invoice.payment_failed":
+        await handleInvoiceSubscriptionEvent(event.data.object as Stripe.Invoice);
+        break;
       default:
         break;
     }
 
+    logBillingEvent("Stripe webhook processed.", {
+      eventType: event.type,
+    });
     return NextResponse.json({ received: true });
   } catch (error) {
+    logServerError("Stripe webhook handling failed.", {
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
     return NextResponse.json(
       {
         error: error instanceof Error ? error.message : "Webhook handling failed."

@@ -89,3 +89,21 @@ export async function persistMockInterviewSession({
 
   return (session as { id: string }).id;
 }
+
+export async function claimTrialSessionsForUser(userId: string, trialId: string) {
+  const supabase = getAdminSupabase();
+
+  if (!supabase) {
+    return;
+  }
+
+  const { error } = await supabase
+    .from("mock_sessions")
+    .update({ user_id: userId })
+    .eq("trial_id", trialId)
+    .is("user_id", null);
+
+  if (error) {
+    throw error;
+  }
+}

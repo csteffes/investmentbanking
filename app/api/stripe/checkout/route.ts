@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 
 import { requireBillingAccess } from "@/lib/access-control";
 import { env } from "@/lib/env";
+import { logBillingEvent, logServerError } from "@/lib/observability";
+import { guardBrowserPostRequest } from "@/lib/request-security";
 import { getStripe } from "@/lib/stripe";
 import { getSubscriptionForUser } from "@/lib/subscriptions";
 
@@ -9,6 +11,11 @@ export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
+    const guarded = guardBrowserPostRequest(request);
+    if (guarded) {
+      return guarded.response;
+    }
+
     const access = await requireBillingAccess(request);
     if (!access.ok) {
       return NextResponse.json({ error: access.error }, { status: access.status });
@@ -22,6 +29,23 @@ export async function POST(request: Request) {
 
     const stripe = getStripe();
     const existingSubscription = await getSubscriptionForUser(access.userId);
+    const customerId = existingSubscription?.stripe_customer_id
+      ? existingSubscription.stripe_customer_id
+      : (
+          await stripe.customers.create({
+            email: access.email ?? undefined,
+            metadata: {
+              userId: access.userId,
+            },
+          })
+        ).id;
+
+    await stripe.customers.update(customerId, {
+      email: access.email ?? undefined,
+      metadata: {
+        userId: access.userId,
+      },
+    });
 
     if (existingSubscription?.stripe_customer_id && existingSubscription.status === "active") {
       const portal = await stripe.billingPortal.sessions.create({
@@ -29,7 +53,10 @@ export async function POST(request: Request) {
         return_url: `${env.siteUrl}/mock-interview`,
       });
 
-      return NextResponse.json({ url: portal.url });
+      return NextResponse.json(
+        { url: portal.url },
+        { headers: { "Cache-Control": "no-store" } }
+      );
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -41,8 +68,7 @@ export async function POST(request: Request) {
         }
       ],
       allow_promotion_codes: true,
-      customer: existingSubscription?.stripe_customer_id || undefined,
-      customer_email: existingSubscription?.stripe_customer_id ? undefined : access.email ?? undefined,
+      customer: customerId,
       success_url: `${env.siteUrl}/mock-interview?checkout=success`,
       cancel_url: `${env.siteUrl}/#pricing`,
       metadata: {
@@ -51,13 +77,25 @@ export async function POST(request: Request) {
       }
     });
 
-    return NextResponse.json({ url: session.url });
+    logBillingEvent("Checkout session created.", {
+      userId: access.userId,
+      customerId,
+      priceId,
+    });
+
+    return NextResponse.json(
+      { url: session.url },
+      { headers: { "Cache-Control": "no-store" } }
+    );
   } catch (error) {
+    logServerError("Checkout session creation failed.", {
+      message: error instanceof Error ? error.message : "Unknown error",
+    });
     return NextResponse.json(
       {
         error: error instanceof Error ? error.message : "Unable to create checkout session."
       },
-      { status: 500 }
+      { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }
 }

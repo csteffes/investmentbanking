@@ -54,6 +54,21 @@ This repo is designed for `Vercel`, not GitHub Pages. The app depends on server 
 - marketing pages stay public
 - voice sessions and session debriefs are trial-scoped and rate-limited unless a user is authenticated
 - billing actions require authenticated user context
+- Supabase auth is synced into first-party cookies through `/api/auth/session`
+- anonymous trial sessions can be claimed by the user after sign-in
+
+## Production hardening
+
+- app `POST` routes validate same-origin browser requests before calling OpenAI or Stripe
+- anonymous trial quotas are persisted in `trial_usage_counters`
+- run `select public.cleanup_anonymous_trial_data();` on a schedule to purge stale anonymous trial data
+- production responses ship with CSP, referrer, frame, content-type, HSTS, and microphone permission headers
+
+## Environment separation
+
+- use separate Stripe test and live keys
+- use distinct Supabase and Vercel environments for preview vs production whenever possible
+- keep `APP_SESSION_SECRET` unique per environment
 
 ## Working between apps
 
