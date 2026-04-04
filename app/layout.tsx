@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body className="bg-[#0A0A0A] text-[#F8F8F8] font-sans min-h-dvh flex flex-col antialiased">
+      <body className="bg-white text-[#111827] font-sans min-h-dvh flex flex-col antialiased">
         <SiteHeader />
         <div className="flex-1">
           {children}

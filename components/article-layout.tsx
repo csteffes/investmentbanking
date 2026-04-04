@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 
@@ -22,40 +23,36 @@ export async function ArticleLayout({ entry, kind }: ArticleLayoutProps) {
   const kicker = kind === "blog" ? "Blog" : "Guide";
 
   return (
-    <main className="px-6 py-16 max-w-5xl mx-auto">
+    <main className="px-6 py-20 max-w-5xl mx-auto">
       <article>
-        <header className="mb-12 max-w-2xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#C9A227] mb-4">
+        <header className="text-center mb-14 max-w-2xl mx-auto">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
             {kicker}
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8F8F8] leading-[1.1] mb-4">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] leading-[1.1] mb-4">
             {entry.title}
           </h1>
-          <p className="text-[#A0A0A0] text-base leading-relaxed mb-5">{entry.description}</p>
-          <div className="flex items-center gap-4 text-xs text-[#606060]">
+          <p className="text-[#6B7280] text-base leading-relaxed mb-5">{entry.description}</p>
+          <div className="flex items-center justify-center gap-4 text-xs text-[#9CA3AF]">
             <span>{formatDate(entry.date)}</span>
             <span>·</span>
             <span>{entry.readingTime}</span>
           </div>
         </header>
 
-        <div className="flex gap-12 items-start">
-          {/* TOC */}
+        <div className="flex gap-12 items-start max-w-4xl mx-auto">
           {entry.headings.length > 0 && (
             <aside className="hidden lg:block w-56 flex-shrink-0 sticky top-20">
-              <div className="bg-[#111111] border border-white/[0.08] rounded-xl p-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#606060] mb-3">
+              <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-4">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-3">
                   On this page
                 </p>
                 <ul className="space-y-1.5">
                   {entry.headings.map((heading) => (
-                    <li
-                      key={heading.id}
-                      className={heading.depth === 3 ? "pl-3" : ""}
-                    >
+                    <li key={heading.id} className={heading.depth === 3 ? "pl-3" : ""}>
                       <a
                         href={`#${heading.id}`}
-                        className="text-xs text-[#606060] hover:text-[#A0A0A0] transition-colors duration-150 leading-relaxed block"
+                        className="text-xs text-[#9CA3AF] hover:text-[#6B7280] transition-colors duration-150 leading-relaxed block"
                       >
                         {heading.title}
                       </a>
@@ -66,8 +63,7 @@ export async function ArticleLayout({ entry, kind }: ArticleLayoutProps) {
             </aside>
           )}
 
-          {/* Body */}
-          <div className="flex-1 min-w-0 max-w-2xl">{content}</div>
+          <div className="flex-1 min-w-0 max-w-2xl mx-auto">{content}</div>
         </div>
       </article>
     </main>

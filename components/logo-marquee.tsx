@@ -11,17 +11,17 @@ export function LogoMarquee({
   label,
   logos,
   ariaLabel,
-  variant = "dark",
+  variant = "light",
 }: LogoMarqueeProps) {
-  const isDark = variant === "dark";
+  const isLight = variant === "light";
 
   return (
     <section
       className={[
         "py-14 overflow-hidden",
-        isDark
-          ? "logo-marquee--dark border-y border-white/[0.06] bg-[#0A0A0A]"
-          : "logo-marquee--light border-y border-[#DCE5F1] bg-[#FBFCFE]",
+        isLight
+          ? "logo-marquee--light border-y border-[#F3F4F6] bg-white"
+          : "logo-marquee--dark border-y border-white/[0.06] bg-[#0A0A0A]",
       ].join(" ")}
       aria-label={ariaLabel ?? label}
     >
@@ -29,7 +29,7 @@ export function LogoMarquee({
         <p
           className={[
             "logo-marquee-pill",
-            isDark ? "logo-marquee-pill--dark" : "logo-marquee-pill--light",
+            isLight ? "logo-marquee-pill--light" : "logo-marquee-pill--dark",
           ].join(" ")}
         >
           {label}

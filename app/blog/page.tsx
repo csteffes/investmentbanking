@@ -13,30 +13,30 @@ export default async function BlogIndexPage() {
   const posts = await getCollection("blog");
 
   return (
-    <main className="px-6 py-16 max-w-4xl mx-auto">
-      <section className="mb-12">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#C9A227] mb-4">Blog</p>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8F8F8] mb-3">
+    <main className="px-6 py-20 max-w-4xl mx-auto">
+      <section className="text-center mb-16">
+        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">Blog</p>
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] mb-3">
           Interview prep posts built for search and real practice.
         </h1>
-        <p className="text-[#A0A0A0] max-w-xl leading-relaxed">
+        <p className="text-[#6B7280] max-w-xl mx-auto leading-relaxed">
           These posts answer the questions candidates actually search before first rounds and superdays,
           then push you into the next practice rep.
         </p>
       </section>
 
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 gap-5">
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="bg-[#111111] border border-white/[0.08] rounded-xl p-5 hover:border-white/[0.15] hover:-translate-y-px transition-all duration-150 block"
+            className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-6 hover:border-[#D1D5DB] hover:-translate-y-0.5 transition-all duration-150 block"
           >
-            <p className="text-[10px] text-[#606060] uppercase tracking-wide mb-2">
+            <p className="text-[10px] text-[#9CA3AF] uppercase tracking-wide mb-2">
               {formatDate(post.date)} · {post.readingTime}
             </p>
-            <h2 className="text-sm font-semibold text-[#F8F8F8] leading-snug mb-2">{post.title}</h2>
-            <p className="text-xs text-[#606060] leading-relaxed line-clamp-3">{post.description}</p>
+            <h2 className="text-sm font-semibold text-[#111827] leading-snug mb-2">{post.title}</h2>
+            <p className="text-xs text-[#9CA3AF] leading-relaxed line-clamp-3">{post.description}</p>
           </Link>
         ))}
       </div>

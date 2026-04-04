@@ -105,7 +105,6 @@ export function AssessmentStudio() {
     }
   }
 
-  // Scores to display — real scorecard scores or demo scores
   const displayScores: [string, number][] = scorecard?.scores
     ? Object.entries(scorecard.scores).map(([k, v]) => [k.replace(/_/g, " "), v])
     : demoTrack.scores;
@@ -117,29 +116,30 @@ export function AssessmentStudio() {
     ? transcript
     : null;
 
+  const inputClass = "bg-white border border-[#E5E7EB] rounded-lg px-3 py-2 text-sm text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227]/30 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed";
+  const labelClass = "text-[11px] font-medium text-[#9CA3AF] uppercase tracking-wide";
+
   return (
-    <section className="px-6 py-16 max-w-6xl mx-auto">
-      {/* Header */}
-      <div className="mb-10 max-w-2xl">
-        <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#C9A227] mb-4">
+    <section className="px-6 py-20 max-w-6xl mx-auto">
+      <div className="text-center mb-12 max-w-2xl mx-auto">
+        <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
           Live assessment
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8F8F8] leading-[1.1] mb-3">
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] leading-[1.1] mb-3">
           Pressure test the interview before the interview.
         </h1>
-        <p className="text-[#A0A0A0] leading-relaxed">
+        <p className="text-[#6B7280] leading-relaxed">
           Set your target, hit start, and practice with a real AI voice coach. Your scorecard generates automatically when you end the session.
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-[340px_1fr] gap-5">
-        {/* ── Profile form ─────────────────────────────── */}
-        <form className="bg-[#111111] border border-white/[0.08] rounded-2xl p-6 flex flex-col gap-4 h-fit">
+      <div className="grid lg:grid-cols-[340px_1fr] gap-6">
+        <form className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-6 flex flex-col gap-4 h-fit">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C9A227] bg-[rgba(201,162,39,0.1)] px-2 py-0.5 rounded">
+            <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">
               Candidate profile
             </span>
-            <span className="text-xs text-[#606060]">{formatCountdown(profile.interviewDate)}</span>
+            <span className="text-xs text-[#9CA3AF]">{formatCountdown(profile.interviewDate)}</span>
           </div>
 
           {[
@@ -147,15 +147,13 @@ export function AssessmentStudio() {
             { id: "background", label: "Background", field: "background" as const },
           ].map(({ id, label, field }) => (
             <div key={id} className="flex flex-col gap-1">
-              <label htmlFor={id} className="text-[11px] font-medium text-[#606060] uppercase tracking-wide">
-                {label}
-              </label>
+              <label htmlFor={id} className={labelClass}>{label}</label>
               <input
                 id={id}
                 value={profile[field]}
                 onChange={(e) => setProfile({ ...profile, [field]: e.target.value })}
                 disabled={isLive || isLoading}
-                className="bg-[#1A1A1A] border border-white/[0.08] rounded-lg px-3 py-2 text-sm text-[#F8F8F8] placeholder-[#606060] focus:outline-none focus:border-[#C9A227]/50 transition-colors duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
+                className={inputClass}
               />
             </div>
           ))}
@@ -166,15 +164,13 @@ export function AssessmentStudio() {
               { id: "group", label: "Target group", field: "group" as const, options: groups },
             ].map(({ id, label, field, options }) => (
               <div key={id} className="flex flex-col gap-1">
-                <label htmlFor={id} className="text-[11px] font-medium text-[#606060] uppercase tracking-wide">
-                  {label}
-                </label>
+                <label htmlFor={id} className={labelClass}>{label}</label>
                 <select
                   id={id}
                   value={profile[field]}
                   onChange={(e) => setProfile({ ...profile, [field]: e.target.value })}
                   disabled={isLive || isLoading}
-                  className="bg-[#1A1A1A] border border-white/[0.08] rounded-lg px-3 py-2 text-sm text-[#F8F8F8] focus:outline-none focus:border-[#C9A227]/50 transition-colors duration-150 appearance-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                  className={`${inputClass} appearance-none cursor-pointer`}
                 >
                   {options.map((o) => <option key={o}>{o}</option>)}
                 </select>
@@ -184,109 +180,54 @@ export function AssessmentStudio() {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1">
-              <label htmlFor="stage" className="text-[11px] font-medium text-[#606060] uppercase tracking-wide">
-                Stage
-              </label>
-              <select
-                id="stage"
-                value={profile.stage}
-                onChange={(e) => setProfile({ ...profile, stage: e.target.value })}
-                disabled={isLive || isLoading}
-                className="bg-[#1A1A1A] border border-white/[0.08] rounded-lg px-3 py-2 text-sm text-[#F8F8F8] focus:outline-none focus:border-[#C9A227]/50 transition-colors duration-150 appearance-none cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-              >
+              <label htmlFor="stage" className={labelClass}>Stage</label>
+              <select id="stage" value={profile.stage} onChange={(e) => setProfile({ ...profile, stage: e.target.value })} disabled={isLive || isLoading} className={`${inputClass} appearance-none cursor-pointer`}>
                 {stages.map((s) => <option key={s}>{s}</option>)}
               </select>
             </div>
             <div className="flex flex-col gap-1">
-              <label htmlFor="interview-date" className="text-[11px] font-medium text-[#606060] uppercase tracking-wide">
-                Interview date
-              </label>
-              <input
-                id="interview-date"
-                type="date"
-                value={profile.interviewDate}
-                onChange={(e) => setProfile({ ...profile, interviewDate: e.target.value })}
-                disabled={isLive || isLoading}
-                className="bg-[#1A1A1A] border border-white/[0.08] rounded-lg px-3 py-2 text-sm text-[#F8F8F8] focus:outline-none focus:border-[#C9A227]/50 transition-colors duration-150 disabled:opacity-40 disabled:cursor-not-allowed"
-              />
+              <label htmlFor="interview-date" className={labelClass}>Interview date</label>
+              <input id="interview-date" type="date" value={profile.interviewDate} onChange={(e) => setProfile({ ...profile, interviewDate: e.target.value })} disabled={isLive || isLoading} className={inputClass} />
             </div>
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="confidence" className="text-[11px] font-medium text-[#606060] uppercase tracking-wide">
-              Technical confidence:{" "}
-              <span className="text-[#C9A227]">{profile.confidence}/10</span>
+            <label htmlFor="confidence" className={labelClass}>
+              Technical confidence: <span className="text-[#C9A227]">{profile.confidence}/10</span>
             </label>
-            <input
-              id="confidence"
-              type="range"
-              min="1"
-              max="10"
-              value={profile.confidence}
-              onChange={(e) => setProfile({ ...profile, confidence: Number(e.target.value) })}
-              disabled={isLive || isLoading}
-              className="w-full accent-[#C9A227] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-            />
+            <input id="confidence" type="range" min="1" max="10" value={profile.confidence} onChange={(e) => setProfile({ ...profile, confidence: Number(e.target.value) })} disabled={isLive || isLoading} className="w-full accent-[#C9A227] cursor-pointer disabled:opacity-40" />
           </div>
 
-          {/* Session button */}
           <button
             type="button"
             onClick={handleSessionButton}
             disabled={isLoading}
             className={`w-full py-3 rounded-xl text-sm font-semibold transition-all duration-150 ${
               isLive
-                ? "bg-[#EF4444]/10 border border-[#EF4444]/30 text-[#EF4444] hover:bg-[#EF4444]/20"
-                : "bg-[#C9A227] text-[#0A0A0A] hover:bg-[#E8BC30] disabled:opacity-50 disabled:cursor-not-allowed"
+                ? "bg-red-50 border border-red-200 text-red-600 hover:bg-red-100"
+                : "bg-[#111827] text-white hover:bg-[#1F2937] disabled:opacity-50 disabled:cursor-not-allowed"
             }`}
           >
-            {isLive && (
-              <span className="inline-block w-2 h-2 rounded-full bg-[#EF4444] mr-2 animate-pulse" />
-            )}
+            {isLive && <span className="inline-block w-2 h-2 rounded-full bg-red-500 mr-2 animate-pulse" />}
             {stateLabel[state] ?? "Start Live Mock"}
           </button>
 
           {error && (
-            <p className="text-xs text-[#EF4444] leading-relaxed bg-[#EF4444]/5 border border-[#EF4444]/20 rounded-lg px-3 py-2">
+            <p className="text-xs text-red-600 leading-relaxed bg-red-50 border border-red-200 rounded-lg px-3 py-2">
               {error}
             </p>
           )}
-
-          <div className="bg-[#1A1A1A] border border-white/[0.06] rounded-xl p-4">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#606060] mb-2">
-              This sprint
-            </p>
-            <ul className="space-y-1.5">
-              {["Run one live mock.", "Do two fast drills.", "Bring one real deal."].map((item) => (
-                <li key={item} className="text-xs text-[#A0A0A0] flex items-start gap-1.5">
-                  <span className="text-[#C9A227] flex-shrink-0">·</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
         </form>
 
-        {/* ── Right panel ──────────────────────────────── */}
         <div className="flex flex-col gap-4">
-          {/* Track tabs — only show when not in live session */}
           {!isLive && state !== "reviewing" && (
-            <div
-              role="tablist"
-              aria-label="Assessment track"
-              className="flex gap-1 bg-[#111111] border border-white/[0.08] rounded-xl p-1"
-            >
+            <div role="tablist" aria-label="Assessment track" className="flex gap-1 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-1">
               {(Object.keys(DEMO_TRACKS) as Track[]).map((item) => (
                 <button
-                  key={item}
-                  type="button"
-                  role="tab"
-                  aria-selected={track === item}
+                  key={item} type="button" role="tab" aria-selected={track === item}
                   onClick={() => setTrack(item)}
                   className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition-all duration-150 ${
-                    track === item
-                      ? "bg-[#C9A227] text-[#0A0A0A]"
-                      : "text-[#606060] hover:text-[#A0A0A0]"
+                    track === item ? "bg-[#111827] text-white" : "text-[#9CA3AF] hover:text-[#6B7280]"
                   }`}
                 >
                   {DEMO_TRACKS[item].label}
@@ -295,114 +236,83 @@ export function AssessmentStudio() {
             </div>
           )}
 
-          {/* Live session panel */}
-          <article className="bg-[#111111] border border-white/[0.08] rounded-2xl p-6">
+          <article className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-8">
             <div className="flex items-center justify-between mb-4">
-              <span className={`text-[10px] font-semibold uppercase tracking-[0.1em] px-2 py-0.5 rounded ${
-                isLive
-                  ? "text-[#22C55E] bg-[rgba(34,197,94,0.1)]"
-                  : "text-[#C9A227] bg-[rgba(201,162,39,0.1)]"
+              <span className={`text-xs font-semibold uppercase tracking-[0.1em] px-2.5 py-1 rounded-md ${
+                isLive ? "text-green-600 bg-green-50" : state === "reviewing" ? "text-[#C9A227] bg-[rgba(201,162,39,0.08)]" : "text-[#C9A227] bg-[rgba(201,162,39,0.08)]"
               }`}>
                 {isLive ? "● Live" : state === "reviewing" ? "Processing…" : "Live coach"}
               </span>
-              <span className="text-xs text-[#606060]">
-                {profile.bank} {profile.group} · {profile.stage}
-              </span>
+              <span className="text-xs text-[#9CA3AF]">{profile.bank} {profile.group} · {profile.stage}</span>
             </div>
 
             {!isLive && state !== "reviewing" && (
-              <h2 className="text-sm font-semibold text-[#F8F8F8] leading-snug mb-3">
-                {demoTrack.prompt}
-              </h2>
+              <h2 className="text-base font-semibold text-[#111827] leading-snug mb-3">{demoTrack.prompt}</h2>
             )}
 
-            {/* Waveform — only animate when live */}
-            <div className={`waveform mb-4${isLive ? "" : " waveform--idle"}`} aria-hidden="true">
-              {Array.from({ length: 8 }).map((_, i) => <span key={i} />)}
-            </div>
-
-            {/* Live transcript */}
             {displayTranscript && displayTranscript.length > 0 ? (
               <ul className="space-y-3 max-h-64 overflow-y-auto">
                 {displayTranscript.map((entry) => (
                   <li key={entry.id}>
                     <div className="flex items-center gap-2 mb-0.5">
-                      <strong className="text-xs font-semibold text-[#F8F8F8]">
-                        {entry.speaker === "coach" ? "Coach" : "You"}
-                      </strong>
-                      <span className="text-[10px] text-[#606060]">{entry.speaker}</span>
+                      <strong className="text-xs font-semibold text-[#111827]">{entry.speaker === "coach" ? "Coach" : "You"}</strong>
+                      <span className="text-[10px] text-[#9CA3AF]">{entry.speaker}</span>
                     </div>
-                    <p className="text-xs text-[#A0A0A0] leading-relaxed">{entry.text}</p>
+                    <p className="text-sm text-[#6B7280] leading-relaxed">{entry.text}</p>
                   </li>
                 ))}
               </ul>
             ) : isLive ? (
-              <p className="text-xs text-[#606060] italic">Listening… start speaking when ready.</p>
+              <p className="text-sm text-[#9CA3AF] italic">Listening… start speaking when ready.</p>
             ) : state === "reviewing" ? (
-              <p className="text-xs text-[#606060] italic">Analyzing your session…</p>
+              <p className="text-sm text-[#9CA3AF] italic">Analyzing your session…</p>
             ) : (
-              /* Demo transcript */
               <ul className="space-y-3">
                 {demoTrack.transcript.map((item) => (
                   <li key={item.tag}>
                     <div className="flex items-center gap-2 mb-0.5">
-                      <strong className="text-xs font-semibold text-[#F8F8F8]">{item.speaker}</strong>
-                      <span className="text-[10px] text-[#606060]">{item.tag}</span>
+                      <strong className="text-xs font-semibold text-[#111827]">{item.speaker}</strong>
+                      <span className="text-[10px] text-[#9CA3AF]">{item.tag}</span>
                     </div>
-                    <p className="text-xs text-[#A0A0A0] leading-relaxed">{item.text}</p>
+                    <p className="text-sm text-[#6B7280] leading-relaxed">{item.text}</p>
                   </li>
                 ))}
               </ul>
             )}
           </article>
 
-          {/* Scorecard */}
-          <article className="bg-[#111111] border border-white/[0.08] rounded-2xl p-6">
+          <article className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-8">
             <div className="flex items-center justify-between mb-5">
-              <span className="text-xs text-[#606060]">
-                {isDone ? "Session scorecard" : "Transcript-backed review"}
-              </span>
-              <span className="text-[10px] font-semibold text-[#C9A227] bg-[rgba(201,162,39,0.1)] px-2 py-0.5 rounded">
-                {displayReadiness}/100 readiness
-              </span>
+              <span className="text-xs text-[#9CA3AF]">{isDone ? "Session scorecard" : "Transcript-backed review"}</span>
+              <span className="text-xs font-semibold text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">{displayReadiness}/100 readiness</span>
             </div>
-
             <div className="grid sm:grid-cols-2 gap-3 mb-6">
               {displayScores.map(([label, value]) => (
                 <div key={label}>
-                  <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="text-[#A0A0A0] capitalize">{label}</span>
-                    <strong className="text-[#F8F8F8]">{value}</strong>
+                  <div className="flex items-center justify-between text-sm mb-2">
+                    <span className="text-[#6B7280] capitalize">{label}</span>
+                    <strong className="text-[#111827]">{value}</strong>
                   </div>
-                  <div className="metric-bar">
-                    <span style={{ width: `${value}%` }} />
+                  <div className="h-1 rounded-full bg-[#E5E7EB] overflow-hidden">
+                    <span className="block h-full rounded-full bg-[#C9A227] transition-all duration-500" style={{ width: `${value}%` }} />
                   </div>
                 </div>
               ))}
             </div>
-
             {isDone && scorecard ? (
               <>
                 {scorecard.summary && (
-                  <p className="text-xs text-[#A0A0A0] leading-relaxed mb-4 p-3 bg-[#1A1A1A] rounded-lg border border-white/[0.06]">
-                    {scorecard.summary}
-                  </p>
+                  <p className="text-sm text-[#6B7280] leading-relaxed mb-4 p-3 bg-white rounded-lg border border-[#E5E7EB]">{scorecard.summary}</p>
                 )}
                 <div className="grid sm:grid-cols-2 gap-4">
-                  {[
-                    { label: "Evidence", items: scorecard.evidence },
-                    { label: "Next reps", items: scorecard.next_steps },
-                  ].map(({ label, items }) => (
+                  {[{ label: "Evidence", items: scorecard.evidence }, { label: "Next reps", items: scorecard.next_steps }].map(({ label, items }) => (
                     items.length > 0 && (
                       <div key={label}>
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#606060] mb-2">
-                          {label}
-                        </p>
+                        <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">{label}</p>
                         <ul className="space-y-1.5">
                           {items.map((item) => (
-                            <li key={item} className="text-xs text-[#A0A0A0] flex items-start gap-1.5">
-                              <span className="text-[#C9A227] flex-shrink-0 mt-0.5">·</span>
-                              {item}
+                            <li key={item} className="text-sm text-[#6B7280] flex items-start gap-1.5">
+                              <span className="text-[#C9A227] flex-shrink-0 mt-0.5">·</span>{item}
                             </li>
                           ))}
                         </ul>
@@ -418,14 +328,11 @@ export function AssessmentStudio() {
                   { label: "Next reps", items: ["Re-record your 90-second story.", "Cut two sentences from the opening.", "Add one bank-specific close."] },
                 ].map(({ label, items }) => (
                   <div key={label}>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#606060] mb-2">
-                      {label}
-                    </p>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">{label}</p>
                     <ul className="space-y-1.5">
                       {items.map((item) => (
-                        <li key={item} className="text-xs text-[#A0A0A0] flex items-start gap-1.5 opacity-40">
-                          <span className="text-[#C9A227] flex-shrink-0 mt-0.5">·</span>
-                          {item}
+                        <li key={item} className="text-sm text-[#9CA3AF] flex items-start gap-1.5 opacity-60">
+                          <span className="text-[#C9A227] flex-shrink-0 mt-0.5">·</span>{item}
                         </li>
                       ))}
                     </ul>
