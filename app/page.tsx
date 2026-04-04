@@ -40,7 +40,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── How it works ─────────────────────────────────── */}
-      <section className="px-6 py-24">
+      <section id="about" className="px-6 py-24">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
@@ -292,7 +292,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────── */}
-      <section className="px-6 py-28">
+      <section id="faq" className="px-6 py-28">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">FAQ</p>
