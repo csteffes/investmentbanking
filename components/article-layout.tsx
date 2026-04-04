@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { compileMDX } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 
@@ -23,48 +22,20 @@ export async function ArticleLayout({ entry, kind }: ArticleLayoutProps) {
   const kicker = kind === "blog" ? "Blog" : "Guide";
 
   return (
-    <main className="px-6 py-20 max-w-5xl mx-auto">
-      <article>
-        <header className="text-center mb-14 max-w-2xl mx-auto">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
-            {kicker}
-          </p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] leading-[1.1] mb-4">
-            {entry.title}
-          </h1>
-          <p className="text-[#6B7280] text-base leading-relaxed mb-5">{entry.description}</p>
-          <div className="flex items-center justify-center gap-4 text-xs text-[#9CA3AF]">
-            <span>{formatDate(entry.date)}</span>
-            <span>·</span>
+    <main className="article-shell">
+      <article className="article-frame">
+        <header className="article-header">
+          <p className="article-kicker">{kicker}</p>
+          <h1 className="article-title">{entry.title}</h1>
+          <p className="article-dek">{entry.description}</p>
+          <div className="article-meta" aria-label="Article details">
+            <time dateTime={entry.date}>{formatDate(entry.date)}</time>
+            <span aria-hidden="true">·</span>
             <span>{entry.readingTime}</span>
           </div>
         </header>
 
-        <div className="flex gap-12 items-start max-w-4xl mx-auto">
-          {entry.headings.length > 0 && (
-            <aside className="hidden lg:block w-56 flex-shrink-0 sticky top-20">
-              <div className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-4">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-3">
-                  On this page
-                </p>
-                <ul className="space-y-1.5">
-                  {entry.headings.map((heading) => (
-                    <li key={heading.id} className={heading.depth === 3 ? "pl-3" : ""}>
-                      <a
-                        href={`#${heading.id}`}
-                        className="text-xs text-[#9CA3AF] hover:text-[#6B7280] transition-colors duration-150 leading-relaxed block"
-                      >
-                        {heading.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </aside>
-          )}
-
-          <div className="flex-1 min-w-0 max-w-2xl mx-auto">{content}</div>
-        </div>
+        <div className="article-prose">{content}</div>
       </article>
     </main>
   );

@@ -1,5 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import Link from "next/link";
+import { clsx } from "clsx";
 
 import { slugifyHeading } from "@/lib/utils";
 import { ArticleCTA } from "@/components/article-cta";
@@ -31,29 +32,51 @@ function flattenText(node: ReactNode): string {
 }
 
 export const mdxComponents = {
-  h2: ({ children, ...props }: ComponentPropsWithoutRef<"h2">) => (
-    <h2 className="prose-h2" id={slugifyHeading(flattenText(children))} {...props}>
+  h2: ({ children, className, ...props }: ComponentPropsWithoutRef<"h2">) => (
+    <h2 className={clsx("article-h2", className)} id={slugifyHeading(flattenText(children))} {...props}>
       {children}
     </h2>
   ),
-  h3: ({ children, ...props }: ComponentPropsWithoutRef<"h3">) => (
-    <h3 className="prose-h3" id={slugifyHeading(flattenText(children))} {...props}>
+  h3: ({ children, className, ...props }: ComponentPropsWithoutRef<"h3">) => (
+    <h3 className={clsx("article-h3", className)} id={slugifyHeading(flattenText(children))} {...props}>
       {children}
     </h3>
   ),
-  p: (props: ComponentPropsWithoutRef<"p">) => <p className="prose-p" {...props} />,
-  ul: (props: ComponentPropsWithoutRef<"ul">) => <ul className="prose-list" {...props} />,
-  ol: (props: ComponentPropsWithoutRef<"ol">) => <ol className="prose-list prose-list-numbered" {...props} />,
-  li: (props: ComponentPropsWithoutRef<"li">) => <li className="prose-li" {...props} />,
-  blockquote: (props: ComponentPropsWithoutRef<"blockquote">) => <blockquote className="prose-quote" {...props} />,
-  hr: (props: ComponentPropsWithoutRef<"hr">) => <hr className="prose-rule" {...props} />,
-  strong: (props: ComponentPropsWithoutRef<"strong">) => <strong className="prose-strong" {...props} />,
-  a: ({ href = "", ...props }: ComponentPropsWithoutRef<"a">) => {
+  p: ({ className, ...props }: ComponentPropsWithoutRef<"p">) => (
+    <p className={clsx("article-p", className)} {...props} />
+  ),
+  ul: ({ className, ...props }: ComponentPropsWithoutRef<"ul">) => (
+    <ul className={clsx("article-list", className)} {...props} />
+  ),
+  ol: ({ className, ...props }: ComponentPropsWithoutRef<"ol">) => (
+    <ol className={clsx("article-list", "article-list-numbered", className)} {...props} />
+  ),
+  li: ({ className, ...props }: ComponentPropsWithoutRef<"li">) => (
+    <li className={clsx("article-li", className)} {...props} />
+  ),
+  blockquote: ({ className, ...props }: ComponentPropsWithoutRef<"blockquote">) => (
+    <blockquote className={clsx("article-quote", className)} {...props} />
+  ),
+  hr: ({ className, ...props }: ComponentPropsWithoutRef<"hr">) => (
+    <hr className={clsx("article-rule", className)} {...props} />
+  ),
+  strong: ({ className, ...props }: ComponentPropsWithoutRef<"strong">) => (
+    <strong className={clsx("article-strong", className)} {...props} />
+  ),
+  a: ({ href = "", className, ...props }: ComponentPropsWithoutRef<"a">) => {
     const external = href.startsWith("http");
     if (external) {
-      return <a className="prose-link" href={href} rel="noreferrer" target="_blank" {...props} />;
+      return (
+        <a
+          className={clsx("article-link", className)}
+          href={href}
+          rel="noreferrer"
+          target="_blank"
+          {...props}
+        />
+      );
     }
-    return <Link className="prose-link" href={href} {...props} />;
+    return <Link className={clsx("article-link", className)} href={href} {...props} />;
   },
   ArticleCTA,
   JsonLd,

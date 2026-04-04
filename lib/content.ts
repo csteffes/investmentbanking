@@ -3,17 +3,11 @@ import path from "node:path";
 
 import matter from "gray-matter";
 
-import { formatDate, slugifyHeading } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 
 export { formatDate };
 
 export type ContentKind = "blog" | "guides";
-
-export type Heading = {
-  id: string;
-  depth: 2 | 3;
-  title: string;
-};
 
 export type ContentMeta = {
   slug: string;
@@ -28,22 +22,9 @@ export type ContentMeta = {
 
 export type ContentEntry = ContentMeta & {
   source: string;
-  headings: Heading[];
 };
 
 const CONTENT_ROOT = path.join(process.cwd(), "content");
-
-function extractHeadings(source: string): Heading[] {
-  return source
-    .split("\n")
-    .map((line) => line.match(/^(##|###)\s+(.+)$/))
-    .filter((match): match is RegExpMatchArray => Boolean(match))
-    .map((match) => ({
-      depth: match[1] === "###" ? 3 : (2 as 2 | 3),
-      title: match[2].trim(),
-      id: slugifyHeading(match[2]),
-    }));
-}
 
 function mapMeta(kind: ContentKind, slug: string, raw: Record<string, unknown>): ContentMeta {
   return {
@@ -94,7 +75,6 @@ export async function getEntry(kind: ContentKind, slug: string): Promise<Content
     return {
       ...meta,
       source: content,
-      headings: extractHeadings(content),
     };
   } catch {
     return null;
