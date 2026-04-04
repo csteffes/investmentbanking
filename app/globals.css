@@ -512,30 +512,6 @@ textarea {
   text-wrap: pretty;
 }
 
-.library-hero__meta {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.8rem;
-  padding-top: 0.35rem;
-}
-
-.library-hero__pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.85rem 1.1rem;
-  border: 1px solid rgba(222, 226, 232, 0.9);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 16px 34px rgba(17, 24, 39, 0.06);
-  color: #667085;
-  font-size: 0.84rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1;
-}
-
 .library-section {
   padding-top: clamp(1.25rem, 2vw, 2rem);
 }
@@ -1520,14 +1496,6 @@ textarea {
 
   .library-hero__copy {
     max-width: 34rem;
-  }
-
-  .library-hero__meta {
-    gap: 0.7rem;
-  }
-
-  .library-hero__pill {
-    font-size: 0.8rem;
   }
 
   .library-side__list {

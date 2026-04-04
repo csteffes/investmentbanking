@@ -16,7 +16,6 @@ function getCollectionCopy(kind: ContentKind) {
     return {
       noun: "post",
       plural: "posts",
-      libraryPill: "Search-led articles",
       selectedCopy: "Sharp reads for specific questions, recruiting moments, and final-round prep.",
       archiveTitle: "Latest posts",
       archiveCopy: "Tactical pieces built for candidates who want cleaner answers and better reps.",
@@ -28,7 +27,6 @@ function getCollectionCopy(kind: ContentKind) {
   return {
     noun: "guide",
     plural: "guides",
-    libraryPill: "Core prep library",
     selectedCopy: "Foundational reads covering the buckets you need to lock in before interview day.",
     archiveTitle: "More guides",
     archiveCopy: "Deep-dive pieces for the core banking questions that keep showing up.",
@@ -57,16 +55,6 @@ export function CollectionIndex({
             <p className="library-hero__eyebrow">{label}</p>
             <h1 className="library-hero__title">{title}</h1>
             <p className="library-hero__copy">{description}</p>
-
-            <div className="library-hero__meta" aria-label={`${label} collection summary`}>
-              <span className="library-hero__pill">
-                {items.length} {items.length === 1 ? copy.noun : copy.plural}
-              </span>
-              {lead ? (
-                <span className="library-hero__pill">Featured on {formatDate(lead.date)}</span>
-              ) : null}
-              <span className="library-hero__pill">{copy.libraryPill}</span>
-            </div>
           </div>
         </div>
       </section>
