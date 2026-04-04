@@ -13,106 +13,165 @@ export default async function HomePage() {
   return (
     <main>
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="relative px-6 pt-24 pb-20 max-w-6xl mx-auto">
-        <div className="max-w-3xl">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#C9A227] mb-5">
-            Investment Banking Interview Prep
-          </p>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.08] text-[#F8F8F8] mb-5">
-            Train for your Superday before your Superday runs a train on you.
+      <section className="px-6 pt-32 pb-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] text-[#F8F8F8] mb-6">
+            Build confidence that gets you the offer.
           </h1>
-          <p className="text-[#A0A0A0] text-lg leading-relaxed mb-8 max-w-xl">
-            Run live mocks, tighten technical answers, and review transcript-backed scorecards anytime.
+          <p className="text-lg sm:text-xl text-[#A0A0A0] leading-relaxed max-w-2xl mx-auto mb-10">
+            Run live mock interviews with an AI voice coach, sharpen your technicals,
+            and review transcript-backed scorecards — anytime, anywhere.
           </p>
-          <div className="flex items-center gap-3 flex-wrap mb-12">
+          <div className="flex items-center justify-center gap-4 mb-12">
             <Link
               href="/assessment"
-              className="px-6 py-3 rounded-lg bg-[#C9A227] text-[#0A0A0A] font-semibold text-sm hover:bg-[#E8BC30] transition-colors duration-150"
+              className="px-8 py-3.5 rounded-lg bg-[#C9A227] text-[#0A0A0A] font-semibold text-sm hover:bg-[#E8BC30] transition-all duration-150"
             >
-              Try for Free Today
+              Try for free today
             </Link>
           </div>
-          <dl className="flex items-center gap-8">
-            {[
-              { dt: "Practice", dd: "24/7" },
-              { dt: "Modes", dd: "3" },
-              { dt: "Feedback", dd: "Instant" },
-            ].map(({ dt, dd }) => (
-              <div key={dt}>
-                <dt className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#606060] mb-0.5">{dt}</dt>
-                <dd className="text-xl font-bold text-[#F8F8F8]">{dd}</dd>
-              </div>
-            ))}
-          </dl>
+          <div className="flex items-center justify-center gap-2 text-sm text-[#606060]">
+            <span className="text-[#C9A227] font-semibold">4.8/5</span>
+            <span>from early users</span>
+            <span className="mx-1">·</span>
+            <span>No credit card required</span>
+          </div>
         </div>
+      </section>
 
-        {/* Demo cards */}
-        <div className="mt-16 grid sm:grid-cols-2 gap-4 max-w-3xl">
-          <article className="bg-[#111111] border border-white/[0.08] rounded-xl p-5">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#C9A227] bg-[rgba(201,162,39,0.1)] px-2 py-0.5 rounded">
-                Live mock
-              </span>
-              <span className="text-xs text-[#606060]">Realistic follow-up pressure</span>
-            </div>
-            <h2 className="text-sm font-semibold text-[#F8F8F8] leading-snug mb-2">
-              Walk me through your story, why banking, and why this team.
-            </h2>
-            <p className="text-xs text-[#606060] mb-4">
-              Practice the opening that decides whether the rest of the interview feels credible.
+      {/* ── How it works ─────────────────────────────────── */}
+      <section className="px-6 py-24">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
+              How it works
             </p>
-            <ul className="space-y-2.5">
-              {[
-                { speaker: "Coach", tag: "opening", text: "Start with the pivot. Do not make them wait for the why now." },
-                { speaker: "You", tag: "candidate", text: "I want the pace, client exposure, and execution intensity that banking offers." },
-              ].map((item) => (
-                <li key={item.tag} className="text-xs">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <strong className="text-[#F8F8F8] font-semibold">{item.speaker}</strong>
-                    <span className="text-[#606060]">{item.tag}</span>
-                  </div>
-                  <p className="text-[#A0A0A0] leading-relaxed">{item.text}</p>
-                </li>
-              ))}
-            </ul>
-          </article>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8F8F8]">
+              Three tracks. One readiness score.
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6">
+            {[
+              {
+                step: "01",
+                title: "Set your target",
+                description: "Choose your bank, group, and interview stage. The AI tailors every prompt to your exact situation.",
+              },
+              {
+                step: "02",
+                title: "Practice out loud",
+                description: "Run a live voice mock. The coach pushes back with realistic follow-ups — behavioral, technical, or deals.",
+              },
+              {
+                step: "03",
+                title: "Review your scorecard",
+                description: "Get a transcript-backed readiness score with evidence, dimension scores, and specific next steps.",
+              },
+            ].map((item) => (
+              <article
+                key={item.step}
+                className="bg-[#111111] border border-white/[0.08] rounded-2xl p-8 hover:border-white/[0.15] transition-colors duration-150"
+              >
+                <span className="text-xs font-semibold text-[#C9A227] mb-4 block">{item.step}</span>
+                <h3 className="text-lg font-semibold text-[#F8F8F8] tracking-tight mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-[#A0A0A0] leading-relaxed">
+                  {item.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          <article className="bg-[#111111] border border-white/[0.08] rounded-xl p-5">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs text-[#606060]">Latest review</span>
-              <span className="text-[10px] font-semibold text-[#C9A227] bg-[rgba(201,162,39,0.1)] px-2 py-0.5 rounded">
-                84/100 readiness
-              </span>
-            </div>
-            <div className="space-y-2.5">
-              {[
-                ["Structure", 88],
-                ["Communication", 82],
-                ["Technical", 80],
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="text-[#A0A0A0]">{label}</span>
-                    <strong className="text-[#F8F8F8]">{value}</strong>
+      {/* ── Product preview ──────────────────────────────── */}
+      <section className="px-6 py-24 border-t border-white/[0.06]">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
+              Live preview
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8F8F8] mb-4">
+              Structured like the real thing.
+            </h2>
+            <p className="text-[#A0A0A0] max-w-xl mx-auto">
+              Every session adapts to your profile and delivers the same pressure you will face in the room.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-6">
+            {/* Live mock card */}
+            <article className="bg-[#111111] border border-white/[0.08] rounded-2xl p-8">
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">
+                  Live mock
+                </span>
+                <span className="text-xs text-[#606060]">Realistic follow-up pressure</span>
+              </div>
+              <h3 className="text-base font-semibold text-[#F8F8F8] leading-snug mb-3">
+                Walk me through your story, why banking, and why this team.
+              </h3>
+              <p className="text-xs text-[#606060] mb-6">
+                Practice the opening that decides whether the rest of the interview feels credible.
+              </p>
+              <div className="waveform mb-6" aria-hidden="true">
+                {Array.from({ length: 8 }).map((_, i) => <span key={i} />)}
+              </div>
+              <ul className="space-y-4">
+                {[
+                  { speaker: "Coach", tag: "opening", text: "Start with the pivot. Do not make them wait for the why now." },
+                  { speaker: "You", tag: "candidate", text: "I want the pace, client exposure, and execution intensity that banking offers." },
+                ].map((item) => (
+                  <li key={item.tag}>
+                    <div className="flex items-center gap-2 mb-1">
+                      <strong className="text-xs font-semibold text-[#F8F8F8]">{item.speaker}</strong>
+                      <span className="text-[10px] text-[#606060]">{item.tag}</span>
+                    </div>
+                    <p className="text-sm text-[#A0A0A0] leading-relaxed">{item.text}</p>
+                  </li>
+                ))}
+              </ul>
+            </article>
+
+            {/* Scorecard card */}
+            <article className="bg-[#111111] border border-white/[0.08] rounded-2xl p-8">
+              <div className="flex items-center justify-between mb-8">
+                <span className="text-xs text-[#606060]">Latest review</span>
+                <span className="text-xs font-semibold text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">
+                  84/100 readiness
+                </span>
+              </div>
+              <div className="space-y-5 mb-8">
+                {[
+                  ["Structure", 88],
+                  ["Communication", 82],
+                  ["Technical", 80],
+                  ["Poise", 85],
+                ].map(([label, value]) => (
+                  <div key={label}>
+                    <div className="flex items-center justify-between text-sm mb-2">
+                      <span className="text-[#A0A0A0]">{label}</span>
+                      <strong className="text-[#F8F8F8] font-semibold">{value}</strong>
+                    </div>
+                    <div className="metric-bar">
+                      <span style={{ width: `${value}%` }} />
+                    </div>
                   </div>
-                  <div className="h-1 w-full rounded-full bg-white/[0.06]">
-                    <span
-                      className="block h-full rounded-full bg-[#C9A227] transition-all duration-[400ms] ease-out"
-                      style={{ width: `${value}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-            <ul className="mt-4 space-y-1.5">
-              {["Clear why-now story.", "Technicals still need more speed.", "Bring one live deal to the room."].map((item) => (
-                <li key={item} className="text-xs text-[#A0A0A0] flex items-start gap-1.5">
-                  <span className="text-[#C9A227] mt-0.5 flex-shrink-0">·</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </article>
+                ))}
+              </div>
+              <div className="border-t border-white/[0.06] pt-6">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#606060] mb-3">Key feedback</p>
+                <ul className="space-y-2">
+                  {["Clear why-now story.", "Technicals still need more speed.", "Bring one live deal to the room."].map((item) => (
+                    <li key={item} className="text-sm text-[#A0A0A0] flex items-start gap-2">
+                      <span className="text-[#C9A227] mt-0.5 flex-shrink-0">·</span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -121,7 +180,7 @@ export default async function HomePage() {
         ariaLabel="Our users have landed jobs at leading investment banks"
         label="Our users have landed jobs at:"
         logos={bankLogos}
-        variant="light"
+        variant="dark"
       />
 
       {/* ── School trust band ────────────────────────────── */}
@@ -129,109 +188,116 @@ export default async function HomePage() {
         ariaLabel="Trusted by students from top schools"
         label="Trusted by students from:"
         logos={schoolLogos}
-        variant="light"
+        variant="dark"
       />
 
       {/* ── Resources ────────────────────────────────────── */}
-      <section className="px-6 py-20 max-w-6xl mx-auto">
-        <div className="mb-10">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#C9A227] mb-3">
-            Resources
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F8F8F8] mb-3">
-            Built to rank for the prep questions candidates actually search.
-          </h2>
-          <p className="text-[#A0A0A0] max-w-xl">
-            Use the guide hub for pillar topics and the blog for focused breakdowns, then move straight into practice.
-          </p>
-        </div>
-        <div className="grid sm:grid-cols-2 gap-8">
-          {[
-            { kind: "guides" as const, label: "Guides", href: "/guides", items: latestGuides },
-            { kind: "blog" as const, label: "Blog", href: "/blog", items: latestPosts },
-          ].map(({ label, href, items, kind }) => (
-            <div key={kind}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-sm font-semibold text-[#F8F8F8]">{label}</h3>
-                <Link
-                  href={href}
-                  className="text-xs text-[#606060] hover:text-[#A0A0A0] transition-colors duration-150"
-                >
-                  See all →
-                </Link>
-              </div>
-              <div className="space-y-3">
-                {items.map((item) => (
+      <section className="px-6 py-28">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
+              Resources
+            </p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8F8F8] mb-4">
+              Built to rank for the prep questions candidates actually search.
+            </h2>
+            <p className="text-[#A0A0A0] max-w-xl mx-auto">
+              Use the guide hub for pillar topics and the blog for focused breakdowns,
+              then move straight into practice.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-12">
+            {[
+              { kind: "guides" as const, label: "Guides", href: "/guides", items: latestGuides },
+              { kind: "blog" as const, label: "Blog", href: "/blog", items: latestPosts },
+            ].map(({ label, href, items, kind }) => (
+              <div key={kind}>
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-base font-semibold text-[#F8F8F8]">{label}</h3>
                   <Link
-                    key={item.slug}
-                    href={`/${kind}/${item.slug}`}
-                    className="block bg-[#111111] border border-white/[0.08] rounded-xl p-4 hover:border-white/[0.15] hover:-translate-y-px transition-all duration-150"
+                    href={href}
+                    className="text-xs text-[#606060] hover:text-[#A0A0A0] transition-colors duration-150"
                   >
-                    <p className="text-[10px] text-[#606060] mb-1.5 uppercase tracking-wide">
-                      {formatDate(item.date)} · {item.readingTime}
-                    </p>
-                    <h4 className="text-sm font-semibold text-[#F8F8F8] leading-snug mb-1">
-                      {item.title}
-                    </h4>
-                    <p className="text-xs text-[#606060] leading-relaxed line-clamp-2">
-                      {item.description}
-                    </p>
+                    See all →
                   </Link>
-                ))}
+                </div>
+                <div className="space-y-4">
+                  {items.map((item) => (
+                    <Link
+                      key={item.slug}
+                      href={`/${kind}/${item.slug}`}
+                      className="block bg-[#111111] border border-white/[0.08] rounded-xl p-6 hover:border-white/[0.15] hover:-translate-y-0.5 transition-all duration-150"
+                    >
+                      <p className="text-[10px] text-[#606060] uppercase tracking-wide mb-2">
+                        {formatDate(item.date)} · {item.readingTime}
+                      </p>
+                      <h4 className="text-sm font-semibold text-[#F8F8F8] leading-snug mb-2">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs text-[#606060] leading-relaxed line-clamp-2">
+                        {item.description}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ── Pricing ──────────────────────────────────────── */}
-      <section id="pricing" className="px-6 py-20 border-t border-white/[0.06]">
-        <div className="max-w-lg mx-auto text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F8F8F8] mb-3">
-            Simple pricing, unlimited practice
+      <section id="pricing" className="px-6 py-28 border-t border-white/[0.06]">
+        <div className="max-w-lg mx-auto text-center mb-16">
+          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
+            Pricing
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8F8F8] mb-4">
+            Simple pricing, unlimited practice.
           </h2>
           <p className="text-[#A0A0A0]">
-            One plan with everything you need. Start with a free trial, cancel anytime.
+            One plan with everything you need. Start free, cancel anytime.
           </p>
         </div>
         <article className="max-w-md mx-auto bg-[#111111] border border-white/[0.1] rounded-2xl overflow-hidden">
-          <div className="p-8 border-b border-white/[0.08]">
-            <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-[#C9A227] mb-2">
+          <div className="p-10 border-b border-white/[0.08]">
+            <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C9A227] mb-3">
               {site.pricing.trialDays}-Day Free Trial
             </p>
-            <p className="text-sm font-semibold text-[#A0A0A0] mb-4">Superday AI Pro</p>
-            <div className="flex items-baseline gap-1 mb-4">
-              <span className="text-lg text-[#A0A0A0]">$</span>
-              <span className="text-5xl font-bold tracking-tight text-[#F8F8F8]">
+            <p className="text-sm font-semibold text-[#A0A0A0] mb-6">Superday AI Pro</p>
+            <div className="flex items-baseline gap-1 mb-6">
+              <span className="text-lg text-[#606060]">$</span>
+              <span className="text-6xl font-bold tracking-tight text-[#F8F8F8]">
                 {site.pricing.monthly}
               </span>
-              <span className="text-[#606060] text-sm">/month</span>
+              <span className="text-[#606060] text-sm ml-1">/month</span>
             </div>
             <p className="text-sm text-[#A0A0A0] leading-relaxed">
-              For ambitious candidates who want more reps, sharper feedback, and a real edge going into first rounds and superdays.
+              For ambitious candidates who want more reps, sharper feedback, and a real edge
+              going into first rounds and superdays.
             </p>
           </div>
-          <div className="p-8">
-            <ul className="space-y-3 mb-8">
+          <div className="p-10">
+            <ul className="space-y-4 mb-10">
               {[
-                "Unlimited live mock interviews per month",
+                "Unlimited live mock interviews",
                 "Detailed feedback after every session",
                 "Behavioral, technical, and superday drills",
                 "Saved scorecards and full guide access",
               ].map((item) => (
-                <li key={item} className="flex items-start gap-2.5 text-sm text-[#A0A0A0]">
-                  <span className="text-[#C9A227] font-bold mt-0.5">✓</span>
+                <li key={item} className="flex items-start gap-3 text-sm text-[#A0A0A0]">
+                  <span className="text-[#C9A227] font-bold mt-0.5 flex-shrink-0">✓</span>
                   {item}
                 </li>
               ))}
             </ul>
             <Link
               href="/assessment"
-              className="block w-full text-center px-6 py-3 rounded-lg bg-[#C9A227] text-[#0A0A0A] font-semibold text-sm hover:bg-[#E8BC30] transition-colors duration-150 mb-3"
+              className="block w-full text-center px-6 py-3.5 rounded-lg bg-[#C9A227] text-[#0A0A0A] font-semibold text-sm hover:bg-[#E8BC30] transition-all duration-150"
             >
-              Try for Free Today →
+              Try for free today
             </Link>
-            <p className="text-center text-xs text-[#606060]">
+            <p className="text-center text-xs text-[#606060] mt-4">
               Cancel anytime · {site.pricing.label} after your {site.pricing.trialDays}-day trial
             </p>
           </div>
@@ -239,25 +305,27 @@ export default async function HomePage() {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────── */}
-      <section className="px-6 py-20 max-w-6xl mx-auto">
-        <div className="mb-10">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#C9A227] mb-3">FAQ</p>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F8F8F8]">
-            What candidates usually ask first.
-          </h2>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {homepageFaqs.map((item) => (
-            <article
-              key={item.question}
-              className="bg-[#111111] border border-white/[0.08] rounded-xl p-5"
-            >
-              <h3 className="text-sm font-semibold text-[#F8F8F8] leading-snug mb-2">
-                {item.question}
-              </h3>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">{item.answer}</p>
-            </article>
-          ))}
+      <section className="px-6 py-28">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">FAQ</p>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#F8F8F8]">
+              What candidates usually ask first.
+            </h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {homepageFaqs.map((item) => (
+              <article
+                key={item.question}
+                className="bg-[#111111] border border-white/[0.08] rounded-2xl p-8"
+              >
+                <h3 className="text-sm font-semibold text-[#F8F8F8] leading-snug mb-3">
+                  {item.question}
+                </h3>
+                <p className="text-sm text-[#A0A0A0] leading-relaxed">{item.answer}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
     </main>

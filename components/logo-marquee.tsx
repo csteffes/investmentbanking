@@ -5,7 +5,6 @@ type LogoMarqueeProps = {
   logos: readonly LogoItem[];
   ariaLabel?: string;
   variant?: "dark" | "light";
-  compact?: boolean;
 };
 
 export function LogoMarquee({
@@ -13,25 +12,28 @@ export function LogoMarquee({
   logos,
   ariaLabel,
   variant = "dark",
-  compact = false,
 }: LogoMarqueeProps) {
-  const isLight = variant === "light";
-  const sectionClasses = [
-    "logo-marquee overflow-hidden",
-    isLight
-      ? "logo-marquee--light border-y border-[#DCE5F1] bg-[#FBFCFE]"
-      : "logo-marquee--dark border-y border-white/[0.07] bg-[#0A0A0A]",
-    compact ? "py-6" : "py-8",
-  ].join(" ");
-  const pillClasses = [
-    "logo-marquee-pill",
-    isLight ? "logo-marquee-pill--light" : "logo-marquee-pill--dark",
-  ].join(" ");
+  const isDark = variant === "dark";
 
   return (
-    <section className={sectionClasses} aria-label={ariaLabel ?? label}>
+    <section
+      className={[
+        "py-14 overflow-hidden",
+        isDark
+          ? "logo-marquee--dark border-y border-white/[0.06] bg-[#0A0A0A]"
+          : "logo-marquee--light border-y border-[#DCE5F1] bg-[#FBFCFE]",
+      ].join(" ")}
+      aria-label={ariaLabel ?? label}
+    >
       <div className="logo-marquee-shell">
-        <p className={pillClasses}>{label}</p>
+        <p
+          className={[
+            "logo-marquee-pill",
+            isDark ? "logo-marquee-pill--dark" : "logo-marquee-pill--light",
+          ].join(" ")}
+        >
+          {label}
+        </p>
         <div className="logo-marquee-window">
           <div className="logo-track">
             {[0, 1].map((setIndex) => (
