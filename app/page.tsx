@@ -83,7 +83,7 @@ export default async function HomePage() {
               sharp, specific, and calm when the real follow-ups start coming.
             </p>
 
-            <div className="flex flex-col items-center gap-4 pt-3">
+            <div className="flex flex-col items-center gap-5 pt-4">
               <Link
                 href="/mock-interview"
                 className="marketing-primary-cta px-7 text-base sm:px-8"
@@ -94,10 +94,10 @@ export default async function HomePage() {
                 </span>
               </Link>
 
-              <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-[#111827] shadow-[0_12px_30px_rgba(17,24,39,0.05)]">
+              <div className="hero-trust-row" aria-label="Early user proof points">
+                <div className="hero-trust-row__rating">
                   <div
-                    className="flex gap-0.5 text-[#C9A227]"
+                    className="hero-trust-row__stars"
                     aria-label="4.8 out of 5 stars"
                   >
                     <span>★</span>
@@ -106,17 +106,15 @@ export default async function HomePage() {
                     <span>★</span>
                     <span>★</span>
                   </div>
-                  <span className="font-semibold">4.8/5</span>
-                  <span className="text-[#9CA3AF]">from early users</span>
+                  <span className="hero-trust-row__score">4.8/5</span>
+                  <span className="hero-trust-row__caption">from early users</span>
                 </div>
 
                 {heroHighlights.map((item) => (
-                  <span
-                    key={item}
-                    className="inline-flex items-center rounded-full border border-[#E5E7EB] bg-white px-4 py-2 text-[#6B7280] shadow-[0_12px_30px_rgba(17,24,39,0.05)]"
-                  >
-                    {item}
-                  </span>
+                  <div key={item} className="hero-trust-row__group">
+                    <span aria-hidden="true" className="hero-trust-row__separator" />
+                    <span className="hero-trust-row__item">{item}</span>
+                  </div>
                 ))}
               </div>
             </div>
