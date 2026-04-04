@@ -793,6 +793,7 @@ textarea {
 .resources-grid {
   display: grid;
   gap: clamp(2.5rem, 5vw, 4.5rem);
+  margin-top: clamp(0.5rem, 1.4vw, 1.25rem);
 }
 
 .resources-column {
@@ -803,7 +804,7 @@ textarea {
 }
 
 .resources-column__header {
-  margin-bottom: 2rem;
+  margin-bottom: clamp(2.5rem, 4vw, 3rem);
 }
 
 .resources-column__title {
@@ -913,14 +914,15 @@ textarea {
 
   .resources-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(3.25rem, 5vw, 5rem);
   }
 
   .resources-column:first-child {
-    padding-right: clamp(1.5rem, 2vw, 2.25rem);
+    padding-right: clamp(1.9rem, 2.8vw, 3rem);
   }
 
   .resources-column + .resources-column {
-    padding-left: clamp(1.5rem, 2vw, 2.25rem);
+    padding-left: clamp(1.9rem, 2.8vw, 3rem);
     border-left: 1px solid rgba(17, 24, 39, 0.08);
   }
 
@@ -963,6 +965,10 @@ textarea {
   .resources-column + .resources-column {
     padding-top: 2.5rem;
     border-top: 1px solid rgba(17, 24, 39, 0.08);
+  }
+
+  .resources-column__header {
+    margin-bottom: 2.1rem;
   }
 
   .resources-entry {

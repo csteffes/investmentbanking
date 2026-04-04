@@ -254,9 +254,9 @@ export default async function HomePage() {
 
       <section className="marketing-section marketing-section--trim-top">
         <div className="marketing-shell">
-          <div className="marketing-intro mb-16 sm:mb-20">
+          <div className="marketing-intro mb-20 sm:mb-24 lg:mb-28">
             <p className="marketing-eyebrow">Resources</p>
-            <h2 className="max-w-[13ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:text-[2.8rem]">
+            <h2 className="max-w-[18ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:max-w-[none] lg:text-[2.8rem]">
               Prep content that actually helps.
             </h2>
           </div>
