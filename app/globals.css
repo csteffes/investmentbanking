@@ -3,19 +3,19 @@
 /* ── Design tokens ─────────────────────────────────────────── */
 @theme {
   /* Colors */
-  --color-background:     #0A0A0A;
-  --color-surface:        #111111;
-  --color-surface-raised: #1A1A1A;
-  --color-border:         rgba(255, 255, 255, 0.08);
-  --color-border-strong:  rgba(255, 255, 255, 0.15);
+  --color-background:     #FFFFFF;
+  --color-surface:        #F9FAFB;
+  --color-surface-raised: #FFFFFF;
+  --color-border:         #E5E7EB;
+  --color-border-strong:  #D1D5DB;
 
   --color-accent:         #C9A227;
-  --color-accent-soft:    rgba(201, 162, 39, 0.12);
+  --color-accent-soft:    rgba(201, 162, 39, 0.10);
   --color-accent-strong:  #E8BC30;
 
-  --color-text:           #F8F8F8;
-  --color-text-secondary: #A0A0A0;
-  --color-text-muted:     #606060;
+  --color-text:           #111827;
+  --color-text-secondary: #6B7280;
+  --color-text-muted:     #9CA3AF;
 
   --color-success:        #22C55E;
   --color-danger:         #EF4444;
@@ -102,124 +102,39 @@ textarea {
   border-radius: 4px;
 }
 
-/* ── Logo carousel ─────────────────────────────────────────── */
-.logo-marquee-shell {
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.logo-marquee-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
-  flex-shrink: 0;
-  border-radius: 999px;
-  padding: 0.85rem 1.25rem;
-  white-space: nowrap;
-  font-size: 0.95rem;
-  line-height: 1;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-}
-
-.logo-marquee-pill--light {
-  background: #FFFFFF;
-  border: 1px solid rgba(11, 31, 58, 0.08);
-  color: #5B6574;
-}
-
-.logo-marquee-pill--dark {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #A0A0A0;
-}
-
-.logo-marquee-window {
-  position: relative;
-  min-width: 0;
-  flex: 1;
-  overflow: hidden;
-}
-
-.logo-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 28s linear infinite;
-}
-
-.logo-track:hover {
-  animation-play-state: paused;
-}
-
-.logo-set {
-  display: flex;
-  align-items: center;
-  gap: clamp(2.75rem, 4vw, 5rem);
-  padding: 0 1.25rem;
-}
-
-.logo-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  padding: 0.25rem 0;
-}
-
-.logo-card-image {
+/* ── Logo grid (static, no carousel) ──────────────────────── */
+.logo-grid-image {
   object-fit: contain;
-  max-height: 44px;
+  max-height: 38px;
   width: auto;
-  transition: opacity var(--ease-out-fast);
+  opacity: 0.7;
+  filter: grayscale(100%);
+  transition: opacity var(--ease-out-fast), filter var(--ease-out-fast);
 }
 
-.logo-marquee--light .logo-card-image {
+.logo-grid-image:hover {
   opacity: 1;
-  filter: none;
-}
-
-.logo-marquee--dark .logo-card-image {
-  opacity: 0.78;
-  filter: brightness(0) invert(1);
-}
-
-.logo-marquee--dark .bank-logo--jpmorgan .logo-card-image,
-.logo-marquee--dark .bank-logo--goldman .logo-card-image,
-.logo-marquee--dark .school-logo--harvard .logo-card-image,
-.logo-marquee--dark .school-logo--princeton .logo-card-image,
-.logo-marquee--dark .school-logo--ut .logo-card-image {
-  opacity: 0.88;
-  filter: none;
+  filter: grayscale(0%);
 }
 
 /* Bank logos */
-.bank-logo--jpmorgan  .logo-card-image { max-width: 172px; max-height: 30px; }
-.bank-logo--evercore  .logo-card-image { max-width: 182px; max-height: 30px; }
-.bank-logo--goldman   .logo-card-image { max-width: 188px; max-height: 36px; }
-.bank-logo--barclays  .logo-card-image { max-width: 124px; max-height: 46px; }
-.bank-logo--jefferies .logo-card-image { max-width: 156px; max-height: 38px; }
-.bank-logo--lazard    .logo-card-image { max-width: 166px; max-height: 30px; }
+.bank-logo--jpmorgan  .logo-grid-image { max-width: 160px; max-height: 26px; }
+.bank-logo--evercore  .logo-grid-image { max-width: 170px; max-height: 26px; }
+.bank-logo--goldman   .logo-grid-image { max-width: 176px; max-height: 32px; }
+.bank-logo--barclays  .logo-grid-image { max-width: 116px; max-height: 40px; }
+.bank-logo--jefferies .logo-grid-image { max-width: 146px; max-height: 34px; }
+.bank-logo--lazard    .logo-grid-image { max-width: 156px; max-height: 26px; }
 
 /* School logos */
-.school-logo--harvard      .logo-card-image { max-width: 182px; max-height: 38px; }
-.school-logo--columbia     .logo-card-image { max-width: 208px; max-height: 34px; }
-.school-logo--dartmouth    .logo-card-image { max-width: 214px; max-height: 30px; }
-.school-logo--princeton    .logo-card-image { max-width: 180px; max-height: 34px; }
-.school-logo--booth        .logo-card-image { max-width: 190px; max-height: 38px; }
-.school-logo--northwestern .logo-card-image { max-width: 202px; max-height: 30px; }
-.school-logo--penn         .logo-card-image { max-width: 152px; max-height: 42px; }
-.school-logo--usc          .logo-card-image { max-width: 208px; max-height: 32px; }
-.school-logo--ut           .logo-card-image { max-width: 182px; max-height: 34px; }
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
+.school-logo--harvard      .logo-grid-image { max-width: 170px; max-height: 34px; }
+.school-logo--columbia     .logo-grid-image { max-width: 196px; max-height: 30px; }
+.school-logo--dartmouth    .logo-grid-image { max-width: 200px; max-height: 26px; }
+.school-logo--princeton    .logo-grid-image { max-width: 168px; max-height: 30px; }
+.school-logo--booth        .logo-grid-image { max-width: 178px; max-height: 34px; }
+.school-logo--northwestern .logo-grid-image { max-width: 190px; max-height: 26px; }
+.school-logo--penn         .logo-grid-image { max-width: 140px; max-height: 38px; }
+.school-logo--usc          .logo-grid-image { max-width: 196px; max-height: 28px; }
+.school-logo--ut           .logo-grid-image { max-width: 170px; max-height: 30px; }
 
 /* ── Waveform animation ─────────────────────────────────────── */
 .waveform {
@@ -370,33 +285,7 @@ textarea {
 
 /* ── Responsive utilities ──────────────────────────────────── */
 @media (max-width: 768px) {
-  .logo-marquee-shell {
-    gap: 1rem;
-  }
-
-  .logo-marquee-pill {
-    font-size: 0.875rem;
-    padding: 0.75rem 1rem;
-  }
-
-  .logo-set {
-    gap: 32px;
-    padding: 0 1rem;
-  }
-
-  .logo-card-image {
-    max-height: 34px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .logo-marquee-shell {
-    flex-direction: row;
-    align-items: center;
-    gap: 2.25rem;
-  }
-
-  .logo-marquee-pill {
-    align-self: center;
+  .logo-grid-image {
+    max-height: 28px;
   }
 }
