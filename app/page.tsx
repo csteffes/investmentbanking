@@ -10,20 +10,17 @@ const heroHighlights = [
 
 const howItWorksSteps = [
   {
-    step: "01",
-    title: "Set your target",
+    title: "Set Your Target",
     description:
       "Choose your bank, group, and interview stage so the interviewer meets you in the exact room you are preparing for.",
   },
   {
-    step: "02",
-    title: "Practice out loud",
+    title: "Practice Out Loud",
     description:
       "Run a live mock interview and handle realistic follow-ups across story, technicals, and deals without hiding behind notes.",
   },
   {
-    step: "03",
-    title: "Read coach notes",
+    title: "Read Coach Notes",
     description:
       "End with a concise debrief, transcript-backed coach notes, and one clear next rep to run right away.",
   },
@@ -127,34 +124,25 @@ export default async function HomePage() {
         className="marketing-section marketing-section--trim-top"
       >
         <div className="marketing-shell">
-          <div className="marketing-intro mb-12 sm:mb-14">
+          <div className="marketing-intro mb-10 sm:mb-12">
             <p className="marketing-eyebrow">How it works</p>
             <h2 className="max-w-[14ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:text-[2.8rem]">
               Three steps to better interview reps.
             </h2>
-            <p className="marketing-muted max-w-[34rem]">
-              Set the target, answer out loud, and finish with the clearest next
-              rep to run before the real interview arrives.
-            </p>
           </div>
 
           <div className="marketing-split marketing-split--three">
             {howItWorksSteps.map((item) => (
               <article
-                key={item.step}
+                key={item.title}
                 className="marketing-card marketing-card--soft marketing-card--centered flex h-full flex-col gap-6"
               >
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-white text-sm font-bold text-[#9A7620] shadow-[0_12px_24px_rgba(17,24,39,0.06)]">
-                  {item.step}
-                </span>
-                <div className="mx-auto max-w-[18rem] space-y-3">
-                  <h3 className="text-xl font-semibold tracking-[-0.03em] text-[#111827]">
-                    {item.title}
-                  </h3>
-                  <p className="marketing-muted text-sm sm:text-[0.95rem]">
-                    {item.description}
-                  </p>
+                <div className="flex justify-center">
+                  <span className="marketing-step-pill">{item.title}</span>
                 </div>
+                <p className="mx-auto max-w-[18rem] marketing-muted text-sm sm:text-[0.95rem]">
+                  {item.description}
+                </p>
               </article>
             ))}
           </div>

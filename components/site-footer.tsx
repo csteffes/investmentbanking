@@ -30,11 +30,11 @@ const footerColumns = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[#E5E7EB] bg-[#FCFBF8]">
-      <div className="marketing-shell py-16 sm:py-20">
-        <div className="grid items-start gap-12 lg:grid-cols-[1.15fr_1.85fr]">
+    <footer className="border-t border-[rgba(17,24,39,0.08)] bg-[#FCFBF8]">
+      <div className="marketing-shell pt-20 pb-12 sm:pt-24 sm:pb-14">
+        <div className="grid items-start gap-14 lg:grid-cols-[1.05fr_1.95fr]">
           {/* Left column */}
-          <div className="max-w-md">
+          <div className="max-w-sm">
             <Link href="/" className="inline-flex items-center">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -44,34 +44,25 @@ export function SiteFooter() {
                 decoding="async"
               />
             </Link>
-            <p className="mt-5 text-sm leading-7 text-[#6B7280]">
+            <p className="mt-6 text-sm leading-7 text-[#6B7280]">
               AI-led interview practice for candidates who want more reps,
               cleaner answers, and a calmer walk into the room.
             </p>
-            <div className="mt-7">
-              <Link
-                href="/mock-interview"
-                className="marketing-primary-cta px-5 py-3 text-sm"
-              >
-                Start mock interview
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
           </div>
 
           {/* Right columns */}
-          <div className="grid gap-8 sm:grid-cols-3">
+          <div className="grid gap-10 sm:grid-cols-3">
             {footerColumns.map((column) => (
               <div key={column.title}>
-                <p className="mb-5 text-sm font-semibold text-[#111827]">
+                <p className="mb-4 text-[0.95rem] font-semibold tracking-[-0.01em] text-[#111827]">
                   {column.title}
                 </p>
-                <ul className="space-y-3.5">
+                <ul className="space-y-3">
                   {column.links.map((link) => (
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="text-sm text-[#6B7280] transition-colors duration-150 hover:text-[#111827]"
+                        className="text-sm leading-6 text-[#6B7280] transition-colors duration-150 hover:text-[#111827]"
                       >
                         {link.label}
                       </Link>
@@ -84,7 +75,7 @@ export function SiteFooter() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-[#EAECEF] pt-8 sm:flex-row">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-[rgba(17,24,39,0.08)] pt-7 sm:mt-20 sm:flex-row sm:pt-8">
           <p className="text-sm text-[#9CA3AF]">
             &copy; {new Date().getFullYear()} Superday AI. All rights reserved.
           </p>
