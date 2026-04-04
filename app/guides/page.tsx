@@ -21,7 +21,7 @@ export default async function GuidesIndexPage() {
         </h1>
         <p className="text-[#6B7280] max-w-xl mx-auto leading-relaxed">
           Pillar content on the topics that matter most — from the technical core to superday preparation.
-          Read the guide, then practice it live.
+          Read the guide, then run it in a live mock.
         </p>
       </section>
 

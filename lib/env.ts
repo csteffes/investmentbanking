@@ -13,7 +13,7 @@ export const env = {
   openAiKey: process.env.OPENAI_API_KEY,
   openAiRealtimeModel: process.env.OPENAI_REALTIME_MODEL || "gpt-realtime-mini",
   openAiRealtimeVoice: process.env.OPENAI_REALTIME_VOICE || "alloy",
-  openAiReviewModel: process.env.OPENAI_REVIEW_MODEL || "gpt-4.1-mini",
+  openAiDebriefModel: process.env.OPENAI_DEBRIEF_MODEL || process.env.OPENAI_REVIEW_MODEL || "gpt-4.1-mini",
   stripeSecretKey: process.env.STRIPE_SECRET_KEY,
   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
   stripeProPriceId: process.env.STRIPE_PRO_PRICE_ID,
@@ -21,7 +21,7 @@ export const env = {
   supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
   supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
   trialSessionLimit: readInteger(process.env.TRIAL_SESSION_LIMIT, 5),
-  trialReviewLimit: readInteger(process.env.TRIAL_REVIEW_LIMIT, 8)
+  trialDebriefLimit: readInteger(process.env.TRIAL_DEBRIEF_LIMIT || process.env.TRIAL_REVIEW_LIMIT, 8)
 };
 
 export function requireEnv(name: string, value?: string | null) {

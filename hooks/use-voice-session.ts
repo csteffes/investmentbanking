@@ -3,8 +3,8 @@
 import { useCallback, useRef, useState } from "react";
 import type {
   InterviewProfile,
-  ReviewSessionRequest,
-  Scorecard,
+  PracticeDebrief,
+  PracticeDebriefRequest,
 } from "@/lib/api-types";
 
 export type SessionState =
@@ -12,20 +12,20 @@ export type SessionState =
   | "connecting"
   | "connected"
   | "ending"
-  | "reviewing"
+  | "debriefing"
   | "done"
   | "error";
 
 export type TranscriptEntry = {
   id: string;
-  speaker: "coach" | "candidate";
+  speaker: "interviewer" | "candidate";
   text: string;
 };
 
 type UseVoiceSessionReturn = {
   state: SessionState;
   transcript: TranscriptEntry[];
-  scorecard: Scorecard | null;
+  debrief: PracticeDebrief | null;
   error: string | null;
   start: (profile: InterviewProfile) => Promise<void>;
   stop: () => Promise<void>;
@@ -39,13 +39,13 @@ async function readApiError(response: Response) {
 export function useVoiceSession(): UseVoiceSessionReturn {
   const [state, setState] = useState<SessionState>("idle");
   const [transcript, setTranscript] = useState<TranscriptEntry[]>([]);
-  const [scorecard, setScorecard] = useState<Scorecard | null>(null);
+  const [debrief, setDebrief] = useState<PracticeDebrief | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const dcRef = useRef<RTCDataChannel | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-  // Accumulate full plain-text transcript for the review call
+  // Accumulate full plain-text transcript for the debrief call
   const transcriptTextRef = useRef<string>("");
   // Track partial AI response being assembled
   const currentAiTextRef = useRef<string>("");
@@ -61,7 +61,7 @@ export function useVoiceSession(): UseVoiceSessionReturn {
   }, []);
 
   const stop = useCallback(async () => {
-    if (state === "idle" || state === "reviewing" || state === "done") return;
+    if (state === "idle" || state === "debriefing" || state === "done") return;
 
     setState("ending");
     const fullTranscript = transcriptTextRef.current;
@@ -72,23 +72,23 @@ export function useVoiceSession(): UseVoiceSessionReturn {
       return;
     }
 
-    setState("reviewing");
+    setState("debriefing");
     try {
-      const reviewPayload: ReviewSessionRequest = {
+      const debriefPayload: PracticeDebriefRequest = {
         ...(profileRef.current ?? {}),
         transcript: fullTranscript,
       };
-      const res = await fetch("/api/session/review", {
+      const res = await fetch("/api/session/debrief", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(reviewPayload),
+        body: JSON.stringify(debriefPayload),
       });
       if (!res.ok) throw new Error(await readApiError(res));
-      const data = (await res.json()) as Scorecard;
-      setScorecard(data);
+      const data = (await res.json()) as PracticeDebrief;
+      setDebrief(data);
       setState("done");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Review failed.");
+      setError(err instanceof Error ? err.message : "Unable to create coach notes.");
       setState("error");
     }
   }, [state, cleanup]);
@@ -97,7 +97,7 @@ export function useVoiceSession(): UseVoiceSessionReturn {
     async (profile: InterviewProfile) => {
       setError(null);
       setTranscript([]);
-      setScorecard(null);
+      setDebrief(null);
       transcriptTextRef.current = "";
       currentAiTextRef.current = "";
       profileRef.current = profile;
@@ -170,12 +170,12 @@ export function useVoiceSession(): UseVoiceSessionReturn {
               currentAiTextRef.current = "";
               if (text) {
                 const entry: TranscriptEntry = {
-                  id: `coach-${Date.now()}`,
-                  speaker: "coach",
+                  id: `interviewer-${Date.now()}`,
+                  speaker: "interviewer",
                   text,
                 };
                 setTranscript((prev) => [...prev, entry]);
-                transcriptTextRef.current += `\nCoach: ${text}`;
+                transcriptTextRef.current += `\nInterviewer: ${text}`;
               }
             }
           } catch {
@@ -225,5 +225,5 @@ export function useVoiceSession(): UseVoiceSessionReturn {
     [cleanup]
   );
 
-  return { state, transcript, scorecard, error, start, stop };
+  return { state, transcript, debrief, error, start, stop };
 }

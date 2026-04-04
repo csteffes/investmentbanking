@@ -8,13 +8,13 @@ export function ArticleCTA() {
         Practice the answer out loud.
       </h3>
       <p className="text-sm text-[#6B7280] mb-4 leading-relaxed">
-        Read the framework, then pressure test it in a live mock so you know what holds up under follow-up.
+        Read the framework, then run it live with the interviewer so you know how it sounds under follow-up.
       </p>
       <Link
-        href="/assessment"
+        href="/mock-interview"
         className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#111827] text-white text-sm font-semibold hover:bg-[#1F2937] transition-colors duration-150"
       >
-        Open the assessment
+        Open mock interview
       </Link>
     </aside>
   );

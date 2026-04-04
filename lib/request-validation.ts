@@ -1,6 +1,6 @@
 import type {
   InterviewProfile,
-  ReviewSessionRequest,
+  PracticeDebriefRequest,
   SessionMode,
 } from "@/lib/api-types";
 
@@ -41,7 +41,7 @@ export function parseInterviewProfile(input: unknown): InterviewProfile {
   };
 }
 
-export function parseReviewRequest(input: unknown): ReviewSessionRequest {
+export function parsePracticeDebriefRequest(input: unknown): PracticeDebriefRequest {
   const profile = parseInterviewProfile(input);
   const body = (input ?? {}) as Record<string, unknown>;
   const transcript = readOptionalString(body.transcript, 20000);

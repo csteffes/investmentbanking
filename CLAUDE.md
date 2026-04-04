@@ -12,14 +12,14 @@ Read this before making changes in Claude Code.
 ## Product rules
 
 - Marketing pages are public.
-- Voice sessions and transcript review are trial-scoped and rate-limited unless the caller is authenticated.
+- Voice sessions and session debriefs are trial-scoped and rate-limited unless the caller is authenticated.
 - Billing actions are authenticated-only.
 - Keep one trust-logo system: `components/logo-grid.tsx`.
 
 ## Important backend files
 
 - `app/api/realtime/session/route.ts`
-- `app/api/session/review/route.ts`
+- `app/api/session/debrief/route.ts`
 - `app/api/stripe/checkout/route.ts`
 - `app/api/stripe/webhook/route.ts`
 - `app/api/portal/route.ts`
@@ -36,7 +36,7 @@ Read this before making changes in Claude Code.
 - Use `npm run build` for production verification.
 - Keep `next-env.d.ts` in its stable generated form.
 - Do not add duplicate assets, duplicate deploy paths, or alternate logo systems.
-- Prefer shared types from `lib/api-types.ts` when touching API routes or the assessment flow.
+- Prefer shared types from `lib/api-types.ts` when touching API routes or the mock interview flow.
 
 ## Current priorities
 

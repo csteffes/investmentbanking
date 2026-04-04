@@ -1,10 +1,10 @@
 graph TD
     Home["🏠 superday.ai (Home)"]
     Blog["📚 /blog/ (Blog Index)"]
-    Assessment["⚡ /assessment/ (Practice Tool)"]
+    MockInterview["⚡ /mock-interview/ (Practice Tool)"]
 
     Home --> Blog
-    Home --> Assessment
+    Home --> MockInterview
 
     %% Pillar Posts
     PostA["Post A — Pillar\nIB Interview Prep Roadmap\n/blog/investment-banking-interview-prep-roadmap/"]
@@ -61,15 +61,15 @@ graph TD
     PostH -->|"links to"| PostC
     PostH -->|"links to"| PostB
 
-    %% CTAs → Assessment
-    PostA -->|"CTA"| Assessment
-    PostB -->|"CTA"| Assessment
-    PostC -->|"CTA"| Assessment
-    PostD -->|"CTA"| Assessment
-    PostE -->|"CTA"| Assessment
-    PostF -->|"CTA"| Assessment
-    PostG -->|"CTA"| Assessment
-    PostH -->|"CTA"| Assessment
+    %% CTAs → Mock Interview
+    PostA -->|"CTA"| MockInterview
+    PostB -->|"CTA"| MockInterview
+    PostC -->|"CTA"| MockInterview
+    PostD -->|"CTA"| MockInterview
+    PostE -->|"CTA"| MockInterview
+    PostF -->|"CTA"| MockInterview
+    PostG -->|"CTA"| MockInterview
+    PostH -->|"CTA"| MockInterview
 
     %% Lead Magnets
     LeadA["📄 PDF: IB Superday Prep Roadmap"]
@@ -99,4 +99,4 @@ graph TD
     class PostA,PostB,PostC pillar
     class PostD,PostE,PostF,PostG,PostH cluster
     class LeadA,LeadB,LeadC,LeadD,LeadE,LeadF,LeadG,LeadH lead
-    class Assessment cta
+    class MockInterview cta

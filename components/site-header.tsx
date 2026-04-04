@@ -4,8 +4,8 @@ import { navigation } from "@/lib/site";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#F3F4F6]">
-      <div className="w-full max-w-[960px] mx-auto flex items-center justify-between px-6 h-16">
+    <header className="sticky top-0 z-50 w-full border-b border-[#F3F4F6] bg-white/88 backdrop-blur-xl">
+      <div className="marketing-shell flex h-[4.5rem] items-center justify-between gap-4">
         <Link href="/" className="flex items-center gap-2.5 group">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -16,23 +16,25 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav className="flex items-center gap-1" aria-label="Primary">
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="px-3.5 py-2 text-sm text-[#6B7280] hover:text-[#111827] rounded-md transition-colors duration-150"
-            >
-              {item.label}
-            </Link>
-          ))}
+        <div className="flex items-center gap-3">
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+            {navigation.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="rounded-full px-4 py-2 text-sm font-medium text-[#6B7280] transition-colors duration-150 hover:text-[#111827]"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
           <Link
-            href="/assessment"
-            className="ml-4 px-5 py-2.5 rounded-lg bg-[#111827] text-white text-sm font-semibold hover:bg-[#1F2937] transition-all duration-150"
+            href="/mock-interview"
+            className="marketing-secondary-cta px-4 py-2.5 text-sm font-semibold"
           >
-            Try for free today
+            Start mock interview
           </Link>
-        </nav>
+        </div>
       </div>
     </header>
   );

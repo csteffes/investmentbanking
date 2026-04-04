@@ -4,9 +4,9 @@ Superday AI is a `Next.js` web app for investment banking interview prep, deploy
 
 ## What’s in the repo
 
-- public marketing pages and a live assessment surface
+- public marketing pages and a live mock interview surface
 - MDX-backed `/guides` and `/blog` routes for SEO
-- server routes for OpenAI Realtime, transcript review, Stripe billing, and Supabase persistence
+- server routes for OpenAI Realtime, session debriefs, Stripe billing, and Supabase persistence
 - a single active app path under `app/`, `components/`, `hooks/`, and `lib/`
 
 ## Core architecture
@@ -37,7 +37,7 @@ Superday AI is a `Next.js` web app for investment banking interview prep, deploy
 This repo is designed for `Vercel`, not GitHub Pages. The app depends on server routes for:
 
 - OpenAI Realtime session creation
-- transcript review and session persistence
+- transcript debriefs and session persistence
 - Stripe checkout and webhooks
 - Supabase-backed gated product actions
 
@@ -52,7 +52,7 @@ This repo is designed for `Vercel`, not GitHub Pages. The app depends on server 
 ## Product access model
 
 - marketing pages stay public
-- voice sessions and transcript review are trial-scoped and rate-limited unless a user is authenticated
+- voice sessions and session debriefs are trial-scoped and rate-limited unless a user is authenticated
 - billing actions require authenticated user context
 
 ## Working between apps

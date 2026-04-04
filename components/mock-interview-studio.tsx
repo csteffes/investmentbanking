@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+
 import type { InterviewProfile, SessionMode } from "@/lib/api-types";
 import { useVoiceSession } from "@/hooks/use-voice-session";
 
@@ -11,7 +12,6 @@ type Profile = {
   group: string;
   stage: string;
   interviewDate: string;
-  confidence: number;
 };
 
 const banks = ["Evercore", "Goldman Sachs", "J.P. Morgan", "Morgan Stanley", "Lazard", "Centerview"];
@@ -23,28 +23,46 @@ const DEMO_TRACKS = {
     label: "Story / Resume",
     prompt: "Walk me through your path and explain why now is the right time for banking.",
     transcript: [
-      { speaker: "Coach" as const, tag: "opening", text: "Lead with the pivot. Save the full chronology for later if they ask." },
+      { speaker: "Interviewer" as const, tag: "opening", text: "Start with the pivot. Do not make me wait for why now." },
       { speaker: "You" as const, tag: "candidate", text: "I want the pace, client exposure, and execution intensity that banking offers." },
     ],
-    scores: [["Structure", 86], ["Communication", 84], ["Poise", 81], ["Fit", 88]] as [string, number][],
+    summary: "The opening is credible and pointed in the right direction. The next improvement is making the story tighter in the first 30 seconds.",
+    coachNotes: [
+      "Lead with the pivot earlier so the interviewer hears the why now immediately.",
+      "Trim the long background setup and get to the banking decision faster.",
+      "End with one bank-specific line so the answer feels tailored, not reusable.",
+    ],
+    nextRep: "Run the same opener again and keep it inside 90 seconds.",
   },
   technical: {
     label: "Technical Core",
     prompt: "Walk me through how a $10 increase in depreciation flows through the three statements.",
     transcript: [
-      { speaker: "Coach" as const, tag: "technical", text: "Start with the income statement, then move cleanly to cash flow and the balance sheet." },
+      { speaker: "Interviewer" as const, tag: "technical", text: "Start with the income statement, then move cleanly to cash flow and the balance sheet." },
       { speaker: "You" as const, tag: "candidate", text: "EBIT falls by 10, taxes fall by the shield, net income falls by the after-tax amount." },
     ],
-    scores: [["Technical accuracy", 85], ["Structure", 79], ["Communication", 77], ["Commercial context", 73]] as [string, number][],
+    summary: "The core mechanics are there. The next rep should focus on keeping the answer sequential and calm all the way to the balance sheet.",
+    coachNotes: [
+      "Anchor the answer with the income statement first, then move in order without backtracking.",
+      "Say the tax shield explicitly so the after-tax impact sounds automatic.",
+      "Finish with the cash and balance sheet effects in one clean closing sentence.",
+    ],
+    nextRep: "Repeat the three-statement walk-through twice with no notes and no pauses.",
   },
   markets: {
     label: "Deals & Markets",
     prompt: "Give me one recent deal or market theme you would bring up in your interview.",
     transcript: [
-      { speaker: "Coach" as const, tag: "markets", text: "Use one real deal. Summarize it, interpret it, and tell me why now matters." },
+      { speaker: "Interviewer" as const, tag: "markets", text: "Use one real deal. Summarize it, interpret it, and tell me why it matters now." },
       { speaker: "You" as const, tag: "candidate", text: "I'd bring up a recent sector deal showing buyers still paying for durable assets with financing discipline." },
     ],
-    scores: [["Commercial judgment", 88], ["Communication", 85], ["Structure", 82], ["Specificity", 74]] as [string, number][],
+    summary: "The answer has the right shape, but it still needs a more concrete deal anchor. The strongest next rep is adding names, timing, and your read on why it matters.",
+    coachNotes: [
+      "Use one specific deal instead of a generic market theme.",
+      "Include the buyer, target, and why the transaction matters right now.",
+      "Finish with your own takeaway so it sounds like a view, not a recap.",
+    ],
+    nextRep: "Run one 60-second deal pitch built around a single live transaction.",
   },
 };
 
@@ -60,16 +78,16 @@ function formatCountdown(value: string) {
 }
 
 const stateLabel: Record<string, string> = {
-  idle: "Start Live Mock",
+  idle: "Start Mock Interview",
   connecting: "Connecting…",
-  connected: "End Session",
+  connected: "End Mock Interview",
   ending: "Ending…",
-  reviewing: "Generating scorecard…",
-  done: "Start New Session",
+  debriefing: "Writing Coach Notes…",
+  done: "Run Another Rep",
   error: "Try Again",
 };
 
-export function AssessmentStudio() {
+export function MockInterviewStudio() {
   const [track, setTrack] = useState<SessionMode>("story");
   const [profile, setProfile] = useState<Profile>({
     school: "Wharton",
@@ -78,15 +96,17 @@ export function AssessmentStudio() {
     group: "M&A",
     stage: "Superday",
     interviewDate: "2026-04-17",
-    confidence: 6,
   });
 
-  const { state, transcript, scorecard, error, start, stop } = useVoiceSession();
+  const { state, transcript, debrief, error, start, stop } = useVoiceSession();
 
   const isLive = state === "connected";
-  const isLoading = state === "connecting" || state === "ending" || state === "reviewing";
+  const isLoading = state === "connecting" || state === "ending" || state === "debriefing";
   const isDone = state === "done";
   const previewTrack = DEMO_TRACKS[track];
+  const liveTranscript = isLive || isDone || state === "debriefing" || state === "ending"
+    ? transcript
+    : null;
 
   async function handleSessionButton() {
     if (state === "idle" || state === "error" || state === "done") {
@@ -105,17 +125,6 @@ export function AssessmentStudio() {
     }
   }
 
-  const activeScores: [string, number][] = scorecard?.scores
-    ? Object.entries(scorecard.scores).map(([k, v]) => [k.replace(/_/g, " "), v])
-    : previewTrack.scores;
-
-  const activeReadiness = scorecard?.readiness
-    ?? Math.round(previewTrack.scores.reduce((s, [, v]) => s + v, 0) / previewTrack.scores.length);
-
-  const liveTranscript = isLive || isDone || state === "reviewing" || state === "ending"
-    ? transcript
-    : null;
-
   const inputClass = "bg-white border border-[#E5E7EB] rounded-lg px-3 py-2 text-sm text-[#111827] placeholder-[#9CA3AF] focus:outline-none focus:border-[#C9A227] focus:ring-1 focus:ring-[#C9A227]/30 transition-all duration-150 disabled:opacity-40 disabled:cursor-not-allowed";
   const labelClass = "text-[11px] font-medium text-[#9CA3AF] uppercase tracking-wide";
 
@@ -123,13 +132,13 @@ export function AssessmentStudio() {
     <section className="px-6 py-20 max-w-6xl mx-auto">
       <div className="text-center mb-12 max-w-2xl mx-auto">
         <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
-          Live assessment
+          Mock interview
         </p>
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] leading-[1.1] mb-3">
-          Pressure test the interview before the interview.
+          Get a live investment banking interview rep on demand.
         </h1>
         <p className="text-[#6B7280] leading-relaxed">
-          Set your target, hit start, and practice with a real AI voice coach. Your scorecard generates automatically when you end the session.
+          Pick the prompt, answer out loud, and get a short debrief with coach notes and the next rep to run.
         </p>
       </div>
 
@@ -137,7 +146,7 @@ export function AssessmentStudio() {
         <form className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-6 flex flex-col gap-4 h-fit">
           <div className="flex items-center justify-between">
             <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">
-              Candidate profile
+              Interview setup
             </span>
             <span className="text-xs text-[#9CA3AF]">{formatCountdown(profile.interviewDate)}</span>
           </div>
@@ -172,7 +181,7 @@ export function AssessmentStudio() {
                   disabled={isLive || isLoading}
                   className={`${inputClass} appearance-none cursor-pointer`}
                 >
-                  {options.map((o) => <option key={o}>{o}</option>)}
+                  {options.map((option) => <option key={option}>{option}</option>)}
                 </select>
               </div>
             ))}
@@ -181,21 +190,27 @@ export function AssessmentStudio() {
           <div className="grid grid-cols-2 gap-3">
             <div className="flex flex-col gap-1">
               <label htmlFor="stage" className={labelClass}>Stage</label>
-              <select id="stage" value={profile.stage} onChange={(e) => setProfile({ ...profile, stage: e.target.value })} disabled={isLive || isLoading} className={`${inputClass} appearance-none cursor-pointer`}>
-                {stages.map((s) => <option key={s}>{s}</option>)}
+              <select
+                id="stage"
+                value={profile.stage}
+                onChange={(e) => setProfile({ ...profile, stage: e.target.value })}
+                disabled={isLive || isLoading}
+                className={`${inputClass} appearance-none cursor-pointer`}
+              >
+                {stages.map((stage) => <option key={stage}>{stage}</option>)}
               </select>
             </div>
             <div className="flex flex-col gap-1">
               <label htmlFor="interview-date" className={labelClass}>Interview date</label>
-              <input id="interview-date" type="date" value={profile.interviewDate} onChange={(e) => setProfile({ ...profile, interviewDate: e.target.value })} disabled={isLive || isLoading} className={inputClass} />
+              <input
+                id="interview-date"
+                type="date"
+                value={profile.interviewDate}
+                onChange={(e) => setProfile({ ...profile, interviewDate: e.target.value })}
+                disabled={isLive || isLoading}
+                className={inputClass}
+              />
             </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <label htmlFor="confidence" className={labelClass}>
-              Technical confidence: <span className="text-[#C9A227]">{profile.confidence}/10</span>
-            </label>
-            <input id="confidence" type="range" min="1" max="10" value={profile.confidence} onChange={(e) => setProfile({ ...profile, confidence: Number(e.target.value) })} disabled={isLive || isLoading} className="w-full accent-[#C9A227] cursor-pointer disabled:opacity-40" />
           </div>
 
           <button
@@ -209,7 +224,7 @@ export function AssessmentStudio() {
             }`}
           >
             {isLive && <span className="inline-block w-2 h-2 rounded-full bg-red-500 mr-2 animate-pulse" />}
-            {stateLabel[state] ?? "Start Live Mock"}
+            {stateLabel[state] ?? "Start Mock Interview"}
           </button>
 
           {error && (
@@ -224,11 +239,14 @@ export function AssessmentStudio() {
         </form>
 
         <div className="flex flex-col gap-4">
-          {!isLive && state !== "reviewing" && (
-            <div role="tablist" aria-label="Assessment track" className="flex gap-1 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-1">
+          {!isLive && state !== "debriefing" && (
+            <div role="tablist" aria-label="Practice mode" className="flex gap-1 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-1">
               {(Object.keys(DEMO_TRACKS) as SessionMode[]).map((item) => (
                 <button
-                  key={item} type="button" role="tab" aria-selected={track === item}
+                  key={item}
+                  type="button"
+                  role="tab"
+                  aria-selected={track === item}
                   onClick={() => setTrack(item)}
                   className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition-all duration-150 ${
                     track === item ? "bg-[#111827] text-white" : "text-[#9CA3AF] hover:text-[#6B7280]"
@@ -243,14 +261,14 @@ export function AssessmentStudio() {
           <article className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-8">
             <div className="flex items-center justify-between mb-4">
               <span className={`text-xs font-semibold uppercase tracking-[0.1em] px-2.5 py-1 rounded-md ${
-                isLive ? "text-green-600 bg-green-50" : state === "reviewing" ? "text-[#C9A227] bg-[rgba(201,162,39,0.08)]" : "text-[#C9A227] bg-[rgba(201,162,39,0.08)]"
+                isLive ? "text-green-600 bg-green-50" : "text-[#C9A227] bg-[rgba(201,162,39,0.08)]"
               }`}>
-                {isLive ? "● Live" : state === "reviewing" ? "Processing…" : "Live coach"}
+                {isLive ? "● Live" : state === "debriefing" ? "Coach notes…" : "Live interviewer"}
               </span>
               <span className="text-xs text-[#9CA3AF]">{profile.bank} {profile.group} · {profile.stage}</span>
             </div>
 
-            {!isLive && state !== "reviewing" && (
+            {!isLive && state !== "debriefing" && (
               <h2 className="text-base font-semibold text-[#111827] leading-snug mb-3">{previewTrack.prompt}</h2>
             )}
 
@@ -259,7 +277,7 @@ export function AssessmentStudio() {
                 {liveTranscript.map((entry) => (
                   <li key={entry.id}>
                     <div className="flex items-center gap-2 mb-0.5">
-                      <strong className="text-xs font-semibold text-[#111827]">{entry.speaker === "coach" ? "Coach" : "You"}</strong>
+                      <strong className="text-xs font-semibold text-[#111827]">{entry.speaker === "interviewer" ? "Interviewer" : "You"}</strong>
                       <span className="text-[10px] text-[#9CA3AF]">{entry.speaker}</span>
                     </div>
                     <p className="text-sm text-[#6B7280] leading-relaxed">{entry.text}</p>
@@ -268,8 +286,8 @@ export function AssessmentStudio() {
               </ul>
             ) : isLive ? (
               <p className="text-sm text-[#9CA3AF] italic">Listening… start speaking when ready.</p>
-            ) : state === "reviewing" ? (
-              <p className="text-sm text-[#9CA3AF] italic">Analyzing your session…</p>
+            ) : state === "debriefing" ? (
+              <p className="text-sm text-[#9CA3AF] italic">Wrapping the session and pulling out the next rep to run…</p>
             ) : (
               <ul className="space-y-3">
                 {previewTrack.transcript.map((item) => (
@@ -287,61 +305,71 @@ export function AssessmentStudio() {
 
           <article className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-8">
             <div className="flex items-center justify-between mb-5">
-              <span className="text-xs text-[#9CA3AF]">{isDone ? "Session scorecard" : "Transcript-backed review"}</span>
-              <span className="text-xs font-semibold text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">{activeReadiness}/100 readiness</span>
+              <span className="text-xs text-[#9CA3AF]">{isDone ? "Session debrief" : "Sample debrief"}</span>
+              <span className="text-xs font-semibold text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">
+                {previewTrack.label}
+              </span>
             </div>
-            <div className="grid sm:grid-cols-2 gap-3 mb-6">
-              {activeScores.map(([label, value]) => (
-                <div key={label}>
-                  <div className="flex items-center justify-between text-sm mb-2">
-                    <span className="text-[#6B7280] capitalize">{label}</span>
-                    <strong className="text-[#111827]">{value}</strong>
+
+            {isDone && debrief ? (
+              <div className="space-y-5">
+                {debrief.summary && (
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">Recap</p>
+                    <p className="text-sm text-[#6B7280] leading-relaxed p-3 bg-white rounded-lg border border-[#E5E7EB]">
+                      {debrief.summary}
+                    </p>
                   </div>
-                  <div className="h-1 rounded-full bg-[#E5E7EB] overflow-hidden">
-                    <span className="block h-full rounded-full bg-[#C9A227] transition-all duration-500" style={{ width: `${value}%` }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-            {isDone && scorecard ? (
-              <>
-                {scorecard.summary && (
-                  <p className="text-sm text-[#6B7280] leading-relaxed mb-4 p-3 bg-white rounded-lg border border-[#E5E7EB]">{scorecard.summary}</p>
                 )}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {[{ label: "Evidence", items: scorecard.evidence }, { label: "Next reps", items: scorecard.next_steps }].map(({ label, items }) => (
-                    items.length > 0 && (
-                      <div key={label}>
-                        <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">{label}</p>
-                        <ul className="space-y-1.5">
-                          {items.map((item) => (
-                            <li key={item} className="text-sm text-[#6B7280] flex items-start gap-1.5">
-                              <span className="text-[#C9A227] flex-shrink-0 mt-0.5">·</span>{item}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )
-                  ))}
-                </div>
-              </>
-            ) : (
-              <div className="grid sm:grid-cols-2 gap-4">
-                {[
-                  { label: "Evidence", items: ["Strong why-now logic.", "The why-this-group answer needs one sharper proof point.", "The close can be tighter."] },
-                  { label: "Next reps", items: ["Re-record your 90-second story.", "Cut two sentences from the opening.", "Add one bank-specific close."] },
-                ].map(({ label, items }) => (
-                  <div key={label}>
-                    <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">{label}</p>
+
+                {debrief.coachNotes.length > 0 && (
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">Coach notes</p>
                     <ul className="space-y-1.5">
-                      {items.map((item) => (
-                        <li key={item} className="text-sm text-[#9CA3AF] flex items-start gap-1.5 opacity-60">
+                      {debrief.coachNotes.map((item) => (
+                        <li key={item} className="text-sm text-[#6B7280] flex items-start gap-1.5">
                           <span className="text-[#C9A227] flex-shrink-0 mt-0.5">·</span>{item}
                         </li>
                       ))}
                     </ul>
                   </div>
-                ))}
+                )}
+
+                {debrief.nextRep && (
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">Next rep</p>
+                    <p className="text-sm text-[#6B7280] leading-relaxed p-3 bg-white rounded-lg border border-[#E5E7EB]">
+                      {debrief.nextRep}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="space-y-5">
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">Recap</p>
+                  <p className="text-sm text-[#9CA3AF] leading-relaxed p-3 bg-white rounded-lg border border-[#E5E7EB]">
+                    {previewTrack.summary}
+                  </p>
+                </div>
+
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">Coach notes</p>
+                  <ul className="space-y-1.5">
+                    {previewTrack.coachNotes.map((item) => (
+                      <li key={item} className="text-sm text-[#9CA3AF] flex items-start gap-1.5 opacity-75">
+                        <span className="text-[#C9A227] flex-shrink-0 mt-0.5">·</span>{item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.1em] text-[#9CA3AF] mb-2">Next rep</p>
+                  <p className="text-sm text-[#9CA3AF] leading-relaxed p-3 bg-white rounded-lg border border-[#E5E7EB] opacity-75">
+                    {previewTrack.nextRep}
+                  </p>
+                </div>
               </div>
             )}
           </article>

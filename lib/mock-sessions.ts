@@ -1,11 +1,11 @@
-import type { ReviewSessionRequest, Scorecard } from "@/lib/api-types";
+import type { PracticeDebrief, PracticeDebriefRequest } from "@/lib/api-types";
 import { getAdminSupabase } from "@/lib/supabase";
 
-type PersistReviewedSessionInput = {
+type PersistMockInterviewSessionInput = {
   userId?: string | null;
   trialId?: string | null;
-  request: ReviewSessionRequest;
-  review: Scorecard;
+  request: PracticeDebriefRequest;
+  debrief: PracticeDebrief;
 };
 
 function splitTranscriptSegments(transcript: string) {
@@ -14,9 +14,9 @@ function splitTranscriptSegments(transcript: string) {
     .map((line) => line.trim())
     .filter(Boolean)
     .map((line, index) => {
-      const match = line.match(/^(Candidate|Coach):\s*(.+)$/i);
+      const match = line.match(/^(Candidate|Coach|Interviewer):\s*(.+)$/i);
       return {
-        speaker: match?.[1]?.toLowerCase() === "coach" ? "coach" : "candidate",
+        speaker: /^(coach|interviewer)$/i.test(match?.[1] ?? "") ? "interviewer" : "candidate",
         content: (match?.[2] ?? line).trim(),
         segment_order: index,
       };
@@ -24,26 +24,12 @@ function splitTranscriptSegments(transcript: string) {
     .filter((segment) => segment.content.length > 0);
 }
 
-function getScore(scores: Record<string, number> | null, ...keys: string[]) {
-  if (!scores) {
-    return null;
-  }
-
-  for (const key of keys) {
-    if (typeof scores[key] === "number") {
-      return scores[key];
-    }
-  }
-
-  return null;
-}
-
-export async function persistReviewedSession({
+export async function persistMockInterviewSession({
   userId,
   trialId,
   request,
-  review,
-}: PersistReviewedSessionInput) {
+  debrief,
+}: PersistMockInterviewSessionInput) {
   const supabase = getAdminSupabase();
 
   if (!supabase) {
@@ -61,7 +47,7 @@ export async function persistReviewedSession({
       mode: request.mode ?? "story",
       prompt: request.prompt ?? null,
       transcript_text: request.transcript,
-      readiness_score: review.readiness,
+      readiness_score: null,
     })
     .select("id")
     .single();
@@ -82,23 +68,23 @@ export async function persistReviewedSession({
     }
   }
 
-  const { error: scorecardError } = await supabase.from("scorecards").upsert(
+  const { error: debriefStoreError } = await supabase.from("scorecards").upsert(
     {
       session_id: (session as { id: string }).id,
-      technical_accuracy: getScore(review.scores, "technical_accuracy", "technical accuracy"),
-      structure: getScore(review.scores, "structure"),
-      communication: getScore(review.scores, "communication"),
-      poise: getScore(review.scores, "poise"),
-      commercial_judgment: getScore(review.scores, "commercial_judgment", "commercial judgment"),
-      summary: review.summary,
-      evidence: review.evidence,
-      next_steps: review.next_steps,
+      technical_accuracy: null,
+      structure: null,
+      communication: null,
+      poise: null,
+      commercial_judgment: null,
+      summary: debrief.summary,
+      evidence: debrief.coachNotes,
+      next_steps: debrief.nextRep ? [debrief.nextRep] : [],
     },
     { onConflict: "session_id" }
   );
 
-  if (scorecardError) {
-    throw scorecardError;
+  if (debriefStoreError) {
+    throw debriefStoreError;
   }
 
   return (session as { id: string }).id;

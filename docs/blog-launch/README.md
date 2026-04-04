@@ -57,7 +57,7 @@ If you want downloadable assets later:
 - otherwise store them behind authenticated or captured flows using Supabase Storage
 
 ### ArticleCTA component
-The current `ArticleCTA` links to `/assessment`. Update it per-post to point to the relevant product flow, gated download, or email capture flow once those are built.
+The current `ArticleCTA` links to `/mock-interview`. Update it per-post to point to the relevant product flow, gated download, or email capture flow once those are built.
 
 ### JSON-LD structured data
 Each MDX post has a JSON-LD block in an HTML comment at the bottom of the file. To activate:
@@ -106,7 +106,7 @@ utm_content = [post-slug]                e.g., investment-banking-interview-prep
 | Indexed blog pages | Google Search Console → Coverage | 8 | 12 | 20 |
 | Lead magnet CVR | GA4 Events | 5% | 7% | 8% |
 | Email-to-call booked rate | CRM / email platform | 10% | 15% | 18% |
-| Assisted conversions (blog → assessment) | GA4 Attribution | Track only | 50/mo | 200/mo |
+| Assisted conversions (blog → mock interview) | GA4 Attribution | Track only | 50/mo | 200/mo |
 
 ---
 

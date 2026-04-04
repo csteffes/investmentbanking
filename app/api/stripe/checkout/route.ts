@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     if (existingSubscription?.stripe_customer_id && existingSubscription.status === "active") {
       const portal = await stripe.billingPortal.sessions.create({
         customer: existingSubscription.stripe_customer_id,
-        return_url: `${env.siteUrl}/assessment`,
+        return_url: `${env.siteUrl}/mock-interview`,
       });
 
       return NextResponse.json({ url: portal.url });
@@ -43,7 +43,7 @@ export async function POST(request: Request) {
       allow_promotion_codes: true,
       customer: existingSubscription?.stripe_customer_id || undefined,
       customer_email: existingSubscription?.stripe_customer_id ? undefined : access.email ?? undefined,
-      success_url: `${env.siteUrl}/assessment?checkout=success`,
+      success_url: `${env.siteUrl}/mock-interview?checkout=success`,
       cancel_url: `${env.siteUrl}/#pricing`,
       metadata: {
         userId: access.userId,

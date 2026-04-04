@@ -5,13 +5,13 @@ import type { NextResponse } from "next/server";
 import { env, requireEnv } from "@/lib/env";
 import { getPublicSupabase } from "@/lib/supabase";
 
-type UsageKind = "realtime" | "review";
+type UsageKind = "realtime" | "debrief";
 
 type TrialState = {
   trialId: string;
   createdAt: number;
   realtimeCount: number;
-  reviewCount: number;
+  debriefCount: number;
 };
 
 type AuthenticatedAccess = {
@@ -44,7 +44,7 @@ const COOKIE_MAX_AGE = 60 * 60 * 24 * 14;
 const DEFAULT_WINDOW_MS = 60 * 1000;
 const IP_RATE_LIMITS: Record<UsageKind, number> = {
   realtime: 8,
-  review: 12,
+  debrief: 12,
 };
 
 const ipBuckets = new Map<string, { count: number; resetAt: number }>();
@@ -110,7 +110,9 @@ function parseTrialState(value: string | null): TrialState | null {
       trialId: parsed.trialId,
       createdAt: parsed.createdAt,
       realtimeCount: Number(parsed.realtimeCount) || 0,
-      reviewCount: Number(parsed.reviewCount) || 0,
+      debriefCount: Number((parsed as { debriefCount?: number; reviewCount?: number }).debriefCount)
+        || Number((parsed as { debriefCount?: number; reviewCount?: number }).reviewCount)
+        || 0,
     };
   } catch {
     return null;
@@ -155,7 +157,7 @@ function createTrialState(): TrialState {
     trialId: randomUUID(),
     createdAt: Date.now(),
     realtimeCount: 0,
-    reviewCount: 0,
+    debriefCount: 0,
   };
 }
 
@@ -238,8 +240,8 @@ export async function requireUsageAccess(
 
   const rawTrialCookie = parseCookieValue(request.headers.get("cookie"), TRIAL_COOKIE_NAME);
   const trial = parseTrialState(rawTrialCookie) ?? createTrialState();
-  const currentCount = kind === "realtime" ? trial.realtimeCount : trial.reviewCount;
-  const limit = kind === "realtime" ? env.trialSessionLimit : env.trialReviewLimit;
+  const currentCount = kind === "realtime" ? trial.realtimeCount : trial.debriefCount;
+  const limit = kind === "realtime" ? env.trialSessionLimit : env.trialDebriefLimit;
 
   if (currentCount >= limit) {
     return {
@@ -252,7 +254,7 @@ export async function requireUsageAccess(
   const updatedTrial: TrialState = {
     ...trial,
     realtimeCount: kind === "realtime" ? trial.realtimeCount + 1 : trial.realtimeCount,
-    reviewCount: kind === "review" ? trial.reviewCount + 1 : trial.reviewCount,
+    debriefCount: kind === "debrief" ? trial.debriefCount + 1 : trial.debriefCount,
   };
 
   return {

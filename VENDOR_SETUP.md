@@ -9,7 +9,7 @@
    Production hosting for the Next.js app.
 
 3. `OpenAI`
-   Required for voice sessions and transcript review.
+   Required for voice sessions and session debriefs.
 
 4. `Supabase`
    Required for auth verification, Postgres, and storage.
@@ -40,7 +40,7 @@ Add these in Vercel:
 - `OPENAI_API_KEY`
 - `OPENAI_REALTIME_MODEL`
 - `OPENAI_REALTIME_VOICE`
-- `OPENAI_REVIEW_MODEL`
+- `OPENAI_DEBRIEF_MODEL`
 - `STRIPE_SECRET_KEY`
 - `STRIPE_WEBHOOK_SECRET`
 - `STRIPE_PRO_PRICE_ID`
@@ -52,7 +52,7 @@ Add these in Vercel:
 Optional:
 
 - `TRIAL_SESSION_LIMIT`
-- `TRIAL_REVIEW_LIMIT`
+- `TRIAL_DEBRIEF_LIMIT`
 - `NEXT_PUBLIC_POSTHOG_KEY`
 - `NEXT_PUBLIC_POSTHOG_HOST`
 - `SENTRY_DSN`
@@ -61,7 +61,7 @@ Optional:
 ## Repo endpoints that depend on vendors
 
 - `POST /api/realtime/session` -> `OpenAI`
-- `POST /api/session/review` -> `OpenAI` + `Supabase`
+- `POST /api/session/debrief` -> `OpenAI` + `Supabase`
 - `POST /api/stripe/checkout` -> `Stripe` + `Supabase auth context`
 - `POST /api/stripe/webhook` -> `Stripe` + `Supabase`
 - `POST /api/portal` -> `Stripe` + `Supabase auth context`
@@ -74,5 +74,5 @@ Optional:
 4. Apply [schema.sql](./supabase/schema.sql) in `Supabase`
 5. Create the `$50/month` Stripe product and save the price ID in Vercel
 6. Configure the Stripe webhook to hit `/api/stripe/webhook`
-7. Test voice session access, review persistence, and billing flows
+7. Test voice session access, debrief persistence, and billing flows
 8. Point `superdayready.com` to `Vercel`

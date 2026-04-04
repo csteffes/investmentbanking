@@ -6,7 +6,7 @@ import { formatDate, getCollection } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Investment banking interview prep articles focused on superdays, technical questions, behavioral answers, and banker-style interview judgment.",
+    "Investment banking interview prep articles focused on superdays, technical questions, behavioral answers, and banker-style follow-ups.",
 };
 
 export default async function BlogIndexPage() {
@@ -21,7 +21,7 @@ export default async function BlogIndexPage() {
         </h1>
         <p className="text-[#6B7280] max-w-xl mx-auto leading-relaxed">
           These posts answer the questions candidates actually search before first rounds and superdays,
-          then push you into the next practice rep.
+          then push you into the next mock interview rep.
         </p>
       </section>
 

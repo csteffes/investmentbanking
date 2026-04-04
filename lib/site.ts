@@ -3,7 +3,7 @@ export const site = {
   shortName: "Superday AI",
   url: "https://www.superdayready.com",
   description:
-    "Practice investment banking interviews with an AI voice coach. Run live mocks, fast drills, and transcript-backed reviews anytime.",
+    "Practice investment banking interviews with an AI interviewer. Run live mocks, get concise coach notes, and stack reps anytime.",
   pricing: {
     trialDays: 3,
     monthly: 50,
@@ -19,7 +19,7 @@ export type LogoItem = {
 
 export const navigation = [
   { href: "/#about", label: "About" },
-  { href: "/assessment", label: "Product" },
+  { href: "/mock-interview", label: "Practice" },
   { href: "/#pricing", label: "Pricing" },
   { href: "/blog", label: "Blog" }
 ] as const;
@@ -59,7 +59,7 @@ export const homepageFaqs = [
   {
     question: "How does the feedback work?",
     answer:
-      "Each session produces a transcript-backed review with readiness scoring, evidence from your answers, and the next reps to run."
+      "Each session ends with transcript-backed coach notes and one clear next rep to run. No scoring or grading."
   },
   {
     question: "How quickly can I start?",
@@ -69,7 +69,7 @@ export const homepageFaqs = [
   {
     question: "What is included in the paid plan?",
     answer:
-      "The launch plan includes live mocks, quick drills, saved scorecards, the interview prep library, and the full SEO guide hub."
+      "The launch plan includes live mocks, quick drills, session debriefs, the interview prep library, and the full SEO guide hub."
   }
 ] as const;
 

@@ -12,15 +12,13 @@ export type InterviewProfile = {
 
 export type RealtimeSessionRequest = InterviewProfile;
 
-export type ReviewSessionRequest = InterviewProfile & {
+export type PracticeDebriefRequest = InterviewProfile & {
   transcript: string;
 };
 
-export type Scorecard = {
+export type PracticeDebrief = {
   summary: string;
-  readiness: number | null;
-  scores: Record<string, number> | null;
-  evidence: string[];
-  next_steps: string[];
+  coachNotes: string[];
+  nextRep: string | null;
   sessionId?: string | null;
 };
