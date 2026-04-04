@@ -16,25 +16,20 @@ export function SiteHeader() {
           />
         </Link>
 
-        <div className="flex items-center gap-3">
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-medium text-[#6B7280] transition-colors duration-150 hover:text-[#111827]"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-          <Link
-            href="/mock-interview"
-            className="marketing-secondary-cta px-4 py-2.5 text-sm font-semibold"
-          >
-            Start mock interview
-          </Link>
-        </div>
+        <nav
+          className="flex items-center justify-end gap-3 text-[13px] font-medium text-[#6B7280] sm:gap-5 sm:text-sm md:gap-7"
+          aria-label="Primary"
+        >
+          {navigation.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="leading-none transition-colors duration-150 hover:text-[#111827]"
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   );
