@@ -10,6 +10,35 @@ function getSubscriptionItem(subscription: Stripe.Subscription) {
   return subscription.items.data[0];
 }
 
+export type SubscriptionRecord = {
+  user_id: string | null;
+  stripe_customer_id: string;
+  stripe_subscription_id: string | null;
+  status: string;
+  price_id: string | null;
+  current_period_end: string | null;
+};
+
+export async function getSubscriptionForUser(userId: string) {
+  const supabase = getAdminSupabase();
+
+  if (!supabase) {
+    return null;
+  }
+
+  const { data, error } = await supabase
+    .from("subscriptions")
+    .select("user_id, stripe_customer_id, stripe_subscription_id, status, price_id, current_period_end")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) {
+    throw error;
+  }
+
+  return (data as SubscriptionRecord | null) ?? null;
+}
+
 export async function upsertSubscriptionFromCheckout(session: Stripe.Checkout.Session) {
   const supabase = getAdminSupabase();
   const customerId = typeof session.customer === "string" ? session.customer : null;

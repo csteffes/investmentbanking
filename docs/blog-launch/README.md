@@ -26,15 +26,6 @@ content/blog/                    ← All 8 live blog posts (MDX)
 ├── investment-banking-recruiting-by-region.mdx             ← Post G (GEO Hub)
 └── investment-banking-networking-cold-email-templates.mdx  ← Post H (Tools Cluster)
 
-public/downloads/                ← Lead magnet placeholder files (replace with final assets)
-├── ib-superday-prep-roadmap.md
-├── technical-drill-tracker.md
-├── behavioral-story-bank.md
-├── dcf-practice-template.md
-├── 7-day-superday-plan.md
-├── hirevue-practice-script.md
-├── regional-recruiting-checklist.md
-└── cold-email-followup-tracker.md
 ```
 
 ---
@@ -55,15 +46,18 @@ public/downloads/                ← Lead magnet placeholder files (replace with
 
 ---
 
-## Where to Replace Placeholders
+## Where to Extend the Package
 
-### Lead magnet files (`public/downloads/`)
-All files in `public/downloads/` are Markdown placeholders. Replace with:
-- **PDFs** (Roadmap, Story Bank, 7-Day Plan, HireVue Script, Regional Checklist): Design in Figma or Canva; export as PDF; name to match existing filename conventions.
-- **Excel/Sheets** (Technical Drill Tracker, DCF Template, Cold Email Tracker): Build in Excel or Google Sheets; export as `.xlsx`; host in `public/downloads/` or behind a Supabase email capture wall.
+### Lead magnets and downloads
+This repo no longer ships placeholder files in `public/downloads/`.
+
+If you want downloadable assets later:
+- add final PDFs or spreadsheets only when they are production-ready
+- keep them in `public/downloads/` only if they are meant to be publicly accessible
+- otherwise store them behind authenticated or captured flows using Supabase Storage
 
 ### ArticleCTA component
-The current `ArticleCTA` links to `/assessment`. Update it per-post to point to the relevant lead magnet download or email capture flow once those are built.
+The current `ArticleCTA` links to `/assessment`. Update it per-post to point to the relevant product flow, gated download, or email capture flow once those are built.
 
 ### JSON-LD structured data
 Each MDX post has a JSON-LD block in an HTML comment at the bottom of the file. To activate:

@@ -1,22 +1,7 @@
 import { env, requireEnv } from "@/lib/env";
+import type { InterviewProfile, ReviewSessionRequest } from "@/lib/api-types";
 
-type ProfilePayload = {
-  school?: string;
-  background?: string;
-  bank?: string;
-  group?: string;
-  stage?: string;
-};
-
-type ReviewPayload = {
-  transcript: string;
-  prompt?: string;
-  bank?: string;
-  group?: string;
-  stage?: string;
-};
-
-function buildRealtimeInstructions(profile: ProfilePayload) {
+function buildRealtimeInstructions(profile: InterviewProfile) {
   const parts = [
     "You are Superday AI, a serious investment banking interview coach.",
     "Run realistic interview practice with concise follow-ups and high standards.",
@@ -67,7 +52,7 @@ function sanitizeJsonBlock(input: string) {
   return input.replace(/^```json\s*/i, "").replace(/^```\s*/i, "").replace(/\s*```$/, "").trim();
 }
 
-export async function createRealtimeSession(profile: ProfilePayload) {
+export async function createRealtimeSession(profile: InterviewProfile) {
   const apiKey = requireEnv("OPENAI_API_KEY", env.openAiKey);
 
   const response = await fetch("https://api.openai.com/v1/realtime/client_secrets", {
@@ -94,7 +79,7 @@ export async function createRealtimeSession(profile: ProfilePayload) {
   return response.json();
 }
 
-export async function reviewTranscript(payload: ReviewPayload) {
+export async function reviewTranscript(payload: ReviewSessionRequest) {
   const apiKey = requireEnv("OPENAI_API_KEY", env.openAiKey);
 
   const response = await fetch("https://api.openai.com/v1/responses", {

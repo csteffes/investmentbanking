@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
+    "check": "next typegen && npm run lint && tsc --noEmit",
     "checkpoint": "git status -sb && git log -1 --oneline --decorate"
   },
   "dependencies": {

@@ -1,19 +1,30 @@
 import { NextResponse } from "next/server";
 
+import { applyUsageCookie, requireUsageAccess } from "@/lib/access-control";
 import { createRealtimeSession } from "@/lib/openai";
+import { parseInterviewProfile } from "@/lib/request-validation";
+
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json().catch(() => ({}))) as Record<string, string>;
-    const session = await createRealtimeSession({
-      school: body.school,
-      background: body.background,
-      bank: body.bank,
-      group: body.group,
-      stage: body.stage
-    });
+    const access = await requireUsageAccess(request, "realtime");
+    if (!access.ok) {
+      return NextResponse.json(
+        { error: access.error },
+        {
+          status: access.status,
+          headers: access.retryAfter ? { "Retry-After": String(access.retryAfter) } : undefined,
+        }
+      );
+    }
 
-    return NextResponse.json(session);
+    const body = await request.json().catch(() => ({}));
+    const session = await createRealtimeSession(parseInterviewProfile(body));
+    const response = NextResponse.json(session);
+    applyUsageCookie(response, access);
+
+    return response;
   } catch (error) {
     return NextResponse.json(
       {

@@ -1,10 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import type { InterviewProfile, SessionMode } from "@/lib/api-types";
 import { useVoiceSession } from "@/hooks/use-voice-session";
-import type { ProfilePayload } from "@/hooks/use-voice-session";
-
-type Track = "story" | "technical" | "markets";
 
 type Profile = {
   school: string;
@@ -72,7 +70,7 @@ const stateLabel: Record<string, string> = {
 };
 
 export function AssessmentStudio() {
-  const [track, setTrack] = useState<Track>("story");
+  const [track, setTrack] = useState<SessionMode>("story");
   const [profile, setProfile] = useState<Profile>({
     school: "Wharton",
     background: "Student investment fund and corporate finance internship",
@@ -88,16 +86,18 @@ export function AssessmentStudio() {
   const isLive = state === "connected";
   const isLoading = state === "connecting" || state === "ending" || state === "reviewing";
   const isDone = state === "done";
-  const demoTrack = DEMO_TRACKS[track];
+  const previewTrack = DEMO_TRACKS[track];
 
   async function handleSessionButton() {
     if (state === "idle" || state === "error" || state === "done") {
-      const payload: ProfilePayload = {
+      const payload: InterviewProfile = {
         school: profile.school,
         background: profile.background,
         bank: profile.bank,
         group: profile.group,
         stage: profile.stage,
+        mode: track,
+        prompt: previewTrack.prompt,
       };
       await start(payload);
     } else if (state === "connected") {
@@ -105,14 +105,14 @@ export function AssessmentStudio() {
     }
   }
 
-  const displayScores: [string, number][] = scorecard?.scores
+  const activeScores: [string, number][] = scorecard?.scores
     ? Object.entries(scorecard.scores).map(([k, v]) => [k.replace(/_/g, " "), v])
-    : demoTrack.scores;
+    : previewTrack.scores;
 
-  const displayReadiness = scorecard?.readiness
-    ?? Math.round(demoTrack.scores.reduce((s, [, v]) => s + v, 0) / demoTrack.scores.length);
+  const activeReadiness = scorecard?.readiness
+    ?? Math.round(previewTrack.scores.reduce((s, [, v]) => s + v, 0) / previewTrack.scores.length);
 
-  const displayTranscript = isLive || isDone || state === "reviewing" || state === "ending"
+  const liveTranscript = isLive || isDone || state === "reviewing" || state === "ending"
     ? transcript
     : null;
 
@@ -217,12 +217,16 @@ export function AssessmentStudio() {
               {error}
             </p>
           )}
+
+          <p className="text-[11px] leading-relaxed text-[#9CA3AF]">
+            Free trial access is rate-limited. Billing and saved-account actions require sign-in.
+          </p>
         </form>
 
         <div className="flex flex-col gap-4">
           {!isLive && state !== "reviewing" && (
             <div role="tablist" aria-label="Assessment track" className="flex gap-1 bg-[#F9FAFB] border border-[#E5E7EB] rounded-xl p-1">
-              {(Object.keys(DEMO_TRACKS) as Track[]).map((item) => (
+              {(Object.keys(DEMO_TRACKS) as SessionMode[]).map((item) => (
                 <button
                   key={item} type="button" role="tab" aria-selected={track === item}
                   onClick={() => setTrack(item)}
@@ -247,12 +251,12 @@ export function AssessmentStudio() {
             </div>
 
             {!isLive && state !== "reviewing" && (
-              <h2 className="text-base font-semibold text-[#111827] leading-snug mb-3">{demoTrack.prompt}</h2>
+              <h2 className="text-base font-semibold text-[#111827] leading-snug mb-3">{previewTrack.prompt}</h2>
             )}
 
-            {displayTranscript && displayTranscript.length > 0 ? (
+            {liveTranscript && liveTranscript.length > 0 ? (
               <ul className="space-y-3 max-h-64 overflow-y-auto">
-                {displayTranscript.map((entry) => (
+                {liveTranscript.map((entry) => (
                   <li key={entry.id}>
                     <div className="flex items-center gap-2 mb-0.5">
                       <strong className="text-xs font-semibold text-[#111827]">{entry.speaker === "coach" ? "Coach" : "You"}</strong>
@@ -268,7 +272,7 @@ export function AssessmentStudio() {
               <p className="text-sm text-[#9CA3AF] italic">Analyzing your session…</p>
             ) : (
               <ul className="space-y-3">
-                {demoTrack.transcript.map((item) => (
+                {previewTrack.transcript.map((item) => (
                   <li key={item.tag}>
                     <div className="flex items-center gap-2 mb-0.5">
                       <strong className="text-xs font-semibold text-[#111827]">{item.speaker}</strong>
@@ -284,10 +288,10 @@ export function AssessmentStudio() {
           <article className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-8">
             <div className="flex items-center justify-between mb-5">
               <span className="text-xs text-[#9CA3AF]">{isDone ? "Session scorecard" : "Transcript-backed review"}</span>
-              <span className="text-xs font-semibold text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">{displayReadiness}/100 readiness</span>
+              <span className="text-xs font-semibold text-[#C9A227] bg-[rgba(201,162,39,0.08)] px-2.5 py-1 rounded-md">{activeReadiness}/100 readiness</span>
             </div>
             <div className="grid sm:grid-cols-2 gap-3 mb-6">
-              {displayScores.map(([label, value]) => (
+              {activeScores.map(([label, value]) => (
                 <div key={label}>
                   <div className="flex items-center justify-between text-sm mb-2">
                     <span className="text-[#6B7280] capitalize">{label}</span>

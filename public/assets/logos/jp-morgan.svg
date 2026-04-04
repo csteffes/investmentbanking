@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60" role="img" aria-label="J.P. Morgan">
-  <!-- Three interlocking diamonds — the JPMorgan mark -->
-  <polygon points="44,4  64,20 44,36 24,20" fill="#003087"/>
-  <polygon points="24,20 44,36 24,52  4,36" fill="#003087" opacity="0.80"/>
-  <polygon points="64,20 84,36 64,52 44,36" fill="#003087" opacity="0.62"/>
-  <!-- Wordmark -->
-  <text x="98" y="38" fill="#003087" font-family="'Helvetica Neue',Arial,sans-serif" font-size="21" font-weight="700" letter-spacing="0.10em">JPMORGAN</text>
-</svg>

@@ -1,96 +1,66 @@
 # Superday AI
 
-Superday AI is a Vercel-ready `Next.js` web app for investment banking interview prep. The app now includes:
+Superday AI is a `Next.js` web app for investment banking interview prep, deployed on `Vercel`.
 
-- a concise marketing homepage
-- an interactive assessment preview
+## What’s in the repo
+
+- public marketing pages and a live assessment surface
 - MDX-backed `/guides` and `/blog` routes for SEO
-- API scaffolding for OpenAI Realtime, transcript review, Stripe billing, and Supabase persistence
+- server routes for OpenAI Realtime, transcript review, Stripe billing, and Supabase persistence
+- a single active app path under `app/`, `components/`, `hooks/`, and `lib/`
 
-## Launch Setup
-
-Use [VENDOR_SETUP.md](./VENDOR_SETUP.md) for the simple launch checklist.
-Use [MULTI_APP_WORKFLOW.md](./MULTI_APP_WORKFLOW.md) for the handoff workflow between Codex and Claude Code.
-
-Required accounts:
-
-- `GitHub`
-- `Vercel`
-- `OpenAI`
-- `Supabase`
-- `Stripe`
-- `Namecheap` or your DNS provider
-
-Recommended accounts:
-
-- `PostHog`
-- `Sentry`
-- `Resend`
-
-## Stack
+## Core architecture
 
 - `Next.js` App Router
-- `OpenAI Realtime API` for browser voice sessions
+- `OpenAI Realtime API` for voice sessions
 - `Stripe` for subscriptions and billing portal
-- `Supabase` for auth, Postgres, and resume storage
+- `Supabase` for auth verification, Postgres, and storage
 - `MDX` content stored in-repo under `content/`
 
 ## Local setup
 
-1. Install dependencies:
-   `npm install`
-2. Copy env vars:
-   `cp .env.example .env.local`
-3. Fill in your OpenAI, Stripe, and Supabase keys.
-4. Start the app:
-   `npm run dev`
+1. `npm install`
+2. `cp .env.example .env.local`
+3. Add your OpenAI, Stripe, Supabase, and session secret values
+4. `npm run dev`
+
+## Scripts
+
+- `npm run dev` starts local development
+- `npm run lint` runs ESLint directly
+- `npm run check` runs lint + TypeScript checks
+- `npm run build` runs the production webpack build used for verification
+- `npm run checkpoint` shows git status and the latest commit
 
 ## Deployment
 
-The app is designed for `Vercel`, not GitHub Pages, because server routes are required for:
+This repo is designed for `Vercel`, not GitHub Pages. The app depends on server routes for:
 
 - OpenAI Realtime session creation
-- transcript review
+- transcript review and session persistence
 - Stripe checkout and webhooks
-- Supabase-backed product state
+- Supabase-backed gated product actions
 
 ### Vercel checklist
 
-1. Import this repo into Vercel.
-2. Add all variables from `.env.example`.
-3. Point `www.superdayready.com` to Vercel once preview and production builds are healthy.
-4. Configure the Stripe webhook to hit `/api/stripe/webhook`.
-5. Apply `supabase/schema.sql` in your Supabase project.
+1. Import the repo into `Vercel`
+2. Add all variables from `.env.example`
+3. Apply [schema.sql](./supabase/schema.sql) in Supabase
+4. Configure the Stripe webhook at `/api/stripe/webhook`
+5. Point `www.superdayready.com` to Vercel
 
-### Launch order
+## Product access model
 
-1. Create the required vendor accounts in `VENDOR_SETUP.md`.
-2. Add all env vars from `.env.example` in Vercel.
-3. Apply [schema.sql](./supabase/schema.sql) in Supabase.
-4. Create the `$50/month` Stripe price and copy the price ID into Vercel.
-5. Set the Stripe webhook to `/api/stripe/webhook`.
-6. Verify `/api/realtime/session`, `/api/session/review`, `/api/stripe/checkout`, and `/api/portal`.
-7. Point `www.superdayready.com` to Vercel.
+- marketing pages stay public
+- voice sessions and transcript review are trial-scoped and rate-limited unless a user is authenticated
+- billing actions require authenticated user context
 
-## Working Between Apps
+## Working between apps
 
-If you switch between Codex and Claude Code:
+Use [MULTI_APP_WORKFLOW.md](./MULTI_APP_WORKFLOW.md) when switching between Codex and Claude Code.
 
-1. Run `npm run checkpoint` before switching.
-2. If the work is ready, `git add`, `git commit`, and `git push`.
-3. If the work is still local-only, open the same folder in the other app:
-   `/Users/cartersteffes/Documents/Superday AI`
-4. When you come back, run `git status -sb`.
-5. If the other app pushed changes, run `git pull origin main`.
+## Supporting docs
 
-## Content
-
-- Guides live in `content/guides`
-- Blog posts live in `content/blog`
-- Add new `.mdx` files with frontmatter for title, description, date, readingTime, and keywords
-
-## Notes
-
-- The legacy static prototype files are still in the repo as a fallback, but the active app source is now the `Next.js` code under `app/`, `components/`, and `lib/`.
-- This environment did not have `node` or `npm` installed, so the new app could not be build-tested locally during implementation.
-- `LiveKit`, `ElevenLabs`, and a headless CMS are not required for v1.
+- [VENDOR_SETUP.md](./VENDOR_SETUP.md)
+- [MULTI_APP_WORKFLOW.md](./MULTI_APP_WORKFLOW.md)
+- [supabase/schema.sql](./supabase/schema.sql)

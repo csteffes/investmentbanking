@@ -30,6 +30,7 @@ create table if not exists public.subscriptions (
 create table if not exists public.mock_sessions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid references auth.users(id) on delete cascade,
+  trial_id text,
   bank text,
   group_name text,
   interview_stage text,
@@ -66,3 +67,207 @@ create table if not exists public.scorecards (
 insert into storage.buckets (id, name, public)
 values ('resumes', 'resumes', false)
 on conflict (id) do nothing;
+
+alter table public.candidate_profiles enable row level security;
+alter table public.subscriptions enable row level security;
+alter table public.mock_sessions enable row level security;
+alter table public.transcript_segments enable row level security;
+alter table public.scorecards enable row level security;
+
+alter table public.mock_sessions
+add column if not exists trial_id text;
+
+create index if not exists mock_sessions_user_id_idx on public.mock_sessions (user_id);
+create index if not exists mock_sessions_trial_id_idx on public.mock_sessions (trial_id);
+create index if not exists transcript_segments_session_id_idx on public.transcript_segments (session_id);
+
+drop policy if exists "candidate_profiles_select_own" on public.candidate_profiles;
+create policy "candidate_profiles_select_own"
+on public.candidate_profiles for select
+using (auth.uid() = user_id);
+
+drop policy if exists "candidate_profiles_insert_own" on public.candidate_profiles;
+create policy "candidate_profiles_insert_own"
+on public.candidate_profiles for insert
+with check (auth.uid() = user_id);
+
+drop policy if exists "candidate_profiles_update_own" on public.candidate_profiles;
+create policy "candidate_profiles_update_own"
+on public.candidate_profiles for update
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+drop policy if exists "candidate_profiles_delete_own" on public.candidate_profiles;
+create policy "candidate_profiles_delete_own"
+on public.candidate_profiles for delete
+using (auth.uid() = user_id);
+
+drop policy if exists "subscriptions_select_own" on public.subscriptions;
+create policy "subscriptions_select_own"
+on public.subscriptions for select
+using (auth.uid() = user_id);
+
+drop policy if exists "subscriptions_insert_own" on public.subscriptions;
+create policy "subscriptions_insert_own"
+on public.subscriptions for insert
+with check (auth.uid() = user_id);
+
+drop policy if exists "subscriptions_update_own" on public.subscriptions;
+create policy "subscriptions_update_own"
+on public.subscriptions for update
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+drop policy if exists "mock_sessions_select_own" on public.mock_sessions;
+create policy "mock_sessions_select_own"
+on public.mock_sessions for select
+using (auth.uid() = user_id);
+
+drop policy if exists "mock_sessions_insert_own" on public.mock_sessions;
+create policy "mock_sessions_insert_own"
+on public.mock_sessions for insert
+with check (auth.uid() = user_id);
+
+drop policy if exists "mock_sessions_update_own" on public.mock_sessions;
+create policy "mock_sessions_update_own"
+on public.mock_sessions for update
+using (auth.uid() = user_id)
+with check (auth.uid() = user_id);
+
+drop policy if exists "mock_sessions_delete_own" on public.mock_sessions;
+create policy "mock_sessions_delete_own"
+on public.mock_sessions for delete
+using (auth.uid() = user_id);
+
+drop policy if exists "transcript_segments_select_via_session" on public.transcript_segments;
+create policy "transcript_segments_select_via_session"
+on public.transcript_segments for select
+using (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = transcript_segments.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+);
+
+drop policy if exists "transcript_segments_insert_via_session" on public.transcript_segments;
+create policy "transcript_segments_insert_via_session"
+on public.transcript_segments for insert
+with check (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = transcript_segments.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+);
+
+drop policy if exists "transcript_segments_update_via_session" on public.transcript_segments;
+create policy "transcript_segments_update_via_session"
+on public.transcript_segments for update
+using (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = transcript_segments.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+)
+with check (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = transcript_segments.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+);
+
+drop policy if exists "transcript_segments_delete_via_session" on public.transcript_segments;
+create policy "transcript_segments_delete_via_session"
+on public.transcript_segments for delete
+using (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = transcript_segments.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+);
+
+drop policy if exists "scorecards_select_via_session" on public.scorecards;
+create policy "scorecards_select_via_session"
+on public.scorecards for select
+using (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = scorecards.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+);
+
+drop policy if exists "scorecards_insert_via_session" on public.scorecards;
+create policy "scorecards_insert_via_session"
+on public.scorecards for insert
+with check (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = scorecards.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+);
+
+drop policy if exists "scorecards_update_via_session" on public.scorecards;
+create policy "scorecards_update_via_session"
+on public.scorecards for update
+using (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = scorecards.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+)
+with check (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = scorecards.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+);
+
+drop policy if exists "scorecards_delete_via_session" on public.scorecards;
+create policy "scorecards_delete_via_session"
+on public.scorecards for delete
+using (
+  exists (
+    select 1
+    from public.mock_sessions
+    where public.mock_sessions.id = scorecards.session_id
+      and public.mock_sessions.user_id = auth.uid()
+  )
+);
+
+drop policy if exists "resumes_select_own" on storage.objects;
+create policy "resumes_select_own"
+on storage.objects for select
+using (bucket_id = 'resumes' and owner = auth.uid());
+
+drop policy if exists "resumes_insert_own" on storage.objects;
+create policy "resumes_insert_own"
+on storage.objects for insert
+with check (bucket_id = 'resumes' and owner = auth.uid());
+
+drop policy if exists "resumes_update_own" on storage.objects;
+create policy "resumes_update_own"
+on storage.objects for update
+using (bucket_id = 'resumes' and owner = auth.uid())
+with check (bucket_id = 'resumes' and owner = auth.uid());
+
+drop policy if exists "resumes_delete_own" on storage.objects;
+create policy "resumes_delete_own"
+on storage.objects for delete
+using (bucket_id = 'resumes' and owner = auth.uid());

@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 60" role="img" aria-label="Lazard">
-  <!-- Wordmark in Lazard's dark navy -->
-  <text x="4" y="40" fill="#1E3E87" font-family="Georgia,'Times New Roman',serif" font-size="30" font-weight="700" letter-spacing="0.14em">LAZARD</text>
-  <!-- Underline rule -->
-  <line x1="4" y1="47" x2="202" y2="47" stroke="#1E3E87" stroke-width="2" opacity="0.35"/>
-</svg>

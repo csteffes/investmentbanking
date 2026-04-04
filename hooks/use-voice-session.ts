@@ -1,6 +1,11 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
+import type {
+  InterviewProfile,
+  ReviewSessionRequest,
+  Scorecard,
+} from "@/lib/api-types";
 
 export type SessionState =
   | "idle"
@@ -17,30 +22,19 @@ export type TranscriptEntry = {
   text: string;
 };
 
-export type Scorecard = {
-  summary: string;
-  readiness: number | null;
-  scores: Record<string, number> | null;
-  evidence: string[];
-  next_steps: string[];
-};
-
-export type ProfilePayload = {
-  school?: string;
-  background?: string;
-  bank?: string;
-  group?: string;
-  stage?: string;
-};
-
 type UseVoiceSessionReturn = {
   state: SessionState;
   transcript: TranscriptEntry[];
   scorecard: Scorecard | null;
   error: string | null;
-  start: (profile: ProfilePayload) => Promise<void>;
+  start: (profile: InterviewProfile) => Promise<void>;
   stop: () => Promise<void>;
 };
+
+async function readApiError(response: Response) {
+  const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+  return payload?.error || response.statusText || "Request failed.";
+}
 
 export function useVoiceSession(): UseVoiceSessionReturn {
   const [state, setState] = useState<SessionState>("idle");
@@ -55,6 +49,7 @@ export function useVoiceSession(): UseVoiceSessionReturn {
   const transcriptTextRef = useRef<string>("");
   // Track partial AI response being assembled
   const currentAiTextRef = useRef<string>("");
+  const profileRef = useRef<InterviewProfile | null>(null);
 
   const cleanup = useCallback(() => {
     dcRef.current?.close();
@@ -79,12 +74,16 @@ export function useVoiceSession(): UseVoiceSessionReturn {
 
     setState("reviewing");
     try {
+      const reviewPayload: ReviewSessionRequest = {
+        ...(profileRef.current ?? {}),
+        transcript: fullTranscript,
+      };
       const res = await fetch("/api/session/review", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ transcript: fullTranscript }),
+        body: JSON.stringify(reviewPayload),
       });
-      if (!res.ok) throw new Error(await res.text());
+      if (!res.ok) throw new Error(await readApiError(res));
       const data = (await res.json()) as Scorecard;
       setScorecard(data);
       setState("done");
@@ -95,12 +94,13 @@ export function useVoiceSession(): UseVoiceSessionReturn {
   }, [state, cleanup]);
 
   const start = useCallback(
-    async (profile: ProfilePayload) => {
+    async (profile: InterviewProfile) => {
       setError(null);
       setTranscript([]);
       setScorecard(null);
       transcriptTextRef.current = "";
       currentAiTextRef.current = "";
+      profileRef.current = profile;
       setState("connecting");
 
       try {
@@ -110,7 +110,7 @@ export function useVoiceSession(): UseVoiceSessionReturn {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(profile),
         });
-        if (!tokenRes.ok) throw new Error(await tokenRes.text());
+        if (!tokenRes.ok) throw new Error(await readApiError(tokenRes));
         const tokenData = (await tokenRes.json()) as {
           client_secret?: { value?: string };
         };

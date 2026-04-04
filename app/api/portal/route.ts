@@ -1,20 +1,28 @@
 import { NextResponse } from "next/server";
 
+import { requireBillingAccess } from "@/lib/access-control";
 import { env } from "@/lib/env";
 import { getStripe } from "@/lib/stripe";
+import { getSubscriptionForUser } from "@/lib/subscriptions";
+
+export const runtime = "nodejs";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { customerId?: string; returnUrl?: string };
+    const access = await requireBillingAccess(request);
+    if (!access.ok) {
+      return NextResponse.json({ error: access.error }, { status: access.status });
+    }
 
-    if (!body.customerId) {
-      return NextResponse.json({ error: "customerId is required." }, { status: 400 });
+    const subscription = await getSubscriptionForUser(access.userId);
+    if (!subscription?.stripe_customer_id) {
+      return NextResponse.json({ error: "No billing profile found for this user." }, { status: 404 });
     }
 
     const stripe = getStripe();
     const session = await stripe.billingPortal.sessions.create({
-      customer: body.customerId,
-      return_url: body.returnUrl || `${env.siteUrl}/assessment`
+      customer: subscription.stripe_customer_id,
+      return_url: `${env.siteUrl}/assessment`
     });
 
     return NextResponse.json({ url: session.url });

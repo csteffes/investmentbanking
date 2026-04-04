@@ -1,73 +1,78 @@
 # Superday AI Vendor Setup
 
-## Simple List
+## Required vendors
 
 1. `GitHub`
-   Use this repo as the source of truth for Codex and Vercel.
+   Source control for Codex, Claude Code, and Vercel deployments.
 
 2. `Vercel`
-   Host the real app here. This is the production platform for the Next.js app.
+   Production hosting for the Next.js app.
 
 3. `OpenAI`
-   Needed for voice sessions and transcript review.
-   Add `OPENAI_API_KEY`, `OPENAI_REALTIME_MODEL`, `OPENAI_REALTIME_VOICE`, and `OPENAI_REVIEW_MODEL` in Vercel.
+   Required for voice sessions and transcript review.
 
 4. `Supabase`
-   Needed for auth, Postgres, and storage.
-   Add `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` in Vercel.
-   Run [schema.sql](./supabase/schema.sql).
+   Required for auth verification, Postgres, and storage.
 
 5. `Stripe`
-   Needed for the `$50/month` plan, checkout, webhooks, and billing portal.
-   Add `STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`, and `STRIPE_PRO_PRICE_ID` in Vercel.
-   Point the webhook to `/api/stripe/webhook`.
+   Required for the `$50/month` plan, checkout, webhooks, and billing portal.
 
 6. `Namecheap`
-   Needed for `superdayready.com`.
-   Point the domain to Vercel for production.
+   DNS for `superdayready.com`.
+
+## Recommended vendors
 
 7. `PostHog`
-   Recommended for analytics.
-   Add `NEXT_PUBLIC_POSTHOG_KEY` and `NEXT_PUBLIC_POSTHOG_HOST` in Vercel.
+   Product analytics.
 
 8. `Sentry`
-   Recommended for error monitoring.
-   Add `SENTRY_DSN` in Vercel.
+   Error monitoring.
 
 9. `Resend`
-   Recommended for transactional email.
-   Add `RESEND_API_KEY` in Vercel.
+   Transactional email.
 
-## What Codex Needs
+## Environment variables
 
-- Access to this `GitHub` repo
-- The environment variable names and values from the vendors above
-- The Vercel project connected to the repo
+Add these in Vercel:
 
-Codex does not replace the vendor dashboards. You still create the accounts and keys in each service, then paste the keys into Vercel.
+- `NEXT_PUBLIC_SITE_URL`
+- `APP_SESSION_SECRET`
+- `OPENAI_API_KEY`
+- `OPENAI_REALTIME_MODEL`
+- `OPENAI_REALTIME_VOICE`
+- `OPENAI_REVIEW_MODEL`
+- `STRIPE_SECRET_KEY`
+- `STRIPE_WEBHOOK_SECRET`
+- `STRIPE_PRO_PRICE_ID`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
 
-## Repo Endpoints That Depend On Vendors
+Optional:
+
+- `TRIAL_SESSION_LIMIT`
+- `TRIAL_REVIEW_LIMIT`
+- `NEXT_PUBLIC_POSTHOG_KEY`
+- `NEXT_PUBLIC_POSTHOG_HOST`
+- `SENTRY_DSN`
+- `RESEND_API_KEY`
+
+## Repo endpoints that depend on vendors
 
 - `POST /api/realtime/session` -> `OpenAI`
-- `POST /api/session/review` -> `OpenAI`
-- `POST /api/stripe/checkout` -> `Stripe`
+- `POST /api/session/review` -> `OpenAI` + `Supabase`
+- `POST /api/stripe/checkout` -> `Stripe` + `Supabase auth context`
 - `POST /api/stripe/webhook` -> `Stripe` + `Supabase`
-- `POST /api/portal` -> `Stripe`
+- `POST /api/portal` -> `Stripe` + `Supabase auth context`
 
-## What You Can Skip For V1
+## Launch order
 
-- `GitHub Pages` as the real app host
-- `LiveKit`
-- `ElevenLabs`
-- A headless CMS
-
-## Launch Order
-
-1. Create accounts for `Vercel`, `OpenAI`, `Supabase`, and `Stripe`.
-2. Import the repo into `Vercel`.
-3. Add all env vars from [.env.example](./.env.example).
-4. Run [schema.sql](./supabase/schema.sql) in `Supabase`.
-5. Create the `$50/month` product in `Stripe` and save the price ID in Vercel.
-6. Configure the Stripe webhook to hit `/api/stripe/webhook`.
-7. Test the voice session, checkout flow, and Supabase writes.
-8. Point `superdayready.com` to `Vercel`.
+1. Create accounts for `Vercel`, `OpenAI`, `Supabase`, and `Stripe`
+2. Import the repo into `Vercel`
+3. Add all env vars from [.env.example](./.env.example)
+4. Apply [schema.sql](./supabase/schema.sql) in `Supabase`
+5. Create the `$50/month` Stripe product and save the price ID in Vercel
+6. Configure the Stripe webhook to hit `/api/stripe/webhook`
+7. Test voice session access, review persistence, and billing flows
+8. Point `superdayready.com` to `Vercel`
