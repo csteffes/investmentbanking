@@ -11,42 +11,45 @@ export default async function HomePage() {
   ]);
 
   return (
-    <main>
+    <main className="w-full">
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="px-6 pt-28 pb-20 sm:pt-36 sm:pb-28">
-        <div className="max-w-3xl mx-auto text-center">
+      <section className="w-full px-6 pt-28 pb-20 sm:pt-40 sm:pb-28">
+        <div className="w-full max-w-[680px] mx-auto text-center">
           {/* Trust badge */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#E5E7EB] bg-white px-4 py-2 mb-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#22C55E]" />
-            <span className="text-sm text-[#6B7280]">
-              Trusted by investment banking candidates nationwide
-            </span>
+          <div className="flex justify-center mb-10">
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-[#E5E7EB] bg-white px-5 py-2.5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <span className="inline-block w-2 h-2 rounded-full bg-[#22C55E]" />
+              <span className="text-sm text-[#6B7280]">
+                Trusted by investment banking candidates nationwide
+              </span>
+            </div>
           </div>
 
-          <h1 className="text-[2.75rem] sm:text-[3.5rem] lg:text-[4rem] font-bold tracking-[-0.025em] leading-[1.1] text-[#111827] mb-6">
-            Build confidence that{" "}
+          <h1 className="text-[2.5rem] sm:text-[3.25rem] lg:text-[3.75rem] font-bold tracking-[-0.03em] leading-[1.08] text-[#111827] mb-6">
+            Build confidence that
+            <br />
             <span className="text-[#C9A227]">gets you the offer</span>
           </h1>
 
-          <p className="text-lg sm:text-xl text-[#6B7280] leading-relaxed max-w-2xl mx-auto mb-10">
-            Confidence isn&apos;t a personality trait — it&apos;s practiced. Simulate real
-            investment banking interviews so your thinking, structure, and delivery
-            feel natural under pressure.
+          <p className="text-base sm:text-lg text-[#6B7280] leading-[1.75] max-w-[520px] mx-auto mb-10">
+            Confidence isn&apos;t a personality trait — it&apos;s practiced.
+            Simulate real investment banking interviews so your thinking,
+            structure, and delivery feel natural under pressure.
           </p>
 
-          <Link
-            href="/assessment"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-[#111827] text-white font-semibold text-base hover:bg-[#1F2937] transition-all duration-150 shadow-[0_2px_8px_rgba(0,0,0,0.12)]"
-          >
-            Try for free today
-            <span aria-hidden="true">→</span>
-          </Link>
+          <div className="flex justify-center mb-8">
+            <Link
+              href="/assessment"
+              className="inline-flex items-center justify-center gap-2.5 px-10 py-4 rounded-xl bg-[#111827] text-white font-semibold text-base hover:bg-[#1F2937] transition-all duration-150 shadow-[0_2px_8px_rgba(0,0,0,0.12)]"
+            >
+              Try for free today
+              <span aria-hidden="true" className="text-lg">→</span>
+            </Link>
+          </div>
 
-          <div className="flex items-center justify-center gap-2 mt-8 text-sm">
-            <div className="flex gap-0.5 text-[#C9A227]" aria-label="4.8 out of 5 stars">
-              {"★★★★★".split("").map((star, i) => (
-                <span key={i}>{star}</span>
-              ))}
+          <div className="flex items-center justify-center gap-2.5 text-sm">
+            <div className="flex gap-0.5 text-[#C9A227] text-base" aria-label="4.8 out of 5 stars">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
             </div>
             <span className="font-semibold text-[#111827]">4.8/5</span>
             <span className="text-[#9CA3AF]">from early users</span>
@@ -61,8 +64,8 @@ export default async function HomePage() {
       />
 
       {/* ── How it works ─────────────────────────────────── */}
-      <section id="about" className="px-6 py-24 sm:py-32">
-        <div className="max-w-5xl mx-auto">
+      <section id="about" className="w-full px-6 py-24 sm:py-32">
+        <div className="w-full max-w-[960px] mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
               How it works
@@ -71,7 +74,7 @@ export default async function HomePage() {
               Three steps to interview-ready.
             </h2>
           </div>
-          <div className="grid sm:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {[
               {
                 step: "01",
@@ -94,11 +97,13 @@ export default async function HomePage() {
             ].map((item) => (
               <article
                 key={item.step}
-                className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-8 hover:border-[#D1D5DB] transition-colors duration-150"
+                className="bg-[#F9FAFB] border border-[#E5E7EB] rounded-2xl p-8 text-center hover:border-[#D1D5DB] transition-colors duration-150"
               >
-                <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#C9A227]/10 text-[#C9A227] text-sm font-bold mb-5">
-                  {item.step}
-                </span>
+                <div className="flex justify-center mb-5">
+                  <span className="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#C9A227]/10 text-[#C9A227] text-sm font-bold">
+                    {item.step}
+                  </span>
+                </div>
                 <h3 className="text-lg font-semibold text-[#111827] tracking-tight mb-3">
                   {item.title}
                 </h3>
@@ -112,8 +117,8 @@ export default async function HomePage() {
       </section>
 
       {/* ── Product preview ──────────────────────────────── */}
-      <section className="px-6 py-24 sm:py-32 bg-[#F9FAFB]">
-        <div className="max-w-5xl mx-auto">
+      <section className="w-full px-6 py-24 sm:py-32 bg-[#FAFAFA]">
+        <div className="w-full max-w-[960px] mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
               Live preview
@@ -121,14 +126,14 @@ export default async function HomePage() {
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] mb-4">
               Structured like the real thing.
             </h2>
-            <p className="text-[#6B7280] max-w-xl mx-auto">
+            <p className="text-[#6B7280] max-w-[520px] mx-auto">
               Every session adapts to your profile and delivers the same pressure
               you&apos;ll face in the room.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
             {/* Live mock card */}
-            <article className="bg-white border border-[#E5E7EB] rounded-2xl p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <article className="bg-white border border-[#E5E7EB] rounded-2xl p-8 shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
               <div className="flex items-center justify-between mb-6">
                 <span className="text-xs font-semibold uppercase tracking-[0.1em] text-[#C9A227]">
                   Live mock
@@ -175,7 +180,7 @@ export default async function HomePage() {
             </article>
 
             {/* Scorecard card */}
-            <article className="bg-white border border-[#E5E7EB] rounded-2xl p-8 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <article className="bg-white border border-[#E5E7EB] rounded-2xl p-8 shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
               <div className="flex items-center justify-between mb-8">
                 <span className="text-xs text-[#9CA3AF]">Latest review</span>
                 <span className="text-xs font-semibold text-[#C9A227]">
@@ -241,8 +246,8 @@ export default async function HomePage() {
       />
 
       {/* ── Resources ────────────────────────────────────── */}
-      <section className="px-6 py-24 sm:py-32">
-        <div className="max-w-5xl mx-auto">
+      <section className="w-full px-6 py-24 sm:py-32">
+        <div className="w-full max-w-[960px] mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
               Resources
@@ -250,12 +255,12 @@ export default async function HomePage() {
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#111827] mb-4">
               Prep content that actually helps.
             </h2>
-            <p className="text-[#6B7280] max-w-xl mx-auto">
+            <p className="text-[#6B7280] max-w-[520px] mx-auto">
               Use the guide hub for pillar topics and the blog for focused
               breakdowns, then move straight into practice.
             </p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
             {[
               {
                 kind: "guides" as const,
@@ -308,8 +313,8 @@ export default async function HomePage() {
       </section>
 
       {/* ── Pricing ──────────────────────────────────────── */}
-      <section id="pricing" className="px-6 py-24 sm:py-32 bg-[#F9FAFB]">
-        <div className="max-w-lg mx-auto text-center mb-16">
+      <section id="pricing" className="w-full px-6 py-24 sm:py-32 bg-[#FAFAFA]">
+        <div className="w-full max-w-[520px] mx-auto text-center mb-16">
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
             Pricing
           </p>
@@ -320,22 +325,22 @@ export default async function HomePage() {
             One plan with everything you need. Start free, cancel anytime.
           </p>
         </div>
-        <article className="max-w-md mx-auto bg-white border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-          <div className="p-10 border-b border-[#E5E7EB]">
+        <article className="w-full max-w-[440px] mx-auto bg-white border border-[#E5E7EB] rounded-2xl overflow-hidden shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+          <div className="p-10 border-b border-[#E5E7EB] text-center">
             <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#C9A227] mb-3">
               {site.pricing.trialDays}-Day Free Trial
             </p>
             <p className="text-sm font-semibold text-[#6B7280] mb-6">
               Superday AI Pro
             </p>
-            <div className="flex items-baseline gap-1 mb-6">
+            <div className="flex items-baseline justify-center gap-1 mb-6">
               <span className="text-lg text-[#9CA3AF]">$</span>
               <span className="text-6xl font-bold tracking-tight text-[#111827]">
                 {site.pricing.monthly}
               </span>
               <span className="text-[#9CA3AF] text-sm ml-1">/month</span>
             </div>
-            <p className="text-sm text-[#6B7280] leading-relaxed">
+            <p className="text-sm text-[#6B7280] leading-relaxed max-w-[340px] mx-auto">
               For ambitious candidates who want more reps, sharper feedback, and
               a real edge going into first rounds and superdays.
             </p>
@@ -361,10 +366,10 @@ export default async function HomePage() {
             </ul>
             <Link
               href="/assessment"
-              className="flex items-center justify-center gap-2 w-full text-center px-6 py-4 rounded-xl bg-[#111827] text-white font-semibold text-base hover:bg-[#1F2937] transition-all duration-150"
+              className="flex items-center justify-center gap-2.5 w-full text-center px-6 py-4 rounded-xl bg-[#111827] text-white font-semibold text-base hover:bg-[#1F2937] transition-all duration-150"
             >
               Try for free today
-              <span aria-hidden="true">→</span>
+              <span aria-hidden="true" className="text-lg">→</span>
             </Link>
             <p className="text-center text-xs text-[#9CA3AF] mt-4">
               Cancel anytime · {site.pricing.label} after your{" "}
@@ -375,8 +380,8 @@ export default async function HomePage() {
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────── */}
-      <section id="faq" className="px-6 py-24 sm:py-32">
-        <div className="max-w-5xl mx-auto">
+      <section id="faq" className="w-full px-6 py-24 sm:py-32">
+        <div className="w-full max-w-[960px] mx-auto">
           <div className="text-center mb-16">
             <p className="text-xs font-semibold uppercase tracking-[0.15em] text-[#C9A227] mb-4">
               FAQ
@@ -385,7 +390,7 @@ export default async function HomePage() {
               What candidates usually ask first.
             </h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {homepageFaqs.map((item) => (
               <article
                 key={item.question}

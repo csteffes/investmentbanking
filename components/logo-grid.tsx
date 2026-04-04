@@ -7,12 +7,15 @@ type LogoGridProps = {
 
 export function LogoGrid({ label, logos }: LogoGridProps) {
   return (
-    <section className="px-6 py-14 border-y border-[#F3F4F6]">
-      <div className="max-w-5xl mx-auto">
-        <p className="text-center text-sm text-[#9CA3AF] mb-8">{label}</p>
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14">
+    <section className="w-full px-6 py-12 border-y border-[#F3F4F6]">
+      <div className="w-full max-w-[960px] mx-auto text-center">
+        <p className="text-sm text-[#9CA3AF] mb-8">{label}</p>
+        <div className="grid grid-cols-3 sm:grid-cols-6 items-center justify-items-center gap-y-8 gap-x-6">
           {logos.map((logo) => (
-            <span key={logo.src} className={`flex-shrink-0 ${logo.className ?? ""}`}>
+            <div
+              key={logo.src}
+              className={`flex items-center justify-center ${logo.className ?? ""}`}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 alt={logo.alt}
@@ -20,7 +23,7 @@ export function LogoGrid({ label, logos }: LogoGridProps) {
                 decoding="async"
                 src={logo.src}
               />
-            </span>
+            </div>
           ))}
         </div>
       </div>

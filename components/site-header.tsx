@@ -4,8 +4,8 @@ import { navigation } from "@/lib/site";
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#F3F4F6]">
-      <div className="max-w-5xl mx-auto flex items-center justify-between px-6 h-16">
+    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-md border-b border-[#F3F4F6]">
+      <div className="w-full max-w-[960px] mx-auto flex items-center justify-between px-6 h-16">
         <Link href="/" className="flex items-center gap-2.5 group">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

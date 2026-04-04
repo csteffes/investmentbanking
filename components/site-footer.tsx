@@ -31,7 +31,7 @@ const footerColumns = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-[#E5E7EB] bg-white px-6 py-16 sm:py-20">
-      <div className="max-w-5xl mx-auto">
+      <div className="w-full max-w-[960px] mx-auto">
         <div className="grid gap-12 lg:grid-cols-[1.25fr_1.75fr]">
           {/* Left column */}
           <div>
