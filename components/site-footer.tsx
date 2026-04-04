@@ -30,61 +30,56 @@ const footerColumns = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-[rgba(17,24,39,0.08)] bg-[#FCFBF8]">
-      <div className="marketing-shell pt-20 pb-12 sm:pt-24 sm:pb-14">
-        <div className="grid items-start gap-14 lg:grid-cols-[1.05fr_1.95fr]">
-          {/* Left column */}
-          <div className="max-w-sm">
-            <Link href="/" className="inline-flex items-center">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/logo.svg"
-                alt="Superday AI"
-                className="h-7 w-auto"
-                decoding="async"
-              />
-            </Link>
-            <p className="mt-6 text-sm leading-7 text-[#6B7280]">
-              AI-led interview practice for candidates who want more reps,
-              cleaner answers, and a calmer walk into the room.
+    <footer className="site-footer">
+      <div className="marketing-shell">
+        <div className="site-footer__panel">
+          <div className="site-footer__main">
+            <div className="site-footer__brand">
+              <Link href="/" className="site-footer__logo">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/logo.svg"
+                  alt="Superday AI"
+                  className="h-7 w-auto"
+                  decoding="async"
+                />
+              </Link>
+
+              <p className="site-footer__copy">
+                AI-led interview practice for candidates who want more reps,
+                cleaner answers, and a calmer walk into the room.
+              </p>
+            </div>
+
+            <div className="site-footer__nav">
+              {footerColumns.map((column) => (
+                <div key={column.title} className="site-footer__column">
+                  <p className="site-footer__heading">{column.title}</p>
+                  <ul className="site-footer__list">
+                    {column.links.map((link) => (
+                      <li key={link.href}>
+                        <Link href={link.href} className="site-footer__link">
+                          {link.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="site-footer__meta">
+            <p className="site-footer__copyright">
+              &copy; {new Date().getFullYear()} Superday AI. All rights reserved.
             </p>
+            <Link
+              href="mailto:support@superdayready.com"
+              className="site-footer__support"
+            >
+              support@superdayready.com
+            </Link>
           </div>
-
-          {/* Right columns */}
-          <div className="grid gap-10 sm:grid-cols-3">
-            {footerColumns.map((column) => (
-              <div key={column.title}>
-                <p className="mb-4 text-[0.95rem] font-semibold tracking-[-0.01em] text-[#111827]">
-                  {column.title}
-                </p>
-                <ul className="space-y-3">
-                  {column.links.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        href={link.href}
-                        className="text-sm leading-6 text-[#6B7280] transition-colors duration-150 hover:text-[#111827]"
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-[rgba(17,24,39,0.08)] pt-7 sm:mt-20 sm:flex-row sm:pt-8">
-          <p className="text-sm text-[#9CA3AF]">
-            &copy; {new Date().getFullYear()} Superday AI. All rights reserved.
-          </p>
-          <Link
-            href="mailto:support@superdayready.com"
-            className="text-sm text-[#9CA3AF] hover:text-[#6B7280] transition-colors duration-150"
-          >
-            support@superdayready.com
-          </Link>
         </div>
       </div>
     </footer>
