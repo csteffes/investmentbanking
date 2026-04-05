@@ -385,10 +385,7 @@ export default async function HomePage() {
       <section id="faq" className="marketing-section">
         <div className="marketing-shell">
           <div className="marketing-intro mb-10 sm:mb-12">
-            <p className="marketing-eyebrow">FAQ</p>
-            <h2 className="max-w-[18ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:max-w-none lg:text-[2.8rem]">
-              Frequently Asked Questions
-            </h2>
+            <p className="marketing-eyebrow">Frequently Asked Questions</p>
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
