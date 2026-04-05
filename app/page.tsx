@@ -124,7 +124,7 @@ export default async function HomePage() {
         className="marketing-section marketing-section--trim-top"
       >
         <div className="marketing-shell">
-          <div className="marketing-intro mb-10 sm:mb-12">
+          <div className="marketing-intro mb-14 sm:mb-16">
             <p className="marketing-eyebrow">How it works</p>
             <h2 className="max-w-[14ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:text-[2.8rem]">
               Three steps to better interview reps.
