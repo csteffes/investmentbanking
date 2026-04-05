@@ -31,7 +31,7 @@ export function SiteHeader() {
           ))}
 
           <Link
-            href="/mock-interview#account"
+            href="/login"
             className="inline-flex items-center justify-center rounded-full border border-[#E5E7EB] px-4 py-2 text-[#111827] transition-colors duration-150 hover:border-[#D1D5DB] hover:bg-[#F9FAFB]"
           >
             Sign in

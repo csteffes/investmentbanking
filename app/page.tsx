@@ -354,7 +354,7 @@ export default async function HomePage() {
                 </p>
 
                 <Link
-                  href="/mock-interview#account"
+                  href="/create-account?redirectTo=%2Fmock-interview"
                   className="pricing-panel__cta"
                 >
                   Start {site.pricing.trialDays}-day free trial

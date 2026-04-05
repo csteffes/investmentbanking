@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 import { useAuthSession } from "@/components/auth-sync-provider";
@@ -128,10 +129,8 @@ export function MockInterviewStudio() {
   });
 
   const { state, transcript, debrief, error, start, stop } = useVoiceSession();
-  const { user, loading: authLoading, signInWithMagicLink, signOut } = useAuthSession();
+  const { user, loading: authLoading, signOut } = useAuthSession();
   const supabase = useMemo(() => getBrowserSupabase(), []);
-  const [authEmail, setAuthEmail] = useState("");
-  const [authMessage, setAuthMessage] = useState<string | null>(null);
   const [authError, setAuthError] = useState<string | null>(null);
   const [billingState, setBillingState] = useState<"idle" | "checkout" | "portal">("idle");
   const [subscription, setSubscription] = useState<SubscriptionState>(null);
@@ -215,25 +214,6 @@ export function MockInterviewStudio() {
     } else if (state === "connected") {
       await stop();
     }
-  }
-
-  async function handleSendMagicLink() {
-    setAuthError(null);
-    setAuthMessage(null);
-
-    const email = authEmail.trim();
-    if (!email) {
-      setAuthError("Enter your email to sign in.");
-      return;
-    }
-
-    const result = await signInWithMagicLink(email);
-    if (result.error) {
-      setAuthError(result.error);
-      return;
-    }
-
-    setAuthMessage("Check your inbox for the sign-in link.");
   }
 
   async function handleCheckout() {
@@ -464,35 +444,26 @@ export function MockInterviewStudio() {
               </div>
             ) : (
               <div className="mt-4 space-y-3">
-                <div className="flex flex-col gap-1">
-                  <label htmlFor="auth-email" className={labelClass}>Email</label>
-                  <input
-                    id="auth-email"
-                    type="email"
-                    value={authEmail}
-                    onChange={(event) => setAuthEmail(event.target.value)}
-                    className={inputClass}
-                    placeholder="you@school.edu"
-                  />
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleSendMagicLink}
-                  className="w-full rounded-xl bg-[#111827] px-4 py-3 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#1F2937]"
+                <Link
+                  href="/create-account?redirectTo=%2Fmock-interview%23account"
+                  className="flex w-full items-center justify-center rounded-xl bg-[#111827] px-4 py-3 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#1F2937]"
                 >
-                  Email me a sign-in link
-                </button>
+                  Create account
+                </Link>
+
+                <Link
+                  href="/login?redirectTo=%2Fmock-interview%23account"
+                  className="flex w-full items-center justify-center rounded-xl border border-[#E5E7EB] bg-white px-4 py-3 text-sm font-semibold text-[#111827] transition-colors duration-150 hover:bg-[#F9FAFB]"
+                >
+                  Log in
+                </Link>
 
                 <p className="text-xs leading-relaxed text-[#9CA3AF]">
-                  Use a magic link to save your history, manage billing, and keep unlimited practice attached to one account.
+                  Create an account or sign in to save your history, manage billing, and keep unlimited practice attached to one account.
                 </p>
               </div>
             )}
 
-            {authMessage && (
-              <p className="mt-3 text-xs text-green-700">{authMessage}</p>
-            )}
             {authError && (
               <p className="mt-3 text-xs text-red-600">{authError}</p>
             )}

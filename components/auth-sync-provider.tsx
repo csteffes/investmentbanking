@@ -9,49 +9,40 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import type { User } from "@supabase/supabase-js";
+import type { Session, User } from "@supabase/supabase-js";
 
+import { syncServerAuthSession } from "@/lib/auth-browser";
 import { getBrowserSupabase } from "@/lib/browser-supabase";
+import {
+  buildAuthCallbackUrl,
+  DEFAULT_AUTH_REDIRECT,
+  sanitizeRedirectTo,
+} from "@/lib/auth-routing";
 
 type AuthSessionContextValue = {
   user: User | null;
   loading: boolean;
+  signInWithPassword: (
+    email: string,
+    password: string
+  ) => Promise<{ error: string | null; session: Session | null }>;
+  signUpWithPassword: (
+    email: string,
+    password: string,
+    redirectTo?: string
+  ) => Promise<{
+    error: string | null;
+    needsEmailConfirmation: boolean;
+    session: Session | null;
+  }>;
+  signInWithGoogle: (
+    redirectTo?: string
+  ) => Promise<{ error: string | null }>;
   signInWithMagicLink: (email: string) => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
 };
 
 const AuthSessionContext = createContext<AuthSessionContextValue | null>(null);
-
-async function syncServerSession(
-  session:
-    | {
-        access_token: string;
-        refresh_token: string;
-      }
-    | null
-) {
-  if (session?.access_token) {
-    await fetch("/api/auth/session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        accessToken: session.access_token,
-        refreshToken: session.refresh_token,
-      }),
-    });
-    return;
-  }
-
-  await fetch("/api/auth/session", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: "{}",
-  });
-}
 
 export function AuthSyncProvider({ children }: { children: ReactNode }) {
   const supabase = useMemo(() => getBrowserSupabase(), []);
@@ -73,14 +64,7 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
       }
 
       setUser(data.session?.user ?? null);
-      await syncServerSession(
-        data.session
-          ? {
-              access_token: data.session.access_token,
-              refresh_token: data.session.refresh_token,
-            }
-          : null
-      );
+      await syncServerAuthSession(data.session);
       setLoading(false);
     }
 
@@ -90,14 +74,7 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
       data: { subscription },
     } = supabaseClient.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      void syncServerSession(
-        session
-          ? {
-              access_token: session.access_token,
-              refresh_token: session.refresh_token,
-            }
-          : null
-      );
+      void syncServerAuthSession(session);
       setLoading(false);
     });
 
@@ -106,6 +83,105 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
       subscription.unsubscribe();
     };
   }, [supabase]);
+
+  const signInWithPassword = useCallback(
+    async (email: string, password: string) => {
+      if (!supabase) {
+        return {
+          error: "Supabase auth is not configured.",
+          session: null,
+        };
+      }
+
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (data.session) {
+        await syncServerAuthSession(data.session);
+      }
+
+      return {
+        error: error?.message ?? null,
+        session: data.session ?? null,
+      };
+    },
+    [supabase]
+  );
+
+  const signUpWithPassword = useCallback(
+    async (email: string, password: string, redirectTo?: string) => {
+      if (!supabase) {
+        return {
+          error: "Supabase auth is not configured.",
+          needsEmailConfirmation: false,
+          session: null,
+        };
+      }
+
+      const callbackUrl = buildAuthCallbackUrl(
+        window.location.origin,
+        sanitizeRedirectTo(redirectTo)
+      );
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: callbackUrl,
+        },
+      });
+
+      if (data.session) {
+        await syncServerAuthSession(data.session);
+      }
+
+      return {
+        error: error?.message ?? null,
+        needsEmailConfirmation: !error && !data.session,
+        session: data.session ?? null,
+      };
+    },
+    [supabase]
+  );
+
+  const signInWithGoogle = useCallback(
+    async (redirectTo?: string) => {
+      if (!supabase) {
+        return {
+          error: "Supabase auth is not configured.",
+        };
+      }
+
+      const callbackUrl = buildAuthCallbackUrl(
+        window.location.origin,
+        sanitizeRedirectTo(redirectTo)
+      );
+
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: callbackUrl,
+        },
+      });
+
+      if (error) {
+        return {
+          error: error.message,
+        };
+      }
+
+      if (data.url) {
+        window.location.assign(data.url);
+      }
+
+      return {
+        error: null,
+      };
+    },
+    [supabase]
+  );
 
   const signInWithMagicLink = useCallback(
     async (email: string) => {
@@ -118,7 +194,10 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
-          emailRedirectTo: `${window.location.origin}/mock-interview`,
+          emailRedirectTo: buildAuthCallbackUrl(
+            window.location.origin,
+            DEFAULT_AUTH_REDIRECT
+          ),
         },
       });
 
@@ -131,13 +210,13 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (!supabase) {
-      await syncServerSession(null);
+      await syncServerAuthSession(null);
       setUser(null);
       return;
     }
 
     await supabase.auth.signOut();
-    await syncServerSession(null);
+    await syncServerAuthSession(null);
     setUser(null);
   }, [supabase]);
 
@@ -145,10 +224,21 @@ export function AuthSyncProvider({ children }: { children: ReactNode }) {
     () => ({
       user,
       loading,
+      signInWithPassword,
+      signUpWithPassword,
+      signInWithGoogle,
       signInWithMagicLink,
       signOut,
     }),
-    [loading, signInWithMagicLink, signOut, user]
+    [
+      loading,
+      signInWithGoogle,
+      signInWithMagicLink,
+      signInWithPassword,
+      signOut,
+      signUpWithPassword,
+      user,
+    ]
   );
 
   return <AuthSessionContext.Provider value={value}>{children}</AuthSessionContext.Provider>;
