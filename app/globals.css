@@ -1022,7 +1022,7 @@ textarea {
 }
 
 .bank-logo--morgan-stanley .hero-jobs-marquee__image {
-  height: 20px;
+  height: 42px;
 }
 
 .bank-logo--jefferies .hero-jobs-marquee__image {
@@ -1030,7 +1030,7 @@ textarea {
 }
 
 .bank-logo--bank-of-america .hero-jobs-marquee__image {
-  height: 22px;
+  height: 31px;
 }
 
 @keyframes hero-jobs-marquee-scroll {
@@ -1914,7 +1914,7 @@ textarea {
   }
 
   .bank-logo--morgan-stanley .hero-jobs-marquee__image {
-    height: 17px;
+    height: 32px;
   }
 
   .bank-logo--jefferies .hero-jobs-marquee__image {
@@ -1922,7 +1922,7 @@ textarea {
   }
 
   .bank-logo--bank-of-america .hero-jobs-marquee__image {
-    height: 18px;
+    height: 24px;
   }
 
   .library-side-entry:hover {

@@ -1,13 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 72" role="img" aria-label="Morgan Stanley">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Morgan Stanley">
+  <circle cx="200" cy="200" r="200" fill="#123F73"/>
   <text
-    x="0"
-    y="47"
-    fill="#17305E"
-    font-family="Georgia,'Times New Roman',serif"
-    font-size="34"
-    font-weight="700"
-    letter-spacing="0.01em"
+    x="200"
+    y="162"
+    fill="#FFFFFF"
+    font-family="'Helvetica Neue', Arial, sans-serif"
+    font-size="88"
+    font-weight="500"
+    letter-spacing="-0.03em"
+    text-anchor="middle"
   >
-    Morgan Stanley
+    <tspan x="200">Morgan</tspan>
+    <tspan x="200" dy="104">Stanley</tspan>
   </text>
 </svg>
