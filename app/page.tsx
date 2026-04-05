@@ -1,7 +1,9 @@
 import Link from "next/link";
 
+import { EmployerLogoMarquee } from "@/components/employer-logo-marquee";
+import { HomepageFaqAccordion } from "@/components/homepage-faq-accordion";
 import { formatDate, getLatestEntries } from "@/lib/content";
-import { homepageFaqs, site } from "@/lib/site";
+import { employerMarqueeLogos, homepageFaqs, site } from "@/lib/site";
 
 const heroHighlights = [
   "Coach notes after every session",
@@ -116,6 +118,11 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
+
+          <EmployerLogoMarquee
+            label="Our users have landed jobs at:"
+            logos={employerMarqueeLogos}
+          />
         </div>
       </section>
 
@@ -384,24 +391,15 @@ export default async function HomePage() {
 
       <section id="faq" className="marketing-section">
         <div className="marketing-shell">
-          <div className="marketing-intro mb-10 sm:mb-12">
-            <p className="marketing-eyebrow">Frequently Asked Questions</p>
+          <div className="marketing-intro mb-14 sm:mb-16">
+            <p className="marketing-eyebrow">FAQ</p>
+            <h2 className="max-w-[18ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:max-w-none lg:text-[2.8rem]">
+              Frequently Asked Questions
+            </h2>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {homepageFaqs.map((item) => (
-              <article
-                key={item.question}
-                className="marketing-card marketing-card--soft marketing-card--centered flex h-full flex-col gap-4"
-              >
-                <h3 className="mx-auto max-w-[18rem] text-lg font-semibold tracking-[-0.03em] text-[#111827]">
-                  {item.question}
-                </h3>
-                <p className="marketing-muted mx-auto max-w-[18rem] text-sm">
-                  {item.answer}
-                </p>
-              </article>
-            ))}
+          <div className="homepage-faq-rail">
+            <HomepageFaqAccordion items={homepageFaqs} />
           </div>
         </div>
       </section>

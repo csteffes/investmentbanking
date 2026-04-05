@@ -946,6 +946,103 @@ textarea {
 .school-logo--booth        .logo-grid-image { height: 30px; }
 .school-logo--penn         .logo-grid-image { height: 34px; }
 
+/* ── Homepage jobs marquee ────────────────────────────────── */
+.hero-jobs-marquee {
+  display: grid;
+  gap: 1rem;
+  align-items: center;
+  margin-top: clamp(2.5rem, 5vw, 3.4rem);
+  padding-top: clamp(1.1rem, 2vw, 1.4rem);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.hero-jobs-marquee__label {
+  color: #8B93A3;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.hero-jobs-marquee__viewport {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+
+.hero-jobs-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: hero-jobs-marquee-scroll 26s linear infinite;
+  will-change: transform;
+}
+
+.hero-jobs-marquee__group {
+  display: flex;
+  align-items: center;
+  gap: clamp(2.25rem, 4vw, 3.4rem);
+  padding-right: clamp(2.25rem, 4vw, 3.4rem);
+  flex-shrink: 0;
+}
+
+.hero-jobs-marquee__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: max-content;
+}
+
+.hero-jobs-marquee__image {
+  display: block;
+  width: auto;
+  height: 28px;
+  max-width: none;
+  object-fit: contain;
+  opacity: 0.62;
+  filter: grayscale(100%);
+  transition: opacity var(--ease-out-fast), filter var(--ease-out-fast);
+}
+
+.hero-jobs-marquee__item:hover .hero-jobs-marquee__image {
+  opacity: 0.88;
+  filter: grayscale(0%);
+}
+
+.bank-logo--barclays .hero-jobs-marquee__image {
+  height: 34px;
+}
+
+.bank-logo--evercore .hero-jobs-marquee__image {
+  height: 24px;
+}
+
+.bank-logo--jpmorgan .hero-jobs-marquee__image {
+  height: 29px;
+}
+
+.bank-logo--morgan-stanley .hero-jobs-marquee__image {
+  height: 20px;
+}
+
+.bank-logo--jefferies .hero-jobs-marquee__image {
+  height: 28px;
+}
+
+.bank-logo--bank-of-america .hero-jobs-marquee__image {
+  height: 22px;
+}
+
+@keyframes hero-jobs-marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
 /* ── Waveform animation ─────────────────────────────────────── */
 .waveform {
   display: flex;
@@ -1416,6 +1513,137 @@ textarea {
   color: #2F6BFF;
 }
 
+/* ── Homepage FAQ ──────────────────────────────────────────── */
+.homepage-faq-rail {
+  width: min(100%, 64rem);
+  margin-inline: auto;
+}
+
+.homepage-faq {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.homepage-faq__item {
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: clamp(1.15rem, 2.2vw, 1.5rem);
+  background: #FFFFFF;
+  box-shadow: 0 12px 30px rgba(17, 24, 39, 0.04);
+  overflow: hidden;
+  transition:
+    border-color var(--ease-out-std),
+    box-shadow var(--ease-out-std),
+    transform var(--ease-out-fast);
+}
+
+.homepage-faq__item:hover {
+  transform: translateY(-1px);
+  border-color: rgba(17, 24, 39, 0.12);
+}
+
+.homepage-faq__item.is-open {
+  border-color: rgba(201, 162, 39, 0.45);
+  box-shadow:
+    0 22px 48px rgba(17, 24, 39, 0.07),
+    0 0 0 3px rgba(201, 162, 39, 0.08);
+}
+
+.homepage-faq__title {
+  margin: 0;
+}
+
+.homepage-faq__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: clamp(1.15rem, 2.2vw, 1.45rem) clamp(1.2rem, 2.5vw, 1.75rem);
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.homepage-faq__question {
+  color: #111827;
+  font-size: clamp(1.05rem, 1rem + 0.32vw, 1.3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.28;
+  text-wrap: balance;
+}
+
+.homepage-faq__toggle {
+  position: relative;
+  flex-shrink: 0;
+  width: 2.65rem;
+  height: 2.65rem;
+  border: 1px solid rgba(229, 231, 235, 0.95);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.homepage-faq__toggle-line {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 0.9rem;
+  height: 2px;
+  border-radius: 999px;
+  background: #9A7620;
+  transform: translate(-50%, -50%);
+  transition:
+    transform var(--ease-out-std),
+    opacity var(--ease-out-fast),
+    background var(--ease-out-fast);
+}
+
+.homepage-faq__toggle-line--vertical {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.homepage-faq__item.is-open .homepage-faq__toggle {
+  border-color: rgba(201, 162, 39, 0.22);
+  background: linear-gradient(180deg, rgba(201, 162, 39, 0.18) 0%, rgba(255, 255, 255, 0.94) 100%);
+}
+
+.homepage-faq__item.is-open .homepage-faq__toggle-line--vertical {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg) scaleX(0);
+}
+
+.homepage-faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 220ms ease-out,
+    opacity 180ms ease-out;
+}
+
+.homepage-faq__panel.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.homepage-faq__panel-inner {
+  overflow: hidden;
+  padding-inline: clamp(1.2rem, 2.5vw, 1.75rem);
+}
+
+.homepage-faq__answer {
+  padding: 1.15rem 0 clamp(1.35rem, 2.8vw, 1.7rem);
+  border-top: 1px solid rgba(17, 24, 39, 0.08);
+  max-width: 52rem;
+  color: #5F6B7C;
+  font-size: 1rem;
+  line-height: 1.9;
+  text-wrap: pretty;
+}
+
 /* ── Site footer ───────────────────────────────────────────── */
 .site-footer {
   position: relative;
@@ -1554,6 +1782,11 @@ textarea {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .hero-jobs-marquee {
+    grid-template-columns: max-content minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
   .site-footer__nav {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2.4rem 2rem;
@@ -1660,6 +1893,38 @@ textarea {
     max-width: none;
   }
 
+  .hero-jobs-marquee__label {
+    white-space: normal;
+  }
+
+  .hero-jobs-marquee__image {
+    height: 23px;
+  }
+
+  .bank-logo--barclays .hero-jobs-marquee__image {
+    height: 28px;
+  }
+
+  .bank-logo--evercore .hero-jobs-marquee__image {
+    height: 20px;
+  }
+
+  .bank-logo--jpmorgan .hero-jobs-marquee__image {
+    height: 24px;
+  }
+
+  .bank-logo--morgan-stanley .hero-jobs-marquee__image {
+    height: 17px;
+  }
+
+  .bank-logo--jefferies .hero-jobs-marquee__image {
+    height: 23px;
+  }
+
+  .bank-logo--bank-of-america .hero-jobs-marquee__image {
+    height: 18px;
+  }
+
   .library-side-entry:hover {
     transform: none;
   }
@@ -1738,5 +2003,26 @@ textarea {
 
   .resources-entry__title {
     font-size: 1.14rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-jobs-marquee__viewport {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+    scrollbar-width: none;
+  }
+
+  .hero-jobs-marquee__viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hero-jobs-marquee__track {
+    animation: none;
+  }
+
+  .hero-jobs-marquee__group--duplicate {
+    display: none;
   }
 }

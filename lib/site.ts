@@ -45,6 +45,15 @@ export const bankLogos = [
   { src: "/assets/logos/lazard-new.svg", alt: "Lazard logo", className: "bank-logo--lazard" }
 ] satisfies readonly LogoItem[];
 
+export const employerMarqueeLogos = [
+  { src: "/assets/logos/barclays.svg", alt: "Barclays logo", className: "bank-logo--barclays" },
+  { src: "/assets/logos/evercore.png", alt: "Evercore logo", className: "bank-logo--evercore" },
+  { src: "/assets/logos/jp-morgan-brown.svg", alt: "J.P. Morgan logo", className: "bank-logo--jpmorgan" },
+  { src: "/assets/logos/morgan-stanley.svg", alt: "Morgan Stanley logo", className: "bank-logo--morgan-stanley" },
+  { src: "/assets/logos/jefferies.svg", alt: "Jefferies logo", className: "bank-logo--jefferies" },
+  { src: "/assets/logos/bank-of-america.svg", alt: "Bank of America logo", className: "bank-logo--bank-of-america" }
+] satisfies readonly LogoItem[];
+
 export const homepageFaqs = [
   {
     question: "What does Superday AI help me practice?",
