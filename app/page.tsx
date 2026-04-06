@@ -389,17 +389,19 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="faq" className="marketing-section">
+      <section id="faq" className="marketing-section homepage-faq-section">
         <div className="marketing-shell">
-          <div className="marketing-intro mb-14 sm:mb-16">
+          <div className="marketing-intro homepage-faq-intro">
             <p className="marketing-eyebrow">FAQ</p>
             <h2 className="max-w-[18ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:max-w-none lg:text-[2.8rem]">
               Frequently Asked Questions
             </h2>
           </div>
 
-          <div className="homepage-faq-rail">
-            <HomepageFaqAccordion items={homepageFaqs} />
+          <div className="homepage-faq-stage">
+            <div className="homepage-faq-rail">
+              <HomepageFaqAccordion items={homepageFaqs} />
+            </div>
           </div>
         </div>
       </section>
