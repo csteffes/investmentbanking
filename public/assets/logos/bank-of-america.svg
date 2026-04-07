@@ -1,27 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 478 84" role="img" aria-label="Bank of America">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 326 48" role="img" aria-label="Bank of America">
   <text
     x="0"
-    y="47"
-    fill="#12327A"
+    y="33"
+    fill="#334155"
     font-family="'Helvetica Neue', Arial, sans-serif"
-    font-size="31"
+    font-size="27"
     font-weight="700"
-    letter-spacing="-0.02em"
+    letter-spacing="-0.022em"
   >
     Bank of America
   </text>
 
-  <g transform="translate(332 10)">
-    <polygon points="0,22 34,0 48,0 14,22" fill="#EB1736"/>
-    <polygon points="22,22 56,0 70,0 36,22" fill="#EB1736"/>
-    <polygon points="44,22 78,0 92,0 58,22" fill="#EB1736"/>
+  <g transform="translate(248 7)">
+    <polygon points="0,12 24,0 34,0 10,12" fill="#E11D48"/>
+    <polygon points="16,12 40,0 50,0 26,12" fill="#E11D48"/>
+    <polygon points="32,12 56,0 66,0 42,12" fill="#E11D48"/>
 
-    <polygon points="0,36 34,14 48,14 14,36" fill="#12327A"/>
-    <polygon points="22,36 56,14 70,14 36,36" fill="#12327A"/>
-    <polygon points="44,36 78,14 92,14 58,36" fill="#12327A"/>
+    <polygon points="0,24 24,12 34,12 10,24" fill="#1D4ED8"/>
+    <polygon points="16,24 40,12 50,12 26,24" fill="#1D4ED8"/>
+    <polygon points="32,24 56,12 66,12 42,24" fill="#1D4ED8"/>
 
-    <polygon points="0,50 34,28 48,28 14,50" fill="#EB1736"/>
-    <polygon points="22,50 56,28 70,28 36,50" fill="#EB1736"/>
-    <polygon points="44,50 78,28 92,28 58,50" fill="#EB1736"/>
+    <polygon points="0,36 24,24 34,24 10,36" fill="#E11D48"/>
+    <polygon points="16,36 40,24 50,24 26,36" fill="#E11D48"/>
+    <polygon points="32,36 56,24 66,24 42,36" fill="#E11D48"/>
   </g>
 </svg>

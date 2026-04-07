@@ -28,13 +28,15 @@ export function EmployerLogoMarquee({
                   key={`${copyIndex}-${logo.src}`}
                   className={`hero-jobs-marquee__item ${logo.className ?? ""}`}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    alt={logo.alt}
-                    className="hero-jobs-marquee__image"
-                    decoding="async"
-                    src={logo.src}
-                  />
+                  <span className="hero-jobs-marquee__slot">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      alt={logo.alt}
+                      className="hero-jobs-marquee__image"
+                      decoding="async"
+                      src={logo.src}
+                    />
+                  </span>
                 </li>
               ))}
             </ul>
