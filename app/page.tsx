@@ -156,105 +156,116 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="marketing-section marketing-section--surface marketing-section--trim-bottom">
+      <section className="marketing-section marketing-section--surface marketing-section--trim-bottom homepage-preview-section">
         <div className="marketing-shell">
-          <div className="marketing-intro mb-12 sm:mb-14">
+          <div className="marketing-intro homepage-preview-intro">
             <p className="marketing-eyebrow">Live preview</p>
             <h2 className="max-w-[14ch] text-3xl font-semibold tracking-[-0.05em] leading-[1.02] text-[#111827] sm:text-4xl lg:text-[2.8rem]">
               Built to feel like the real conversation.
             </h2>
             <p className="marketing-muted max-w-[33rem]">
-              Every session adapts to your profile and keeps the focus on live
-              reps, concise coach notes, and the next rep to run.
+              Practice with the same pressure, then leave with concise coach
+              notes and one clear next rep to run.
             </p>
           </div>
 
-          <div className="marketing-split marketing-split--two">
-            <article className="marketing-card marketing-card--centered flex h-full flex-col gap-6">
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <span className="inline-flex items-center rounded-full bg-[rgba(201,162,39,0.12)] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9A7620]">
-                  Live interviewer
-                </span>
-                <span className="text-xs text-[#9CA3AF]">
-                  Realistic follow-up pressure
-                </span>
-              </div>
+          <div className="homepage-preview-stage">
+            <div className="homepage-preview-grid">
+              <article className="homepage-preview-panel homepage-preview-panel--interviewer">
+                <div className="homepage-preview-panel__header">
+                  <span className="homepage-preview-chip homepage-preview-chip--live">
+                    Live interviewer
+                  </span>
+                  <span className="homepage-preview-panel__context">
+                    Behavioral opener · Realistic follow-up pressure
+                  </span>
+                </div>
 
-              <div className="mx-auto max-w-[30rem] space-y-3">
-                <h3 className="text-xl font-semibold tracking-[-0.03em] text-[#111827]">
-                  Walk me through your story, why banking, and why this team.
-                </h3>
-                <p className="marketing-muted text-sm">
-                  Practice the opening that decides whether the rest of the
-                  interview feels credible.
-                </p>
-              </div>
+                <div className="homepage-preview-question">
+                  <p className="homepage-preview-question__eyebrow">
+                    Active prompt
+                  </p>
+                  <h3 className="homepage-preview-question__title">
+                    Walk me through your story, why banking, and why this team.
+                  </h3>
+                  <p className="homepage-preview-question__body">
+                    Practice the opening that decides whether the rest of the
+                    interview feels credible.
+                  </p>
+                </div>
 
-              <ul className="mx-auto w-full max-w-[30rem] space-y-4">
+                <ul className="homepage-preview-transcript">
                 {previewTranscript.map((item) => (
                   <li
                     key={item.tag}
-                    className="rounded-[1.25rem] border border-[#ECEEF1] bg-[#F9FAFB] p-5 text-center"
+                    className={`homepage-preview-transcript__item ${
+                      item.speaker === "Interviewer"
+                        ? "homepage-preview-transcript__item--interviewer"
+                        : "homepage-preview-transcript__item--candidate"
+                    }`}
                   >
-                    <div className="mb-2 flex items-center justify-center gap-2">
-                      <strong className="text-xs font-semibold text-[#111827]">
+                    <div className="homepage-preview-transcript__meta">
+                      <strong className="homepage-preview-transcript__speaker">
                         {item.speaker}
                       </strong>
-                      <span className="text-[10px] uppercase tracking-[0.1em] text-[#9CA3AF]">
+                      <span className="homepage-preview-transcript__tag">
                         {item.tag}
                       </span>
                     </div>
-                    <p className="marketing-muted text-sm">{item.text}</p>
+                    <p className="homepage-preview-transcript__text">
+                      {item.text}
+                    </p>
                   </li>
                 ))}
-              </ul>
-            </article>
+                </ul>
+              </article>
 
-            <article className="marketing-card marketing-card--centered marketing-card--tint flex h-full flex-col gap-6">
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <span className="inline-flex items-center rounded-full bg-white px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9A7620] shadow-[0_10px_24px_rgba(17,24,39,0.05)]">
-                  Session debrief
-                </span>
-                <span className="text-xs text-[#9CA3AF]">Story / Resume</span>
-              </div>
+              <article className="homepage-preview-panel homepage-preview-panel--debrief">
+                <div className="homepage-preview-panel__header">
+                  <span className="homepage-preview-chip homepage-preview-chip--debrief">
+                    Session debrief
+                  </span>
+                  <span className="homepage-preview-panel__context">
+                    Story / Resume
+                  </span>
+                </div>
 
-              <div className="w-full max-w-[30rem] rounded-[1.25rem] border border-[#E5E7EB] bg-white p-5 text-center">
-                <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9CA3AF]">
-                  Recap
-                </p>
-                <p className="marketing-muted text-sm">
-                  The opener is credible and pointed in the right direction. The
-                  next improvement is getting to the banking pivot even faster.
-                </p>
-              </div>
+                <div className="homepage-preview-debrief">
+                  <div className="homepage-preview-note homepage-preview-note--primary">
+                    <p className="homepage-preview-note__label">Recap</p>
+                    <p className="homepage-preview-note__text">
+                      The opener is credible and pointed in the right direction.
+                      The next improvement is getting to the banking pivot even
+                      faster.
+                    </p>
+                  </div>
 
-              <div className="mx-auto grid w-full max-w-[34rem] gap-4 sm:grid-cols-2">
-                <div className="rounded-[1.25rem] border border-[#E5E7EB] bg-white p-5 text-center">
-                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9CA3AF]">
-                    Coach notes
-                  </p>
-                  <ul className="space-y-2.5">
+                  <div className="homepage-preview-note homepage-preview-note--action">
+                    <p className="homepage-preview-note__label homepage-preview-note__label--action">
+                      Next rep
+                    </p>
+                    <p className="homepage-preview-note__text homepage-preview-note__text--action">
+                      Run the same opener again and keep it inside 90 seconds.
+                    </p>
+                  </div>
+
+                  <div className="homepage-preview-note homepage-preview-note--list">
+                    <p className="homepage-preview-note__label">Coach notes</p>
+                    <ul className="homepage-preview-bullets">
                     {previewCoachNotes.map((item) => (
-                      <li
-                        key={item}
-                        className="text-sm text-[#6B7280]"
-                      >
-                        {item}
+                      <li key={item} className="homepage-preview-bullets__item">
+                        <span
+                          aria-hidden="true"
+                          className="homepage-preview-bullets__dot"
+                        />
+                        <span>{item}</span>
                       </li>
                     ))}
-                  </ul>
+                    </ul>
+                  </div>
                 </div>
-
-                <div className="rounded-[1.25rem] border border-[#E5E7EB] bg-white p-5 text-center">
-                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#9CA3AF]">
-                    Next rep
-                  </p>
-                  <p className="marketing-muted text-sm">
-                    Run the same opener again and keep it inside 90 seconds.
-                  </p>
-                </div>
-              </div>
-            </article>
+              </article>
+            </div>
           </div>
         </div>
       </section>

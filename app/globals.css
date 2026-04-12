@@ -445,6 +445,312 @@ textarea {
   background: linear-gradient(180deg, rgba(255, 251, 235, 0.78) 0%, #ffffff 100%);
 }
 
+/* ── Homepage live preview ────────────────────────────────── */
+.homepage-preview-section {
+  position: relative;
+  padding-top: clamp(4.2rem, 6vw, 5.8rem);
+  padding-bottom: clamp(4.3rem, 6vw, 5.9rem);
+}
+
+.homepage-preview-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(201, 162, 39, 0.12), transparent 38%),
+    linear-gradient(180deg, rgba(252, 251, 248, 0.82) 0%, rgba(255, 255, 255, 0) 72%);
+}
+
+.homepage-preview-intro {
+  position: relative;
+  z-index: 1;
+  gap: 1rem;
+  margin-bottom: clamp(1.7rem, 3.4vw, 2.45rem);
+}
+
+.homepage-preview-stage {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 68rem);
+  margin-inline: auto;
+  padding: clamp(1rem, 2vw, 1.25rem);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: clamp(1.9rem, 3vw, 2.4rem);
+  background:
+    radial-gradient(circle at 10% 0%, rgba(255, 255, 255, 0.92), transparent 34%),
+    radial-gradient(circle at 90% 8%, rgba(201, 162, 39, 0.2), transparent 34%),
+    linear-gradient(180deg, rgba(255, 253, 248, 0.96) 0%, rgba(255, 255, 255, 0.98) 100%);
+  box-shadow:
+    0 32px 80px rgba(17, 24, 39, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+  overflow: hidden;
+}
+
+.homepage-preview-stage::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: calc(clamp(1.9rem, 3vw, 2.4rem) - 1px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+}
+
+.homepage-preview-grid {
+  position: relative;
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.35rem);
+}
+
+.homepage-preview-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  min-height: 100%;
+  padding: clamp(1.25rem, 2.6vw, 1.75rem);
+  border: 1px solid rgba(17, 24, 39, 0.07);
+  border-radius: 1.65rem;
+  box-shadow:
+    0 18px 40px rgba(17, 24, 39, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.homepage-preview-panel--interviewer {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 250, 251, 0.96) 100%);
+}
+
+.homepage-preview-panel--debrief {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(201, 162, 39, 0.12), transparent 38%),
+    linear-gradient(180deg, rgba(255, 250, 239, 0.92) 0%, rgba(255, 255, 255, 0.98) 100%);
+}
+
+.homepage-preview-panel__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem 0.85rem;
+}
+
+.homepage-preview-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2rem;
+  padding: 0.48rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.homepage-preview-chip::before {
+  content: "";
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.homepage-preview-chip--live {
+  background: rgba(201, 162, 39, 0.12);
+  color: #9A7620;
+}
+
+.homepage-preview-chip--live::before {
+  background: #C9A227;
+}
+
+.homepage-preview-chip--debrief {
+  background: rgba(255, 255, 255, 0.92);
+  color: #9A7620;
+  box-shadow: 0 10px 24px rgba(17, 24, 39, 0.05);
+}
+
+.homepage-preview-chip--debrief::before {
+  background: #111827;
+}
+
+.homepage-preview-panel__context {
+  color: #9CA3AF;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+.homepage-preview-question {
+  padding: 1.15rem 1.2rem;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 1.35rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(249, 250, 251, 0.98) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.homepage-preview-question__eyebrow {
+  margin-bottom: 0.45rem;
+  color: #9CA3AF;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.homepage-preview-question__title {
+  color: #111827;
+  font-size: clamp(1.3rem, 1.1rem + 0.5vw, 1.7rem);
+  font-weight: 650;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+
+.homepage-preview-question__body {
+  margin-top: 0.7rem;
+  max-width: 32rem;
+  color: #6B7280;
+  font-size: 0.96rem;
+  line-height: 1.75;
+}
+
+.homepage-preview-transcript {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  list-style: none;
+}
+
+.homepage-preview-transcript__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 1.15rem;
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.homepage-preview-transcript__item--interviewer {
+  border-color: rgba(201, 162, 39, 0.18);
+  background: linear-gradient(180deg, rgba(255, 250, 239, 0.95) 0%, rgba(255, 255, 255, 0.97) 100%);
+}
+
+.homepage-preview-transcript__item--candidate {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.96) 100%);
+}
+
+.homepage-preview-transcript__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.homepage-preview-transcript__speaker {
+  color: #111827;
+  font-size: 0.79rem;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.homepage-preview-transcript__tag {
+  color: #9CA3AF;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.homepage-preview-transcript__text {
+  color: #5B6676;
+  font-size: 0.97rem;
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+
+.homepage-preview-debrief {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+}
+
+.homepage-preview-note {
+  padding: 1rem 1.08rem;
+  border: 1px solid rgba(17, 24, 39, 0.07);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+.homepage-preview-note--primary {
+  border-color: rgba(201, 162, 39, 0.2);
+  background: linear-gradient(180deg, rgba(255, 252, 242, 0.98) 0%, rgba(255, 255, 255, 0.96) 100%);
+  box-shadow:
+    0 16px 34px rgba(17, 24, 39, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+.homepage-preview-note--action {
+  border-color: rgba(17, 24, 39, 0.08);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(201, 162, 39, 0.2), transparent 34%),
+    linear-gradient(180deg, rgba(17, 24, 39, 0.98) 0%, rgba(31, 41, 55, 0.98) 100%);
+  box-shadow: 0 20px 42px rgba(17, 24, 39, 0.16);
+}
+
+.homepage-preview-note__label {
+  margin-bottom: 0.45rem;
+  color: #9CA3AF;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.homepage-preview-note__label--action {
+  color: rgba(255, 247, 221, 0.82);
+}
+
+.homepage-preview-note__text {
+  color: #5B6676;
+  font-size: 0.96rem;
+  line-height: 1.76;
+  text-wrap: pretty;
+}
+
+.homepage-preview-note__text--action {
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.homepage-preview-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+  list-style: none;
+}
+
+.homepage-preview-bullets__item {
+  display: grid;
+  grid-template-columns: 0.45rem 1fr;
+  gap: 0.7rem;
+  align-items: start;
+  color: #5B6676;
+  font-size: 0.95rem;
+  line-height: 1.72;
+}
+
+.homepage-preview-bullets__dot {
+  width: 0.38rem;
+  height: 0.38rem;
+  margin-top: 0.5rem;
+  border-radius: 999px;
+  background: #C9A227;
+}
+
 /* ── Collection library pages ─────────────────────────────── */
 .library-page {
   position: relative;
@@ -1886,6 +2192,10 @@ textarea {
     grid-template-columns: minmax(0, 1fr) minmax(18rem, 27rem);
   }
 
+  .homepage-preview-grid {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+  }
+
   .library-archive__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1983,6 +2293,34 @@ textarea {
 
   .hero-jobs-marquee__label {
     white-space: normal;
+  }
+
+  .homepage-preview-section {
+    padding-top: clamp(3.7rem, 6vw, 4.8rem);
+    padding-bottom: clamp(3.9rem, 6vw, 4.8rem);
+  }
+
+  .homepage-preview-stage {
+    padding: 0.85rem;
+    border-radius: 1.5rem;
+  }
+
+  .homepage-preview-panel {
+    padding: 1.1rem;
+    border-radius: 1.25rem;
+  }
+
+  .homepage-preview-question {
+    padding: 1rem;
+  }
+
+  .homepage-preview-question__title {
+    font-size: 1.18rem;
+  }
+
+  .homepage-preview-transcript__item,
+  .homepage-preview-note {
+    padding: 0.95rem 1rem;
   }
 
   .hero-jobs-marquee {
